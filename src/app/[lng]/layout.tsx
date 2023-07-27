@@ -1,15 +1,8 @@
 import { dir } from 'i18next'
-
-const languages = ['en', 'de']
+import { languages } from '../i18n/settings'
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }))
-}
-
-interface PageProps {
-  params: {
-    lng: string;
-  };
 }
 
 export default function RootLayout({
@@ -17,7 +10,7 @@ export default function RootLayout({
   params: {
     lng
   }
-}: {children: any, { params: { lng } }: PageProps}) {
+}: { children: any, params: any }) {
   return (
     <html lang={lng} dir={dir(lng)}>
       <head />
