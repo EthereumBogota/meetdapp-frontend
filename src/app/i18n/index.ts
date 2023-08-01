@@ -16,7 +16,7 @@ interface TranslationOptions {
     keyPrefix?: string;
 }
 
-export async function useTranslation(lng: string, ns: any, options: TranslationOptions = {}) {
+export async function useTranslation(lng: string, ns?: any, options: TranslationOptions = {}) {
     const i18nextInstance = await initI18next(lng, ns)
     return {
         t: i18nextInstance.getFixedT(lng, Array.isArray(ns) ? ns[0] : ns, options.keyPrefix),

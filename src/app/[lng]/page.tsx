@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useTranslation } from '../i18n';
 
 interface PageProps {
   params: {
@@ -6,13 +7,12 @@ interface PageProps {
   };
 }
 
-export default function Page({ params: { lng } }: PageProps) {
+export default async function Page({ params: { lng } }: PageProps) {
+  const { t } = await useTranslation(lng)
+
   return (
     <>
-      <h1>Hi there!</h1>
-      <Link href={`/${lng}/second-page`}>
-        second page
-      </Link>
+      <h1>{t('title')}</h1>
     </>
   )
 }
