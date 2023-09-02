@@ -12,12 +12,16 @@ export default function Login() {
   }, [user]);
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-
+    console.log('entering');
+    
     // Log in using our email with Magic and store the returned DID token in a variable
     try {
+      console.log('1');
+
       const didToken : string = await magic.auth.loginWithMagicLink({
         email,
       });
+      console.log('2');
 
       // Send this token to our validation endpoint
       const res = await fetch('/api/login', {
@@ -35,7 +39,10 @@ export default function Login() {
         router.push('/dashboard');
       }
     } catch (error) {
+      console.log('error is ');
+
       console.error(error);
+
     }
   };
 	const logout = () => {

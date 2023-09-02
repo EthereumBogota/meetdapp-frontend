@@ -1,10 +1,10 @@
 import { Magic } from '@magic-sdk/admin';
 
 // Create an instance of magic admin using our secret key (not our publishable key)
-let mAdmin = new Magic(process.env.MAGIC_SECRET_KEY);
-console.log(mAdmin);
+let mAdmin = new Magic(process.env.NEXT_PUBLIC_MAGIC_SECRET_KEY);
 export default async function login(req, res) {
   try {
+    console.log(mAdmin);
     // Grab the DID token from our headers and parse it
     const didToken = mAdmin.utils.parseAuthorizationHeader(
       req.headers.authorization,
