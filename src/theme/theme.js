@@ -7,9 +7,9 @@ const customTheme = extendTheme({
 	  },
 	colors: {
 		brand: {
-			light: '#DEFE75',
+			light: '#70C9FE',
 			dark: '#035231',
-			lime: '#D4FE48',
+			lime: '#A7D7F4',
 			newBlack: '#1E1E1E',
 			fuchsia: '#9936E8'
 		}
@@ -19,7 +19,7 @@ const customTheme = extendTheme({
 			// Customize the colors for different states
 			baseStyle: {
 				filledTrack: {
-					bg: 'brand.light' // Background color of the progress bar
+					bg: 'blue.200' // Background color of the progress bar
 				},
 				track: {
 					bg: 'gray.200' // Background color of the progress track
