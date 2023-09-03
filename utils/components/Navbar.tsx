@@ -4,12 +4,12 @@ import {
     Flex,
     Text,
     Button,
-    Image,
     Input,
     ButtonGroup
 } from '@chakra-ui/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import Logo from './Logo'
 
 export default function Navbar(): React.ReactNode {
     const { t, i18n } = useTranslation()
@@ -24,14 +24,7 @@ export default function Navbar(): React.ReactNode {
         <>
             <Flex bgColor={'transparent'} position={'fixed'} zIndex={"100"} width={'100%'} px={'3rem'} py={'.8rem'} justifyContent={'center'}>
                 <Flex alignItems={'center'} justifyContent={'space-between'} width={'100%'} maxWidth={'1200px'}>
-                    <Flex flexShrink={"1"} flexDirection={'row'} alignItems={'center'} justifyContent={'center'} gap={'1rem'}>
-                        <Image
-                            src='img/logo.svg'
-                            alt='MeetdApp logo'
-                            width={["30px", "38px", "45px"]}
-                        />
-                        <Text fontFamily="body" color={'#DDEBED'} fontSize={{ base: "1.2rem", md: "1.5rem", lg: "2.20rem" }}>MeetdApp</Text>
-                    </Flex>
+                    <Logo />
 
                     <Box flexShrink={"1"}>
                         <Input display={{ base: "none", md: "block" }} width={{ md: "250px", lg: "400px" }} placeholder={t('navbar.search-bar')} borderRadius={"3xl"} background={"rgba(255, 255, 255, 0.15);"} color={"#DDEBED"} />
