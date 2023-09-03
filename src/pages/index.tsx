@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Explorer from './explore/index'
 const metadata = {
-	title: 'Footprint',
+	title: 'MeetDapp',
 	description: 'Decentralized calculator'
 }
 

@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Text } from '@chakra-ui/react'
 
 const metadata = {
-	title: 'Footprint',
+	title: 'MeetDapp',
 	description: 'Decentralized calculator'
 }
 
