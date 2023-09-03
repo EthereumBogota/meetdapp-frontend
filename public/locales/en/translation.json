@@ -1,4 +1,10 @@
 {
+    "navbar": {
+        "search-bar": "Search events",
+        "log-in": "Log in",
+        "no-account": "Don't have an account?",
+        "register": "Register"
+    },
     "landing": {
         "hero-title": "Embrace meaningful connections"
     }
