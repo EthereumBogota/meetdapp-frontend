@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import React from 'react'
 import Explorer from './explore/index'
+import './i18n'
+
 const metadata = {
-	title: 'Footprint',
-	description: 'Decentralized calculator'
+	title: 'MeetdApp',
+	description: 'Embrace meaningful connections'
 }
 
 export default function Home() {
