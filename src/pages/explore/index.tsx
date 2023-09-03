@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Text } from '@chakra-ui/react'
 
 const metadata = {
-	title: 'Footprint',
+	title: 'MeetDapp - Embrace Meaningfull Connections',
 	description: 'Decentralized calculator'
 }
 
@@ -23,7 +23,7 @@ const Explore = () => {
 				fontWeight='bold'
 				textColor='brand.newBlack'
 			>
-				Explorer page
+				MeetDapp 
 			</Text>
 		</>
 	)
