@@ -23,7 +23,7 @@ const Explore = () => {
 				fontWeight='bold'
 				textColor='brand.newBlack'
 			>
-				MeetDapp 
+				explore 
 			</Text>
 		</>
 	)
