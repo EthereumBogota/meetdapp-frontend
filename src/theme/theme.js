@@ -1,6 +1,10 @@
 import { extendTheme } from '@chakra-ui/react'
 
 const customTheme = extendTheme({
+	fonts: {
+		body: "Neue Machina",
+		heading: "Neue Machina",
+	  },
 	colors: {
 		brand: {
 			light: '#DEFE75',
