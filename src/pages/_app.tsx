@@ -9,7 +9,6 @@ import Layout from '../utils/components/Layout'
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [user, setUser] = useState<User | null>(null)
-	const [xxx, dasds] = useState<boolean>(false)
 	return (
 		<ChakraProvider theme={customTheme}>
 			<UserContext.Provider value={{user, setUser}}>
