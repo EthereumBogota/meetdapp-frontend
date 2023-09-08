@@ -15,9 +15,12 @@
 		"@chakra-ui/react": "^2.8.0",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
-		"@types/node": "20.4.2",
-		"@types/react": "18.2.15",
-		"@types/react-dom": "18.2.7",
+		"@walletconnect/sign-client": "^2.10.0",
+		"@web3auth/base": "^6.1.7",
+		"@web3auth/modal": "^6.1.8",
+		"@web3auth/openlogin-adapter": "^6.1.7",
+		"@web3auth/solana-provider": "^6.1.8",
+		"@web3auth/torus-wallet-connector-plugin": "^6.1.7",
 		"autoprefixer": "10.4.14",
 		"eslint": "8.45.0",
 		"eslint-config-next": "13.4.10",
@@ -28,6 +31,24 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"tailwindcss": "3.3.3",
-		"typescript": "5.1.6"
-	}
+		"web3": "^1.10.0"
+	},
+	"devDependencies": {
+    "@types/node": "20.4.2",
+		"@types/react": "18.2.15",
+		"@types/react-dom": "18.2.7",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "process": "^0.11.10",
+    "react-app-rewired": "^2.2.1",
+    "react-scripts": "5.0.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "typescript": "5.1.6",
+    "url": "^0.11.0", 
+		"webpack-bundle-analyzer": "^4.9.0"
+  }
 }
