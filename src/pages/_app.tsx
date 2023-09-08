@@ -7,7 +7,6 @@ import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import customTheme from '../theme/theme'
 import Layout from '../utils/components/Layout'
-
 export default function App({ Component, pageProps }: AppProps) {
 	const [user, setUser] = useState<User | null>(null)
 	const [xxx, dasds] = useState<boolean>(false)
