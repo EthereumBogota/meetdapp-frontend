@@ -1,0 +1,11 @@
+{
+    "navbar": {
+        "search-bar": "Buscar evento",
+        "log-in": "Ingresar",
+        "no-account": "No tienes una cuenta?",
+        "register": "Registrarse"
+    },
+    "landing": {
+        "hero-title": "Establece conexiones significativas"
+    }
+}
