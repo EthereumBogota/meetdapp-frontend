@@ -1,24 +1,24 @@
 import React from 'react'
 import '@/styles/globals.css'
 import { useState } from 'react'
-import { User, UserContext } from '@/lib/UserContext'
 import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import customTheme from '../theme/theme'
 import Layout from '../utils/components/Layout'
-import Navbar from '../../utils/components/Navbar'
-
+import { Web3AuthProvider } from '@/services/web3auth'
+import { WEB3AUTH_NETWORK_TYPE } from "../config/web3AuthNetwork";
+import { CHAIN_CONFIG_TYPE } from "../config/chainConfig";
 export default function App({ Component, pageProps }: AppProps) {
-  const [user, setUser] = useState<User | null>(null)
-  const [xxx, dasds] = useState<boolean>(false)
-  return (
-    <ChakraProvider theme={customTheme}>
-      <UserContext.Provider value={{ user, setUser }}>
-        <Layout>
-          <Navbar />
-          <Component {...pageProps} />
-        </Layout>
-      </UserContext.Provider>
-    </ChakraProvider>
-  )
+	const [xxx, dasds] = useState<boolean>(false)
+	const [web3AuthNetwork, setWeb3AuthNetwork] = useState<WEB3AUTH_NETWORK_TYPE>('testnet');
+  const [chain, setChain] = useState<CHAIN_CONFIG_TYPE>('polygon');
+	return (
+		<ChakraProvider theme={customTheme}>
+			<Web3AuthProvider chain={chain} web3AuthNetwork={web3AuthNetwork}>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</Web3AuthProvider>
+		</ChakraProvider>
+	)
 }
