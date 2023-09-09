@@ -30,11 +30,13 @@ export default function Footer(): React.ReactNode {
                                 </Link>
                             </Box>
                             <Box>
-                                <Image
-                                    src='img/Twitter X.svg'
-                                    alt='X'
-                                    width={["30px", "38px", "45px"]}
-                                />
+                                <Link href={"#"}>
+                                    <Image
+                                        src='img/Twitter X.svg'
+                                        alt='X'
+                                        width={["30px", "38px", "45px"]}
+                                    />
+                                </Link>
                             </Box>
                             <Box>
                                 <Link href={"#"}>
