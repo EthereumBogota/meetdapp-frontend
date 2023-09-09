@@ -6,17 +6,19 @@ import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 import customTheme from '../theme/theme'
 import Layout from '../utils/components/Layout'
+import Navbar from '../../utils/components/Navbar'
 
 export default function App({ Component, pageProps }: AppProps) {
-	const [user, setUser] = useState<User | null>(null)
-	const [xxx, dasds] = useState<boolean>(false)
-	return (
-		<ChakraProvider theme={customTheme}>
-			<UserContext.Provider value={{user, setUser}}>
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</UserContext.Provider>
-		</ChakraProvider>
-	)
+  const [user, setUser] = useState<User | null>(null)
+  const [xxx, dasds] = useState<boolean>(false)
+  return (
+    <ChakraProvider theme={customTheme}>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Layout>
+          <Navbar />
+          <Component {...pageProps} />
+        </Layout>
+      </UserContext.Provider>
+    </ChakraProvider>
+  )
 }
