@@ -5,6 +5,8 @@ import MiddleSections from '../utils/components/MiddleSections'
 import Section2 from '@/utils/components/Section2'
 import Section3 from '@/utils/components/Section3'
 import Section4 from '@/utils/components/Section4'
+import './i18n'
+
 
 const metadata = {
 	title: 'MeetdApp',
@@ -13,7 +15,7 @@ const metadata = {
 
 export default function Home() {
 	return (
-		<>		
+		<>
 			<Head>
 				<title>{metadata.title}</title>
 				<meta name='description' content={metadata.description} />

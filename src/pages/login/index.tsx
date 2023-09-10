@@ -1,14 +1,8 @@
 import { FormEvent, useContext, useEffect, useState } from 'react'
-import { UserContext, UserContextType } from '@/lib/UserContext'
 import { useRouter } from 'next/router';
 export default function Login() {
-	const {user, setUser} = useContext(UserContext) as UserContextType
   const [email, setEmail] = useState<string>('');
   const router = useRouter();
-  useEffect(() => {
-    // Check for an issuer on our user object. If it exists, route them to the dashboard.
-    user?.issuer && router.push('/dashboard');
-  }, [user]);
   const handleLogin = async (e: FormEvent) => {
     
   };
