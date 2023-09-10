@@ -7,6 +7,7 @@ import {
   Image,
   Stack,
   Text,
+  StackDivider
 } from '@chakra-ui/react'
 
 export default function MiddleSections() {
@@ -14,7 +15,7 @@ export default function MiddleSections() {
     <Flex width={"100%"} minH={'100vh'} align={"center"} justify={"center"} background="#DDEBED" p={"5em"}>
       <Flex width={"100%"} maxW={"1064px"} maxHeight={'726px'} flexDirection={'column'}>
         <Flex width={"100%"} >
-          <Stack spacing={9}>
+          <StackDivider >
           <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
           <Text
               display={'block'}
@@ -41,7 +42,7 @@ export default function MiddleSections() {
              Elevate Your Event Experience
             </Text>{' '}
           </Heading>
-          </Stack>
+          </StackDivider>
         </Flex>
 
         <Stack direction={{ base: 'column', md: 'row' }} spacing={3}>
@@ -87,7 +88,7 @@ export default function MiddleSections() {
             objectFit={'cover'}
             src={
                 '/img/Section 1 Image.png'
-              }
+            }
             />
           </Flex>
         </Stack>
