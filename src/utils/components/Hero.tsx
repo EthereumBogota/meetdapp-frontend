@@ -1,5 +1,7 @@
 import React from 'react'
 import '@/styles/globals.css'
+import Arrow_Right from './Arrow_Right'
+import UnderlineHero from './UnderlineHero'
 
 import {
   Button,
@@ -15,12 +17,13 @@ export default function Hero() {
 			<Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }} spacing={0}>
       <Flex p={8} flex={1} align={'center'} justify={'center'} background="linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)">
         <Stack spacing={6} w={'full'} maxW={'lg'}>
-          <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+          <Stack spacing={0}>
+          <Heading fontSize={{ base: '4xl', md: '5xl', lg: '6xl' }}  lineHeight={'60px'}>
             <Text
-			  fontFamily="body"
+			        fontFamily="body"
               as={'span'}
               position={'relative'}
-			  color={'#FFF'}
+			        color={'#FFF'}
               fontSize={'72xp'}
               fontWeight={800}
               fontStyle={'normal'}
@@ -38,11 +41,14 @@ export default function Hero() {
               Meaningful Connections
             </Text>{' '}
           </Heading>
+          <UnderlineHero/>
+          </Stack>
           <Text fontSize={{ base: 'xl', lg: '2xl' }} color={'#FFF'} fontStyle={'normal'} fontWeight={400} lineHeight={'33px'}>
-		  Where uniqueness thrives. Unlock the potencial of blockchain technology, elevate your event experience.
+		        Where uniqueness thrives. Unlock the potencial of blockchain technology, elevate your event experience.
           </Text>
           <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
             <Button
+              boxShadow={'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'}
               width={'204px'}
               height={'50px'}
               rounded={'full'}
@@ -52,19 +58,38 @@ export default function Hero() {
               fontStyle={'normal'}
               fontWeight={400}
               _hover={{
-                bg: 'blue.500',
+                bg: '#227682',
+                transform: 'scale(1.03)',
+                transition: 'transform 0.3s ease-in-out'
               }}>
               Get Started
             </Button>
-            <Button rounded={'full'} width={'204px'} height={'50px'} fontSize={'21px'} fontStyle={'normal'} fontWeight={400} >Learn More</Button>
+            <Button 
+              rightIcon={<Arrow_Right/>} 
+              color={'#DDEBED'} 
+              variant={'outline'} 
+              rounded={'full'} 
+              width={'204px'} 
+              height={'50px'} 
+              fontSize={'21px'} 
+              fontStyle={'normal'} 
+              fontWeight={400}
+              _hover={{
+                bg: 'transparent',
+                transform: 'scale(1.03)',
+                transition: 'transform 0.3s ease-in-out'
+              }}
+              >
+              Learn More
+              </Button>
           </Stack>
         </Stack>
       </Flex>
       <Flex flex={1}
-	  align={'center'}
-	  justify={'center'}
-	  background="linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"
-	  >
+      align={'center'}
+      justify={'center'}
+      background="linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"
+      >
         <Image
           alt={'Elipse Hero'}
           src={

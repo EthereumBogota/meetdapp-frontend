@@ -9,9 +9,11 @@ import { Web3AuthProvider } from '@/services/web3auth'
 import { WEB3AUTH_NETWORK_TYPE } from "../config/web3AuthNetwork";
 import { CHAIN_CONFIG_TYPE } from "../config/chainConfig";
 export default function App({ Component, pageProps }: AppProps) {
-	const [xxx, dasds] = useState<boolean>(false)
+
+	const [user, setUser] = useState<User | null>(null)
 	const [web3AuthNetwork, setWeb3AuthNetwork] = useState<WEB3AUTH_NETWORK_TYPE>('testnet');
   const [chain, setChain] = useState<CHAIN_CONFIG_TYPE>('polygon');
+
 	return (
 		<ChakraProvider theme={customTheme}>
 			<Web3AuthProvider chain={chain} web3AuthNetwork={web3AuthNetwork}>

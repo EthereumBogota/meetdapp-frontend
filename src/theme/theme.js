@@ -4,11 +4,13 @@ const customTheme = extendTheme({
 	fonts: {
 		body: "Neue Machina",
 		heading: "Neue Machina",
+		tittleSections: "Space Grotesk",
+		bodySections: "Space Grotesk SemiBold"
 	  },
 	colors: {
 		brand: {
-			light: '#DEFE75',
-			dark: '#035231',
+			light: '#DDEBED',
+			dark: '#00001C',
 			lime: '#D4FE48',
 			newBlack: '#1E1E1E',
 			fuchsia: '#9936E8'
