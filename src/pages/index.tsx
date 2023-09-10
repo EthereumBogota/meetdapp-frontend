@@ -2,6 +2,10 @@ import Head from 'next/head'
 import React from 'react'
 import Hero from '../utils/components/Hero'
 import MiddleSections from '../utils/components/MiddleSections'
+import Section2 from '@/utils/components/Section2'
+import Section3 from '@/utils/components/Section3'
+import Section4 from '@/utils/components/Section4'
+
 const metadata = {
 	title: 'MeetdApp',
 	description: 'Embrace meaningful connections'
@@ -18,6 +22,9 @@ export default function Home() {
 			</Head>
 			<Hero/>
 			<MiddleSections />
+			<Section2 />
+			<Section3 />
+			<Section4 />
 		</>
 	)
 }
