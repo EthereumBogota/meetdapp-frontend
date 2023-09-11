@@ -10,6 +10,7 @@ import {
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
+import { Link } from '@chakra-ui/next-js'
 
 export default function Navbar(): React.ReactNode {
     const { t, i18n } = useTranslation()
@@ -22,28 +23,28 @@ export default function Navbar(): React.ReactNode {
 
     return (
         <>
-            <Flex bgColor={'transparent'} position={'fixed'} zIndex={"100"} width={'100%'} px={'3rem'} py={'.8rem'} justifyContent={'center'}>
-                <Flex alignItems={'center'} justifyContent={'space-between'} width={'100%'} maxWidth={'1200px'}>
-                    <Logo />
+            <Flex bgColor={'transparent'} position={'fixed'} zIndex={"100"} width={'100%'} py={'.8rem'} justifyContent={'center'}>
+                <Flex alignItems={'center'} justifyContent={'space-between'} width={'100%'} px={6} maxWidth={'1300px'}>
+                    <Link href={"/"}>
+                        <Logo />
+                    </Link>
 
-                    <Box flexShrink={"1"}>
-                        <Input display={{ base: "none", md: "block" }} width={{ md: "250px", lg: "400px" }} placeholder={t('navbar.search-bar')} borderRadius={"3xl"} background={"rgba(255, 255, 255, 0.15);"} color={"#DDEBED"} />
-                    </Box>
 
-                    <Flex flexShrink={"1"} alignItems={'center'} gap={"1.5rem"}>
-                        <ButtonGroup size={"sm"} isAttached variant={"outline"}>
+                    <Flex flexShrink={"1"} alignItems={'center'} gap={{ base: ".5rem", lg: "1rem" }}>
+                        <ButtonGroup size={{ base: "xs", lg: "sm" }} isAttached variant={"outline"}>
                             <Button borderTopLeftRadius={"3xl"} borderBottomLeftRadius={"3xl"} color={"#DDEBED"} _hover={{ pointerEvents: english ? "none" : "auto" }} background={english ? "#348793" : "transparent"} onClick={() => changeLanguage("en")}>En</Button>
                             <Button borderTopRightRadius={"3xl"} borderBottomRightRadius={"3xl"} color={"#DDEBED"} _hover={{ pointerEvents: english ? "auto" : "none" }} background={english ? "transparent" : "#348793"} onClick={() => changeLanguage("es")}>Es</Button>
                         </ButtonGroup>
                         <Flex position={"relative"} top={'10px'} textAlign={"center"} flexDirection={"column"} gap={"3px"}>
-                            <Button margin={"0 auto"} width={"80%"} color={"#DDEBED"} background={"#348793"} borderRadius={'3xl'}>{t('navbar.log-in')}</Button>
+                            <Button margin={"0 auto"} width={"80%"} fontSize={{ base: ".8em", md: "1em" }} color={"#DDEBED"} background={"#348793"} borderRadius={'3xl'}>{t('navbar.log-in')}</Button>
 
-                            <Box gap={""}>
-                                <Text display={"inline"} fontSize={{ base: "0.3em", md: ".8em" }} color={"#DDEBED"}>{t('navbar.no-account')}</Text>
-                                <Text display={"inline"} fontSize={{ base: "0.3em", md: ".8em" }} color={"#348793"} > {t('navbar.register')} </Text>
+                            <Box>
+                                <Text display={"inline"} fontSize={{ base: "0.4em", md: ".8em" }} color={"#DDEBED"}>{t('navbar.no-account')}</Text>
+                                <Text display={"inline"} fontSize={{ base: "0.4em", md: ".8em" }} color={"#348793"} > {t('navbar.register')} </Text>
                             </Box>
                         </Flex>
                     </Flex>
+
                 </Flex>
             </Flex>
         </>
