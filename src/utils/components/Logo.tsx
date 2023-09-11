@@ -13,7 +13,7 @@ export default function Logo() {
                     alt='MeetdApp logo'
                     width={["30px", "38px", "45px"]}
                 />
-                <Text fontFamily="body" color={'#DDEBED'} fontSize={{ base: "1.2rem", md: "1.5rem", lg: "2.20rem" }}>MeetdApp</Text>
+                <Text fontFamily="body" color={'#DDEBED'} fontSize={{ base: "1rem", md: "1.2rem", lg: "2rem" }}>MeetdApp</Text>
             </Flex>
         </>
     )

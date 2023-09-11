@@ -18,9 +18,9 @@ export default function Footer(): React.ReactNode {
 
     return (
         <>
-            <Flex width={"100%"} align={"center"} justify={"center"} background={"#00001C"} py={"6rem"}>
-                <Flex width={'100%'} maxW={"1200px"} direction={"column"}>
-                    <Flex justify={"space-between"} align={"center"}>
+            <Flex width={"100%"} align={"center"} justify={"center"} background={"#00001C"} py={["3rem", "6rem"]}>
+                <Flex width={'100%'} maxW={"1300px"} direction={"column"} px={6}>
+                    <Flex justify={"space-between"} align={"center"} textAlign={"center"} gap={5} direction={{ base: "column", md: "row" }}>
                         <Logo />
                         <Text color={"#DDEBED"}>&copy; 2022 - 2023 {t('footer.copyright')}</Text>
                         <HStack spacing={"1em"}>

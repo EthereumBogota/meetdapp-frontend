@@ -1,14 +1,20 @@
 import React from 'react'
 import '@/styles/globals.css'
-import { AppProps } from 'next/app'
+import Navbar from './Navbar'
+import Footer from './Footer'
+import { Box } from '@chakra-ui/react'
 
 interface LayoutProps {
     children: React.ReactNode
 }
-const Layout: React.FC<LayoutProps> = ({children}) => {
-    return(
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+    return (
         <>
-            {children}
+            <Box overflow={"hidden"}>
+                <Navbar />
+                {children}
+                <Footer />
+            </Box>
         </>
     )
 }

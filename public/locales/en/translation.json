@@ -6,7 +6,12 @@
         "register": "Register"
     },
     "landing": {
-        "hero-title": "Embrace meaningful connections"
+        "hero": {
+            "title": "Embrace Meaningful Connections",
+            "description": "Where uniqueness thrives. Unlock the potencial of blockchain technology, elevate your event experience.",
+            "get-started": "Get Started",
+            "more": "Learn more"
+        }
     },
     "footer": {
         "copyright": "Ethereum Bogota Community"
