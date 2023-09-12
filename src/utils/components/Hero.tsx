@@ -72,9 +72,9 @@ export default function Hero() {
             '/img/Hero Image.png'
           }
           zIndex={50}
-          width={{ base: "600px", lg: "auto" }}
+          width={{ base: "600px", xl: "auto" }}
           height={{ lg: "100%" }}
-          left={{ lg: "6em" }}
+          left={{ xl: "6em" }}
           mx={"auto"}
         />
       </Flex>

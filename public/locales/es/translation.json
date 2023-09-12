@@ -11,6 +11,30 @@
             "description": "Donde prospera la singularidad. Desbloquea el potencial de la tecnología blockchain y mejora la experiencia de tu evento.",
             "get-started": "Empezar",
             "more": "Ver más"
+        },
+        "section1": {
+            "badge": "Prepara un evento",
+            "title": "Eleva tu experiencia",
+            "description": "Aprovecha el poder de la tecnología Blockchain para mejorar la experiencia de tu evento. Crea, administra y personaliza eventos sin problemas y sin intermediarios. Acoge una plataforma transparente y segura que redefine la forma en que conectas y compartes momentos inolvidables.",
+            "button": "Crea un evento"
+        },
+        "section2": {
+            "badge": "Tiquete Inmutable",
+            "title": "Tu Entrada Inmutable a Momentos Inolvidables",
+            "description": "Con los tiquetes NFT de MeedApp, tu entrada a momentos inolvidables está asegurada en la Blockchain. Incluso si refundes tu tiquete, no hay nada que temer - la inmutable Blockchain asegura que tu acceso se mantenga intacto, permitiéndote una total inmersión en la magia de cada evento.",
+            "button": "Unirse a un evento"
+        },
+        "section3": {
+            "badge": "Transparencia",
+            "title": "Registros de eventos en la Blockchain",
+            "description": "El poder de la Blockchain aporta un nivel incomparable de transparencia e inmutabilidad a los registros de  eventos. La historia de cada evento, desde la creación hasta la asistencia, se registra permanentemente, eliminando dudas y fomentando la confianza tanto entre los organizadores del evento como entre los asistentes.",
+            "button": "Probar Ahora"
+        },
+        "section4": {
+            "badge": "Seguridad",
+            "title": "Tu Seguridad, Nuestra Prioridad",
+            "description": "Protege la experiencia de tu evento. Nuestra plataforma garantiza que cada evento sea seguro y transparente, brindando tranquilidad. Tus datos personales permanecen privados, lo que permite que te concentres absolutamente en lo que realmente importa: conectar con otras personas en un entorno sin preocupaciones.",
+            "button": "Discover More"
         }
     },
     "footer": {
