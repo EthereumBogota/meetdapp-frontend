@@ -1,11 +1,11 @@
 import '@/styles/globals.css'
-import { Box, Flex, Text, Button, Input, ButtonGroup } from '@chakra-ui/react'
+import { Box, Flex, Text, Button, Input, ButtonGroup, Avatar, CloseButton, Tooltip } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
 import { Link } from '@chakra-ui/next-js'
 import { useWeb3Auth } from '@/services/web3auth'
-
+import avatarImg from '../../assets/navbar/Avatar.png'
 export default function Navbar(): React.ReactNode {
 	const { t, i18n } = useTranslation()
 	const { login, user, getAccounts, logout } = useWeb3Auth()
@@ -125,35 +125,24 @@ export default function Navbar(): React.ReactNode {
 								</Box>
 							</Flex>
 						) : (
-							<Flex
-								position={'relative'}
-								top={'10px'}
-								textAlign={'center'}
-								flexDirection={'column'}
-								gap={'3px'}
-							>
-								<Button
-									margin={'0 auto'}
-									width={'80%'}
-									fontSize={{ base: '.8em', md: '1em' }}
-									background='darkmagenta'
-									color={'#DDEBED'}
-									borderRadius={'3xl'}
+							<Flex alignItems="center" gap="0.5rem">
+							<Avatar
+								size="md"
+								src={'../../assets/navbar/Avatar.png'}
+							/>
+							<Box color={'#DDEBED'}>
+								<Text>{''}</Text>
+								<Text fontSize="xs">{showAddress(address)}</Text>
+							</Box>
+							<Tooltip label='Log out'>
+								<CloseButton
+									size="md"
+									borderRadius="50%"
 									onClick={onLogout}
-								>
-									{t('navbar.log-out')}
-								</Button>
-
-								<Box>
-									<Text
-										display={'inline'}
-										fontSize={{ base: '0.4em', md: '.8em' }}
-										color={'#DDEBED'}
-									>
-										{showAddress(address)}
-									</Text>
-								</Box>
-							</Flex>
+									backgroundColor='whiteAlpha.900'
+								/>
+							</Tooltip>
+						</Flex>
 						)}
 					</Flex>
 				</Flex>
