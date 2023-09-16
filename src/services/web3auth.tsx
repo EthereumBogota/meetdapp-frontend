@@ -108,8 +108,10 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			try {
 				const currentChainConfig = CHAIN_CONFIG[chain]
 				setIsLoading(true)
-				const clientId =
-					'BJQsPasIAvyBj2h51LxBuNBty_WSDufuKpGJRFBhVhmuJRMSqnGDCgVm168lTnpiCLh8lxxPeBksuExyAYoW0JI'
+				const clientId = process.env.NEXT_PUBLIC_YOUR_WEB3AUTH_CLIENT_ID
+				if (!clientId) {
+					throw new Error('Please provide your web3auth client id')
+				}
 				const web3AuthInstance = new Web3Auth({
 					chainConfig: currentChainConfig,
 					// get your client id from https://dashboard.web3auth.io
@@ -137,23 +139,6 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 					}
 				})
 				web3AuthInstance.configureAdapter(adapter)
-				const plugin = new TorusWalletConnectorPlugin({
-					walletInitOptions: {
-						whiteLabel: {
-							logoDark:
-								'https://avatars.githubusercontent.com/u/37784849?s=200&v=4',
-							logoLight:
-								'https://avatars.githubusercontent.com/u/37784849?s=200&v=4',
-							theme: {
-								isDark: true,
-								colors: {}
-							}
-						},
-						buildEnv: 'production',
-						useWalletConnect: true
-					}
-				})
-				web3AuthInstance.addPlugin(plugin)
 				subscribeAuthEvents(web3AuthInstance)
 				setWeb3Auth(web3AuthInstance)
 				await web3AuthInstance.initModal({
@@ -191,9 +176,9 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			return
 		}
 		const localProvider = await web3Auth.connect()
-		console.log('local provider is ',localProvider);
 		
 		setWalletProvider(localProvider!)
+		return localProvider
 	}
 
 	const logout = async () => {
@@ -250,8 +235,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			return
 		}
 		const accounts = await provider.getAccounts()
-    console.log('accounts', accounts);
-    
+    return accounts
 	}
 
 	const getBalance = async () => {

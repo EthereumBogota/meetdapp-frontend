@@ -12,10 +12,12 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
+import { useWeb3Auth } from '@/services/web3auth'
 
 export default function Hero() {
   const { t } = useTranslation()
-
+  const { getAccounts, getUserInfo, user } = useWeb3Auth()
+  
 
   return (
     <Flex minH={{ base: "auto", lg: "100vh" }} width={"full"} justify={"center"} position={"relative"} background={"linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"}>
@@ -39,6 +41,7 @@ export default function Hero() {
               color={'#DDEBED'}
               fontSize={['20px', '24px']}
               fontWeight={400}
+              onClick={getUserInfo}
               _hover={{
                 bg: '#227682',
                 transform: 'scale(1.03)',
@@ -59,6 +62,7 @@ export default function Hero() {
                 transform: 'scale(1.03)',
                 transition: 'transform 0.3s ease-in-out',
               }}
+              onClick={getAccounts}
             >
               {t('landing.hero.more')}
             </Button>
