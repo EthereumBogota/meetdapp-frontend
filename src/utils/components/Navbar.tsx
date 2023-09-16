@@ -8,31 +8,31 @@ import { useWeb3Auth } from '@/services/web3auth'
 
 export default function Navbar(): React.ReactNode {
 	const { t, i18n } = useTranslation()
-  const { login, user, getAccounts, logout } = useWeb3Auth()
+	const { login, user, getAccounts, logout } = useWeb3Auth()
 	const english: boolean = i18n.language === 'en'
-	const [address , setAddress] = useState<string>('')
+	const [address, setAddress] = useState<string>('')
 	useEffect(() => {
 		onGetAccounts()
 	}, [user])
 	const onGetAccounts = async () => {
-		if(!user) return
+		if (!user) return
 		const response = await getAccounts()
-		console.log('respose is ',response);
+		console.log('respose is ', response)
 		setAddress(response[0])
 	}
 	const changeLanguage = (lng: string) => {
 		i18n.changeLanguage(lng)
 	}
-  const onLogin = async () => {
-    const response = await login()
-    console.log(response)
-  }
+	const onLogin = async () => {
+		const response = await login()
+		console.log(response)
+	}
 	const onLogout = async () => {
 		const response = await logout()
 		console.log(response)
 	}
 	const showAddress = (address: string): string => {
-		return address.slice(0,4) + '...' + address.slice(-4)
+		return address.slice(0, 4) + '...' + address.slice(-4)
 	}
 	return (
 		<>
@@ -86,76 +86,75 @@ export default function Navbar(): React.ReactNode {
 								Es
 							</Button>
 						</ButtonGroup>
-						{!user ?  
+						{!user ? (
 							<Flex
-							position={'relative'}
-							top={'10px'}
-							textAlign={'center'}
-							flexDirection={'column'}
-							gap={'3px'}
-						>
-							<Button
-								margin={'0 auto'}
-								width={'80%'}
-								fontSize={{ base: '.8em', md: '1em' }}
-								color={'#DDEBED'}
-								background={'#348793'}
-								borderRadius={'3xl'}
-                onClick={onLogin}
+								position={'relative'}
+								top={'10px'}
+								textAlign={'center'}
+								flexDirection={'column'}
+								gap={'3px'}
 							>
-								{t('navbar.log-in')}
-							</Button>
-
-							<Box>
-								<Text
-									display={'inline'}
-									fontSize={{ base: '0.4em', md: '.8em' }}
+								<Button
+									margin={'0 auto'}
+									width={'80%'}
+									fontSize={{ base: '.8em', md: '1em' }}
 									color={'#DDEBED'}
+									background={'#348793'}
+									borderRadius={'3xl'}
+									onClick={onLogin}
 								>
-									{t('navbar.no-account')}
-								</Text>
-								<Text
-									display={'inline'}
-									fontSize={{ base: '0.4em', md: '.8em' }}
-									color={'#348793'}
-								>
-									{' '}
-									{t('navbar.register')}{' '}
-								</Text>
-							</Box>
-						</Flex>
-						:
-						<Flex
-						position={'relative'}
-						top={'10px'}
-						textAlign={'center'}
-						flexDirection={'column'}
-						gap={'3px'}
-					>
-						<Button
-							margin={'0 auto'}
-							width={'80%'}
-							fontSize={{ base: '.8em', md: '1em' }}
-							background='darkmagenta'
-							color={'#DDEBED'}
-							borderRadius={'3xl'}
-							onClick={onLogout}
-						>
-							{t('navbar.log-out')}
-						</Button>
+									{t('navbar.log-in')}
+								</Button>
 
-						<Box>
-							<Text
-								display={'inline'}
-								fontSize={{ base: '0.4em', md: '.8em' }}
-								color={'#DDEBED'}
+								<Box>
+									<Text
+										display={'inline'}
+										fontSize={{ base: '0.4em', md: '.8em' }}
+										color={'#DDEBED'}
+									>
+										{t('navbar.no-account')}
+									</Text>
+									<Text
+										display={'inline'}
+										fontSize={{ base: '0.4em', md: '.8em' }}
+										color={'#348793'}
+									>
+										{' '}
+										{t('navbar.register')}{' '}
+									</Text>
+								</Box>
+							</Flex>
+						) : (
+							<Flex
+								position={'relative'}
+								top={'10px'}
+								textAlign={'center'}
+								flexDirection={'column'}
+								gap={'3px'}
 							>
-								{showAddress(address)}
-							</Text>
-						</Box>
-					</Flex>
-						
-					}
+								<Button
+									margin={'0 auto'}
+									width={'80%'}
+									fontSize={{ base: '.8em', md: '1em' }}
+									background='darkmagenta'
+									color={'#DDEBED'}
+									borderRadius={'3xl'}
+									onClick={onLogout}
+								>
+									{t('navbar.log-out')}
+								</Button>
+
+								<Box>
+									<Text
+										display={'inline'}
+										fontSize={{ base: '0.4em', md: '.8em' }}
+										color={'#DDEBED'}
+									>
+										{showAddress(address)}
+									</Text>
+								</Box>
+							</Flex>
+						)}
 					</Flex>
 				</Flex>
 			</Flex>
