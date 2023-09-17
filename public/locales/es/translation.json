@@ -4,7 +4,8 @@
         "log-in": "Ingresar",
         "log-out": "Cerrar sesión",
         "no-account": "No tienes una cuenta?",
-        "register": "Registrarse"
+        "register": "Registrarse",
+        "user": "Usuario"
     },
     "landing": {
         "hero": {

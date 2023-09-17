@@ -8,7 +8,7 @@ import { useWeb3Auth } from '@/services/web3auth'
 import avatarImg from '../../assets/navbar/Avatar.png'
 export default function Navbar(): React.ReactNode {
 	const { t, i18n } = useTranslation()
-	const { login, user, getAccounts, logout } = useWeb3Auth()
+	const { login, user, getAccounts, logout, userInfo } = useWeb3Auth()
 	const english: boolean = i18n.language === 'en'
 	const [address, setAddress] = useState<string>('')
 	useEffect(() => {
@@ -33,6 +33,10 @@ export default function Navbar(): React.ReactNode {
 	}
 	const showAddress = (address: string): string => {
 		return address.slice(0, 4) + '...' + address.slice(-4)
+	}
+	//show no more than x amount of chars from a string
+	const showChars = (str: string, x: number): string => {
+		return str.slice(0, x) + '...'
 	}
 	return (
 		<>
@@ -131,7 +135,7 @@ export default function Navbar(): React.ReactNode {
 								src={'../../assets/navbar/Avatar.png'}
 							/>
 							<Box color={'#DDEBED'}>
-								<Text>{''}</Text>
+								<Text>{userInfo?.nickName ? showChars(userInfo.nickName, 15) : t('navbar.user')}</Text>
 								<Text fontSize="xs">{showAddress(address)}</Text>
 							</Box>
 							<Tooltip label='Log out'>
