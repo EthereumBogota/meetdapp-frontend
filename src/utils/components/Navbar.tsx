@@ -132,6 +132,7 @@ export default function Navbar(): React.ReactNode {
 							<Flex alignItems="center" gap="0.5rem">
 							<Avatar
 								size="md"
+								//TODo pick avatar from database
 								src={'../../assets/navbar/Avatar.png'}
 							/>
 							<Box color={'#DDEBED'}>
