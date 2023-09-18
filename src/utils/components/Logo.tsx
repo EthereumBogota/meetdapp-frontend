@@ -9,7 +9,7 @@ export default function Logo() {
         <>
             <Flex flexShrink={"1"} flexDirection={'row'} alignItems={'center'} justifyContent={'center'} gap={'1rem'}>
                 <Image
-                    src='img/logo.svg'
+                    src='/img/logo.svg'
                     alt='MeetdApp logo'
                     width={["30px", "38px", "45px"]}
                 />
