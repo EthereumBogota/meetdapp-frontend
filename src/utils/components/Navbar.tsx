@@ -145,7 +145,7 @@ export default function Navbar(): React.ReactNode {
 									<Text fontSize={{ base: "xs", lg: "lg" }}>{userInfo?.nickName ? showChars(userInfo.nickName, 15) : t('navbar.user')}</Text>
 									<Text fontSize={{ base: "2xs", lg: "xs" }}>{showAddress(address)}</Text>
 								</Box>
-								<Tooltip label='Log out'>
+								<Tooltip label={t('navbar.log-out')}>
 									<CloseButton
 										size={{ base: "sm", lg: "md" }}
 										borderRadius="50%"
