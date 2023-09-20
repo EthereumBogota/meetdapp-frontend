@@ -5,55 +5,83 @@ import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
 import { Link } from '@chakra-ui/next-js'
 import { useWeb3Auth } from '@/services/web3auth'
-import avatarImg from '../../assets/navbar/Avatar.png'
+
 export default function Navbar(): React.ReactNode {
 	const { t, i18n } = useTranslation()
 	const { login, user, getAccounts, logout, userInfo } = useWeb3Auth()
 	const english: boolean = i18n.language === 'en'
 	const [address, setAddress] = useState<string>('')
+	const [navbarBlur, setNavbarBlur] = useState<boolean>(false)
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 50) {
+				setNavbarBlur(true);
+			} else {
+				setNavbarBlur(false);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
 	useEffect(() => {
 		onGetAccounts()
 	}, [user])
+
 	const onGetAccounts = async () => {
 		if (!user) return
 		const response = await getAccounts()
 		console.log('respose is ', response)
 		setAddress(response[0])
 	}
+
 	const changeLanguage = (lng: string) => {
 		i18n.changeLanguage(lng)
 	}
+
 	const onLogin = async () => {
 		const response = await login()
 		console.log(response)
 	}
+
 	const onLogout = async () => {
 		const response = await logout()
 		console.log(response)
 	}
+
 	const showAddress = (address: string): string => {
 		return address.slice(0, 4) + '...' + address.slice(-4)
 	}
-	//show no more than x amount of chars from a string
+
 	const showChars = (str: string, x: number): string => {
 		return str.slice(0, x) + '...'
 	}
+
 	return (
 		<>
 			<Flex
-				bgColor={'transparent'}
+				bgColor={navbarBlur ? "blackAlpha.400" : "transparent"}
+				backdropFilter={navbarBlur ? 'blur(10px)' : "blur(0)"}
 				position={'fixed'}
 				zIndex={'100'}
 				width={'100%'}
 				py={'.8rem'}
 				justifyContent={'center'}
+				transition={'background-color .3s ease-in'}
+				fontFamily="neue"
+				fontWeight={"light"}
 			>
 				<Flex
 					alignItems={'center'}
 					justifyContent={'space-between'}
-					width={'100%'}
-					px={6}
-					maxWidth={'1300px'}
+					width={{ base: 'full', md: '90%' }}
+					px={{ base: 4, lg: 0 }}
+					maxWidth={'1200px'}
 				>
 					<Link href={'/'}>
 						<Logo />
@@ -62,7 +90,7 @@ export default function Navbar(): React.ReactNode {
 					<Flex
 						flexShrink={'1'}
 						alignItems={'center'}
-						gap={{ base: '.5rem', lg: '1rem' }}
+						gap={{ base: '.5rem', lg: '1.5rem' }}
 					>
 						<ButtonGroup
 							size={{ base: 'xs', lg: 'sm' }}
@@ -73,8 +101,10 @@ export default function Navbar(): React.ReactNode {
 								borderTopLeftRadius={'3xl'}
 								borderBottomLeftRadius={'3xl'}
 								color={'#DDEBED'}
-								_hover={{ pointerEvents: english ? 'none' : 'auto' }}
+								_active={{ background: english ? 'auto' : '#236677' }}
+								_hover={{ background: english ? 'auto' : 'transparent' }}
 								background={english ? '#348793' : 'transparent'}
+								transition={"background .3s"}
 								onClick={() => changeLanguage('en')}
 							>
 								En
@@ -83,71 +113,47 @@ export default function Navbar(): React.ReactNode {
 								borderTopRightRadius={'3xl'}
 								borderBottomRightRadius={'3xl'}
 								color={'#DDEBED'}
-								_hover={{ pointerEvents: english ? 'auto' : 'none' }}
+								_active={{ background: english ? '#236677' : 'auto' }}
+								_hover={{ background: english ? 'transparent' : 'auto' }}
 								background={english ? 'transparent' : '#348793'}
+								transition={"background .3s"}
 								onClick={() => changeLanguage('es')}
 							>
 								Es
 							</Button>
 						</ButtonGroup>
 						{!user ? (
-							<Flex
-								position={'relative'}
-								top={'10px'}
-								textAlign={'center'}
-								flexDirection={'column'}
-								gap={'3px'}
+							<Button
+								margin={'0 auto'}
+								px={{ base: ".5em", lg: "2.5em" }}
+								fontSize={{ base: '.8em', md: '1em' }}
+								color={'#DDEBED'}
+								background={'#348793'}
+								borderRadius={'3xl'}
+								onClick={onLogin}
+								_hover={{ bg: "#236677", transform: "scale(1.05)", transition: "transform .3s" }}
 							>
-								<Button
-									margin={'0 auto'}
-									width={'80%'}
-									fontSize={{ base: '.8em', md: '1em' }}
-									color={'#DDEBED'}
-									background={'#348793'}
-									borderRadius={'3xl'}
-									onClick={onLogin}
-								>
-									{t('navbar.log-in')}
-								</Button>
-
-								<Box>
-									<Text
-										display={'inline'}
-										fontSize={{ base: '0.4em', md: '.8em' }}
-										color={'#DDEBED'}
-									>
-										{t('navbar.no-account')}
-									</Text>
-									<Text
-										display={'inline'}
-										fontSize={{ base: '0.4em', md: '.8em' }}
-										color={'#348793'}
-									>
-										{' '}
-										{t('navbar.register')}{' '}
-									</Text>
-								</Box>
-							</Flex>
+								{t('navbar.log-in')}
+							</Button>
 						) : (
 							<Flex alignItems="center" gap="0.5rem">
-							<Avatar
-								size="md"
-								//TODo pick avatar from database
-								src={'../../assets/navbar/Avatar.png'}
-							/>
-							<Box color={'#DDEBED'}>
-								<Text>{userInfo?.nickName ? showChars(userInfo.nickName, 15) : t('navbar.user')}</Text>
-								<Text fontSize="xs">{showAddress(address)}</Text>
-							</Box>
-							<Tooltip label='Log out'>
-								<CloseButton
-									size="md"
-									borderRadius="50%"
-									onClick={onLogout}
-									backgroundColor='whiteAlpha.900'
+								<Avatar
+									size={{ base: "sm", lg: "md" }}
+									src={'../../assets/navbar/Avatar.png'}
 								/>
-							</Tooltip>
-						</Flex>
+								<Box color={'#DDEBED'}>
+									<Text fontSize={{ base: "xs", lg: "lg" }}>{userInfo?.nickName ? showChars(userInfo.nickName, 15) : t('navbar.user')}</Text>
+									<Text fontSize={{ base: "2xs", lg: "xs" }}>{showAddress(address)}</Text>
+								</Box>
+								<Tooltip label='Log out'>
+									<CloseButton
+										size={{ base: "sm", lg: "md" }}
+										borderRadius="50%"
+										onClick={onLogout}
+										backgroundColor='whiteAlpha.900'
+									/>
+								</Tooltip>
+							</Flex>
 						)}
 					</Flex>
 				</Flex>

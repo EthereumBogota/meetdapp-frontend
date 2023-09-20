@@ -26,6 +26,7 @@
 		"autoprefixer": "10.4.14",
 		"eslint": "8.45.0",
 		"eslint-config-next": "13.4.10",
+		"ethers": "5.7.2",
 		"framer-motion": "^10.16.2",
 		"i18next": "^23.4.6",
 		"next": "13.4.10",

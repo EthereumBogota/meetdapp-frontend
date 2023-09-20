@@ -4,6 +4,10 @@ export function capitalizeFirstLetter(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+interface IOpenLoginProvidersNames {
+  [key: string]: string;
+}
+
 export const PASSWORDLESS_BACKEND: Record<OPENLOGIN_NETWORK_TYPE, string> = {
   mainnet: "https://admin.openlogin.com",
   cyan: "https://admin.openlogin.com",
@@ -14,7 +18,7 @@ export const PASSWORDLESS_BACKEND: Record<OPENLOGIN_NETWORK_TYPE, string> = {
 
 export const OPENLOGIN_PROVIDERS = Object.values(LOGIN_PROVIDER).filter((x) => x !== LOGIN_PROVIDER.WEBAUTHN && x !== LOGIN_PROVIDER.JWT);
 
-export const OPENLOGIN_PROVIDERS_NAMES = OPENLOGIN_PROVIDERS.reduce((acc, x) => {
+export const OPENLOGIN_PROVIDERS_NAMES: IOpenLoginProvidersNames = OPENLOGIN_PROVIDERS.reduce((acc: IOpenLoginProvidersNames, x: string) => {
   if (x === "email_passwordless") acc[x] = "Email";
   else if (x === "sms_passwordless") acc[x] = "Mobile";
   else acc[x] = capitalizeFirstLetter(x);
