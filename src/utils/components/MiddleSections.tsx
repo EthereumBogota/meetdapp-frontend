@@ -1,16 +1,17 @@
 import React from 'react'
 import '@/styles/globals.css'
-import {
-  Flex
-} from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import Section from './Section'
 import { useTranslation } from 'react-i18next'
+import Events from './Events'
 
 export default function MiddleSections() {
   const { t } = useTranslation()
 
   return (
-    <Flex width={"100%"} zIndex={50} gap={"8em"} direction={"column"} align={"center"} justify={"center"} py={"5em"} background="#DDEBED" px={{ base: "2em", md: "4em", lg: "6em" }}>
+    <Flex width={"100%"} zIndex={50} gap={"8em"} direction={"column"} align={"center"} justify={"center"} py={"5em"} background="#DDEBED" >
+      <Events />
+
       <Section badge={t('landing.section1.badge')}
         heading={t('landing.section1.title')}
         description={t('landing.section1.description')}
