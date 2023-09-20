@@ -20,16 +20,16 @@ export default function Hero() {
 
 
   return (
-    <Flex minH={{ base: "auto", lg: "100vh" }} width={"full"} justify={"center"} position={"relative"} background={"linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"} fontFamily="neue" fontWeight={"light"}>
-      <Flex mt={{ base: "6rem", lg: 20 }} gap={"3em"} px={{ base: 6, lg: 0 }} maxW={"1200px"} width={"90%"} alignItems={"center"} justify={{ base: "space-evenly", lg: "space-between" }} direction={{ base: "column", lg: "row" }}>
+    <Flex minH={{ base: "auto", lg: "100vh" }} width={"full"} justify={"center"} position={"relative"} background={"linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"} fontFamily="neue">
+      <Flex mt={{ base: "6rem", lg: 20 }} gap={"3em"} px={{ base: 4, lg: 0 }} maxW={"1200px"} width={"90%"} alignItems={"center"} justify={{ base: "space-evenly", lg: "space-between" }} direction={{ base: "column", lg: "row" }}>
         <Stack width={{ base: "100%", lg: "50%" }} spacing={5} w={'full'} zIndex={50} mx={{ base: "auto", lg: "0" }} textAlign={{ base: "center", lg: "left" }}>
           <Stack spacing={0}>
-            <Heading mb={2} color={'#FFF'} fontFamily="neue" fontWeight={'bold'} fontSize={{ base: 'xl', sm: "2xl", md: '3xl', lg: '6xl' }} lineHeight={{ base: "20px", md: '40px', lg: '60px' }}>
+            <Heading mb={2} color={'#FFF'} mx={{ base: "auto", lg: 0 }} fontFamily={'neueBold'} maxW={"550px"} fontSize={{ base: 'xl', sm: "2xl", md: '3xl', lg: '6xl' }} lineHeight={{ base: "20px", md: '40px', lg: '60px' }}>
               {t('landing.hero.title')}
             </Heading>
             <UnderlineHero />
           </Stack>
-          <Text fontSize={{ base: 'lg', lg: '2xl' }} color={'#FFF'} fontStyle={'normal'} fontWeight={400} lineHeight={'33px'}>
+          <Text fontSize={{ base: 'lg', lg: '2xl' }} color={'#FFF'} fontStyle={'normal'} fontWeight={"normal"} lineHeight={'33px'}>
             {t('landing.hero.description')}
           </Text>
           <Flex gap={"1em"} justify={{ base: "center", lg: "flex-start" }} >
@@ -40,7 +40,7 @@ export default function Hero() {
               bg={'#348793'}
               color={'#DDEBED'}
               fontSize={['18px', '24px']}
-              fontWeight={400}
+              fontWeight={100}
               onClick={getUserInfo}
               _hover={{
                 bg: '#227682',
@@ -51,12 +51,13 @@ export default function Hero() {
             </Button>
             <Button
               rightIcon={<Arrow_Right />}
+              fontFamily={"neue"}
               color={'#DDEBED'}
               variant={'outline'}
               rounded={'full'}
               padding={".5em 1.2em"}
               fontSize={{ base: '14px', lg: '21px' }}
-              fontWeight={400}
+              fontWeight={100}
               _hover={{
                 bg: 'transparent',
                 transform: 'scale(1.03)',

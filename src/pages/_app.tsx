@@ -1,5 +1,5 @@
 import React from 'react'
-import '@/styles/globals.css'
+import '../styles/fonts.css'
 import { useState } from 'react'
 import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'

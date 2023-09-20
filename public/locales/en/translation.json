@@ -12,6 +12,14 @@
       "get-started": "Get Started",
       "more": "Learn more"
     },
+    "top-events": {
+      "title": "Top Events",
+      "card": {
+        "title": "¡Web3 in action: Be an impactful volunteer in the BSL!",
+        "organizers": "Ethereum Bogota",
+        "attendees": "attendees"
+      }
+    },
     "section1": {
       "badge": "Prepare an event",
       "title": "Elevate your Event Experience",

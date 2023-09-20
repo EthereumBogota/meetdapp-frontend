@@ -12,6 +12,14 @@
       "get-started": "Empezar",
       "more": "Ver más"
     },
+    "top-events": {
+      "title": "Eventos populares",
+      "card": {
+        "title": "¡Web3 en acción: Sé un voluntari@ de impacto en la BSL!",
+        "organizers": "Ethereum Bogotá",
+        "attendees": "asistentes"
+      }
+    },
     "section1": {
       "badge": "Prepara un evento",
       "title": "Eleva la Experiencia de tu Evento",

@@ -3,7 +3,9 @@ import { extendTheme } from '@chakra-ui/react'
 const customTheme = extendTheme({
 	fonts: {
 		neue: "Neue Machina",
-		space: "Space Grotesk"
+		neueBold: "Neue Machina Bold",
+		space: "Space Grotesk",
+		spaceBold: "Space Grotesk Bold"
 	},
 	colors: {
 		brand: {
