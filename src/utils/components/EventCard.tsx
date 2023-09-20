@@ -62,12 +62,12 @@ export default function EventCard() {
         <Flex direction={'column'} gap={5} fontFamily={"space"}>
           <Flex gap={4}>
             <Image w={4} src={"/img/organization.svg"} />
-            <Text>{t('landing.top-events.card.organizers')}</Text>
+            <Text>Ethereum Bogotá</Text>
           </Flex>
 
           <Flex gap={4}>
             <Image w={4} src={"/img/location.svg"} />
-            <Text>Calle 19 #134 - 89</Text>
+            <Text>Calle 19 #134 - 89, Bogotá</Text>
           </Flex>
           <Flex gap={4}>
             <Image w={5} src={"/img/user_group.svg"} />
@@ -75,8 +75,15 @@ export default function EventCard() {
           </Flex>
         </Flex>
 
-        <Text></Text>
+        <Text
+          background={"-webkit-linear-gradient(#FF9A03, #FF0000)"}
+          backgroundClip={"text"}
+          textAlign={"right"}
+          fontFamily={"spaceBold"}
+          fontSize={"xl"}>
+          FREE
+        </Text>
       </Flex>
-    </Flex>
+    </Flex >
   )
 }
