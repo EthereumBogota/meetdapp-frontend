@@ -3,8 +3,6 @@
 import {
   Box,
   Text,
-  List,
-  ListItem,
   Image,
   Heading,
   Flex,
@@ -25,6 +23,7 @@ export default function EventCard() {
       maxW={"400px"}
     >
       <Image
+        objectFit={'cover'}
         w={"full"}
         h={'200px'}
         src={"/img/BSL.jpg"}
