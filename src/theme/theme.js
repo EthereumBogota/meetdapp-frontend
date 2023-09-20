@@ -2,11 +2,9 @@ import { extendTheme } from '@chakra-ui/react'
 
 const customTheme = extendTheme({
 	fonts: {
-		body: "Neue Machina",
-		heading: "Neue Machina",
-		tittleSections: "Space Grotesk",
-		bodySections: "Space Grotesk SemiBold"
-	  },
+		neue: "Neue Machina",
+		space: "Space Grotesk"
+	},
 	colors: {
 		brand: {
 			light: '#DDEBED',
@@ -18,13 +16,12 @@ const customTheme = extendTheme({
 	},
 	components: {
 		Progress: {
-			// Customize the colors for different states
 			baseStyle: {
 				filledTrack: {
-					bg: 'brand.light' // Background color of the progress bar
+					bg: 'brand.light'
 				},
 				track: {
-					bg: 'gray.200' // Background color of the progress track
+					bg: 'gray.200'
 				}
 			}
 		},

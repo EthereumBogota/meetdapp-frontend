@@ -25,7 +25,7 @@ export default function Footer(): React.ReactNode {
 				background={'#00001C'}
 				py={['3rem', '6rem']}
 			>
-				<Flex width={'100%'} maxW={'1300px'} direction={'column'} px={6}>
+				<Flex width={'100%'} maxW={'1200px'} direction={'column'} px={6}>
 					<Flex
 						justify={'space-between'}
 						align={'center'}

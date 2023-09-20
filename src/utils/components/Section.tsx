@@ -23,25 +23,21 @@ export default function Section(props: ISectionProps): React.ReactNode {
 
 
     return (
-        <Flex width={"100%"} maxW={"1300px"} flexDirection={'column'} color={'#00001C'}>
+        <Flex width={"100%"} maxW={"1200px"} flexDirection={'column'} color={'#00001C'} fontFamily="space" fontWeight={"normal"}>
             <Flex width={"100%"}>
                 <StackDivider >
                     <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} pb={"20px"}>
                         <Text
                             display={'block'}
-                            fontFamily="tittleSections"
                             position={'relative'}
-                            fontSize={{ base: '16px', lg: "19px" }}
-                            fontStyle={'normal'}
+                            fontSize={{ base: '15px', lg: "17px" }}
                             py={"10px"}
                         >
                             {badge}
                         </Text>
                         <Text
-                            fontFamily="tittleSections"
                             position={'relative'}
                             fontSize={{ base: "30px", lg: '38px' }}
-                            fontStyle={'normal'}
                             py={"10px"}
                         >
                             {heading}
@@ -50,11 +46,12 @@ export default function Section(props: ISectionProps): React.ReactNode {
                 </StackDivider>
             </Flex>
 
-            <Flex zIndex={50} flexDirection={{ base: 'column', lg: `${imageRight ? "row" : "row-reverse"}` }} gap={"2em"}>
-                <Stack w={{ base: 'full', lg: "50%" }}>
+            <Flex zIndex={50} justify={{ lg: "space-between" }} alignContent={{ base: "center" }} flexDirection={{ base: 'column', lg: `${imageRight ? "row" : "row-reverse"}` }}>
+                <Flex direction={"column"} justifyContent={'space-between'} h={'full'} w={{ base: 'full', lg: "50%" }} gap={'40px'}>
                     <Text
-                        fontFamily={'bodySections'}
-                        fontSize={'18px'}
+                        fontFamily="space"
+                        fontWeight={"normal"}
+                        fontSize={'20px'}
                         lineHeight={'33px'}
                     >
                         {description}
@@ -65,9 +62,10 @@ export default function Section(props: ISectionProps): React.ReactNode {
                         bg={'#348793'}
                         width={"fit-content"}
                         padding={".5em 1.5em"}
+                        fontFamily={"neue"}
                         color={'#DDEBED'}
                         fontSize={{ base: "20px", lg: '24px' }}
-                        fontWeight={400}
+                        fontWeight={"light"}
                         mt={"15px"}
                         _hover={{
                             bg: '#227682',
@@ -76,9 +74,8 @@ export default function Section(props: ISectionProps): React.ReactNode {
                         }}>
                         {button}
                     </Button>
-                </Stack>
+                </Flex>
                 <Image
-                    mx={"auto"}
                     alt={'Section 1 Image'}
                     width={{ base: "70%", md: "50%", lg: "40%" }}
                     objectFit={'cover'}
