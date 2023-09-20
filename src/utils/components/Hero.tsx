@@ -3,28 +3,21 @@ import '@/styles/globals.css'
 import Arrow_Right from './Arrow_Right'
 import UnderlineHero from './UnderlineHero'
 
-import {
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Button, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import { useWeb3Auth } from '@/services/web3auth'
 
 export default function Hero() {
   const { t } = useTranslation()
   const { getAccounts, getUserInfo, user } = useWeb3Auth()
-  
+
 
   return (
-    <Flex minH={{ base: "auto", lg: "100vh" }} width={"full"} justify={"center"} position={"relative"} background={"linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"}>
-      <Flex mt={{ base: "6rem", lg: 20 }} gap={"3em"} px={6} maxW={"1300px"} width={"90%"} alignItems={"center"} justify={{ base: "space-evenly", lg: "space-between" }} direction={{ base: "column", lg: "row" }}>
+    <Flex minH={{ base: "auto", lg: "100vh" }} width={"full"} justify={"center"} position={"relative"} background={"linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)"} fontFamily="neue" fontWeight={"light"}>
+      <Flex mt={{ base: "6rem", lg: 20 }} gap={"3em"} px={{ base: 6, lg: 0 }} maxW={"1200px"} width={"90%"} alignItems={"center"} justify={{ base: "space-evenly", lg: "space-between" }} direction={{ base: "column", lg: "row" }}>
         <Stack width={{ base: "100%", lg: "50%" }} spacing={5} w={'full'} zIndex={50} mx={{ base: "auto", lg: "0" }} textAlign={{ base: "center", lg: "left" }}>
           <Stack spacing={0}>
-            <Heading mb={2} color={'#FFF'} fontWeight={800} fontSize={{ base: 'xl', sm: "2xl", md: '3xl', lg: '6xl' }} lineHeight={{ base: "20px", md: '40px', lg: '60px' }}>
+            <Heading mb={2} color={'#FFF'} fontFamily="neue" fontWeight={'bold'} fontSize={{ base: 'xl', sm: "2xl", md: '3xl', lg: '6xl' }} lineHeight={{ base: "20px", md: '40px', lg: '60px' }}>
               {t('landing.hero.title')}
             </Heading>
             <UnderlineHero />
@@ -39,7 +32,7 @@ export default function Hero() {
               rounded={'full'}
               bg={'#348793'}
               color={'#DDEBED'}
-              fontSize={['20px', '24px']}
+              fontSize={['18px', '24px']}
               fontWeight={400}
               onClick={getUserInfo}
               _hover={{
@@ -55,7 +48,7 @@ export default function Hero() {
               variant={'outline'}
               rounded={'full'}
               padding={".5em 1.2em"}
-              fontSize={['17px', '21px']}
+              fontSize={{ base: '14px', lg: '21px' }}
               fontWeight={400}
               _hover={{
                 bg: 'transparent',
@@ -80,6 +73,7 @@ export default function Hero() {
           height={{ lg: "100%" }}
           left={{ xl: "6em" }}
           mx={"auto"}
+          overflow={"visible"}
         />
       </Flex>
       <Image

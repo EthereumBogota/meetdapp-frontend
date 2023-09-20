@@ -2,7 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import Hero from '../utils/components/Hero'
 import MiddleSections from '../utils/components/MiddleSections'
-import './i18n'
+import '../config/i18n'
 
 
 const metadata = {

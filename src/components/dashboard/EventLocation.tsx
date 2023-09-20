@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
 	Stack,
 	Flex,
@@ -15,8 +15,8 @@ import {
 	Avatar
 } from '@chakra-ui/react'
 import { CalendarIcon, InfoIcon } from '@chakra-ui/icons'
-import avatar from '../../assets/navbar/Avatar.png'
 const EventLocation = () => {
+
 	return (
 		<Flex
 
