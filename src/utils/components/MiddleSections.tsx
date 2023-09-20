@@ -4,6 +4,7 @@ import { Flex } from '@chakra-ui/react'
 import Section from './Section'
 import { useTranslation } from 'react-i18next'
 import Events from './Events'
+import FAQ from './FAQ'
 
 export default function MiddleSections() {
   const { t } = useTranslation()
@@ -43,6 +44,8 @@ export default function MiddleSections() {
         image={'/img/Section 4 Image.png'}
         imageRight={false}
       />
+
+      <FAQ />
     </Flex >
 
   )

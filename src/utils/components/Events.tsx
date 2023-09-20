@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import EventCard from "./EventCard";
+import Link from "next/link";
 
 export default function Events(): React.ReactNode {
   const { t } = useTranslation()
@@ -17,15 +18,11 @@ export default function Events(): React.ReactNode {
           {t('landing.top-events.title')} 🔥
         </Heading>
         <Grid width={"full"} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={{ base: 10, lg: 16 }}>
-          <GridItem justifySelf={"center"}>
-            <EventCard />
-          </GridItem>
-          <GridItem justifySelf={"center"}>
-            <EventCard />
-          </GridItem>
-          <GridItem justifySelf={"center"}>
-            <EventCard />
-          </GridItem>
+          <Link href={"/dashboard"}>
+            <GridItem justifySelf={"center"}>
+              <EventCard />
+            </GridItem>
+          </Link>
         </Grid>
       </Flex>
     </>

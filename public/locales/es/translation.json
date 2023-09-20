@@ -43,6 +43,9 @@
       "title": "Tu Seguridad, Nuestra Prioridad",
       "description": "Protege la experiencia de tu evento. Nuestra plataforma garantiza que cada evento sea seguro y transparente, brindando tranquilidad. Tus datos personales permanecen privados, lo que permite que te concentres absolutamente en lo que realmente importa: conectar con otras personas en un entorno sin preocupaciones.",
       "button": "Discover More"
+    },
+    "FAQ": {
+      "title": "Preguntas Frecuentes (PF)"
     }
   },
   "footer": {

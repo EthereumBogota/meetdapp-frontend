@@ -22,7 +22,14 @@ export default function Section(props: ISectionProps): React.ReactNode {
 
 
   return (
-    <Flex width={"90%"} maxW={"1200px"} flexDirection={'column'} color={'#00001C'} fontFamily="space" fontWeight={"normal"} px={{ base: 4, lg: 0 }}>
+    <Flex
+      width={"90%"}
+      maxW={"1200px"}
+      flexDirection={'column'}
+      color={'#00001C'}
+      fontFamily="space"
+      fontWeight={"normal"}
+      px={{ base: 4, lg: 0 }}>
       <Flex width={"100%"}>
         <StackDivider >
           <Heading
@@ -48,8 +55,13 @@ export default function Section(props: ISectionProps): React.ReactNode {
         </StackDivider>
       </Flex>
 
-      <Flex zIndex={50} justify={{ lg: "space-between" }} alignContent={{ base: "center" }} flexDirection={{ base: 'column', lg: `${imageRight ? "row" : "row-reverse"}` }}>
-        <Flex direction={"column"} justifyContent={'space-between'} h={'full'} w={{ base: 'full', lg: "50%" }} gap={'40px'}>
+      <Flex
+        zIndex={50}
+        justify={{ lg: "space-between" }}
+        alignContent={{ base: "center" }}
+        gap={{ base: "20px", lg: 0 }}
+        flexDirection={{ base: 'column', lg: `${imageRight ? "row" : "row-reverse"}` }}>
+        <Flex direction={"column"} justifyContent={'space-between'} h={'full'} w={{ base: 'full', lg: "50%" }} gap={{ base: "20px", lg: '30px' }}>
           <Text
             fontFamily="space"
             fontWeight={"normal"}
@@ -68,7 +80,6 @@ export default function Section(props: ISectionProps): React.ReactNode {
             color={'#DDEBED'}
             fontSize={{ base: "20px", lg: '24px' }}
             fontWeight={"light"}
-            mt={"15px"}
             _hover={{
               bg: '#227682',
               transform: 'scale(1.03)',
@@ -81,6 +92,7 @@ export default function Section(props: ISectionProps): React.ReactNode {
           alt={'Section 1 Image'}
           width={{ base: "70%", md: "50%", lg: "40%" }}
           objectFit={'cover'}
+          mx={{ base: "auto", lg: 0 }}
           src={image}
         />
       </Flex>
