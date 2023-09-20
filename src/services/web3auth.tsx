@@ -6,6 +6,7 @@ import { createContext, FunctionComponent, ReactNode, useCallback, useContext, u
 import { CHAIN_CONFIG, CHAIN_CONFIG_TYPE } from "../config/chainConfig";
 import { WEB3AUTH_NETWORK_TYPE } from "../config/web3AuthNetwork";
 import { getWalletProvider, IWalletProvider } from "./walletProvider";
+import { User } from "@/types/User";
 
 export interface IWeb3AuthContext {
 	web3Auth: Web3Auth | null
@@ -13,7 +14,7 @@ export interface IWeb3AuthContext {
 	isLoading: boolean
 	user: unknown
 	chain: string
-	login: () => Promise<void>
+	login: () => Promise<SafeEventEmitterProvider | null | undefined>
 	logout: () => Promise<void>
 	getUserInfo: () => Promise<any>
 	signMessage: () => Promise<any>
@@ -23,6 +24,7 @@ export interface IWeb3AuthContext {
 	signAndSendTransaction: () => Promise<void>
 	addChain: () => Promise<void>
 	switchChain: () => Promise<void>
+	userInfo: User | null
 }
 export const Web3AuthContext = createContext<IWeb3AuthContext>({
 	web3Auth: null,
@@ -30,7 +32,7 @@ export const Web3AuthContext = createContext<IWeb3AuthContext>({
 	isLoading: false,
 	user: null,
 	chain: '',
-	login: async () => {},
+	login: async () => null,
 	logout: async () => {},
 	getUserInfo: async () => {},
 	signMessage: async () => {},
@@ -39,7 +41,8 @@ export const Web3AuthContext = createContext<IWeb3AuthContext>({
 	signTransaction: async () => {},
 	signAndSendTransaction: async () => {},
 	addChain: async () => {},
-	switchChain: async () => {}
+	switchChain: async () => {},
+	userInfo: null
 })
 export function useWeb3Auth(): IWeb3AuthContext {
 	return useContext(Web3AuthContext)
@@ -62,6 +65,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 	const [web3Auth, setWeb3Auth] = useState<Web3Auth | null>(null)
 	const [provider, setProvider] = useState<IWalletProvider | null>(null)
 	const [user, setUser] = useState<unknown | null>(null)
+	const [userInfo, setUserInfo] = useState<User | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const newChain: CHAIN_CONFIG_TYPE = 'mainnet'
 	const web3network : WEB3AUTH_NETWORK_TYPE = 'mainnet'
@@ -108,8 +112,10 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			try {
 				const currentChainConfig = CHAIN_CONFIG[chain]
 				setIsLoading(true)
-				const clientId =
-					'BJQsPasIAvyBj2h51LxBuNBty_WSDufuKpGJRFBhVhmuJRMSqnGDCgVm168lTnpiCLh8lxxPeBksuExyAYoW0JI'
+				const clientId = process.env.NEXT_PUBLIC_YOUR_WEB3AUTH_CLIENT_ID
+				if (!clientId) {
+					throw new Error('Please provide your web3auth client id')
+				}
 				const web3AuthInstance = new Web3Auth({
 					chainConfig: currentChainConfig,
 					// get your client id from https://dashboard.web3auth.io
@@ -137,23 +143,6 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 					}
 				})
 				web3AuthInstance.configureAdapter(adapter)
-				const plugin = new TorusWalletConnectorPlugin({
-					walletInitOptions: {
-						whiteLabel: {
-							logoDark:
-								'https://avatars.githubusercontent.com/u/37784849?s=200&v=4',
-							logoLight:
-								'https://avatars.githubusercontent.com/u/37784849?s=200&v=4',
-							theme: {
-								isDark: true,
-								colors: {}
-							}
-						},
-						buildEnv: 'production',
-						useWalletConnect: true
-					}
-				})
-				web3AuthInstance.addPlugin(plugin)
 				subscribeAuthEvents(web3AuthInstance)
 				setWeb3Auth(web3AuthInstance)
 				await web3AuthInstance.initModal({
@@ -191,9 +180,11 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			return
 		}
 		const localProvider = await web3Auth.connect()
-		console.log('local provider is ',localProvider);
-		
-		setWalletProvider(localProvider!)
+		if(localProvider){
+			setWalletProvider(localProvider)
+			return localProvider
+		}
+		return null
 	}
 
 	const logout = async () => {
@@ -250,8 +241,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			return
 		}
 		const accounts = await provider.getAccounts()
-    console.log('accounts', accounts);
-    
+    return accounts
 	}
 
 	const getBalance = async () => {
@@ -314,7 +304,8 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 		signTransaction,
 		signAndSendTransaction,
 		addChain,
-		switchChain
+		switchChain,
+		userInfo
 	}
 	return (
 		<Web3AuthContext.Provider value={contextProvider}>
