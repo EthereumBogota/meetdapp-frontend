@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
 	Stack,
 	Flex,
@@ -15,8 +15,8 @@ import {
 	Avatar
 } from '@chakra-ui/react'
 import { CalendarIcon, InfoIcon } from '@chakra-ui/icons'
-import avatar from '../../assets/navbar/Avatar.png'
 const EventLocation = () => {
+
 	return (
 		<Flex
 			minH='500px'
@@ -63,7 +63,7 @@ const EventLocation = () => {
 				<Box w='24px' h='24px' bg='gray.200'>
 					<InfoIcon />
 				</Box>
-				<Text fontSize='md' >
+				<Text fontSize='md'>
 					{'Restaurante Bitácora, Calle 85 # 12-51, Bogotá, Colombia'}
 				</Text>
 			</HStack>

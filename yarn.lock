@@ -2534,6 +2534,11 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
+"@googlemaps/three@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@googlemaps/three/-/three-4.0.5.tgz#08c5035fa9b3319845110548dce8f2123d729129"
+  integrity sha512-VzuUG55ywTIdJKwTsZMdYswX70ve3PiU2U3yQFchlX6dudMqdRqE0tpSfmaIDBBT0CwQnl4oEVLk5Z+5u16RlQ==
+
 "@humanwhocodes/config-array@^0.11.10":
   version "0.11.10"
   resolved "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.10.tgz"
