@@ -12,6 +12,13 @@
       "get-started": "Empezar",
       "more": "Ver más"
     },
+    "top-events": {
+      "title": "Eventos populares",
+      "card": {
+        "title": "¡Web3 en acción: Sé un voluntari@ de impacto en la BSL!",
+        "attendees": "asistentes"
+      }
+    },
     "section1": {
       "badge": "Prepara un evento",
       "title": "Eleva la Experiencia de tu Evento",
@@ -35,6 +42,9 @@
       "title": "Tu Seguridad, Nuestra Prioridad",
       "description": "Protege la experiencia de tu evento. Nuestra plataforma garantiza que cada evento sea seguro y transparente, brindando tranquilidad. Tus datos personales permanecen privados, lo que permite que te concentres absolutamente en lo que realmente importa: conectar con otras personas en un entorno sin preocupaciones.",
       "button": "Discover More"
+    },
+    "FAQ": {
+      "title": "Preguntas Frecuentes (PF)"
     }
   },
   "footer": {

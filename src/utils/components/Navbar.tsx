@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import { Box, Flex, Text, Button, Input, ButtonGroup, Avatar, CloseButton, Tooltip } from '@chakra-ui/react'
+import { Box, Flex, Text, Button, ButtonGroup, Avatar, CloseButton, Tooltip } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
@@ -83,7 +83,7 @@ export default function Navbar(): React.ReactNode {
 					px={{ base: 4, lg: 0 }}
 					maxWidth={'1200px'}
 				>
-					<Link href={'/'}>
+					<Link href={'/'} _hover={{ textDecoration: "none" }}>
 						<Logo />
 					</Link>
 

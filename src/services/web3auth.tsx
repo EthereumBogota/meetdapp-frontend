@@ -1,7 +1,6 @@
 import { ADAPTER_EVENTS, CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import { Web3Auth } from "@web3auth/modal";
 import { OpenloginAdapter } from "@web3auth/openlogin-adapter";
-import { TorusWalletConnectorPlugin } from "@web3auth/torus-wallet-connector-plugin";
 import { createContext, FunctionComponent, ReactNode, useCallback, useContext, useEffect, useState } from "react";
 import { CHAIN_CONFIG, CHAIN_CONFIG_TYPE } from "../config/chainConfig";
 import { WEB3AUTH_NETWORK_TYPE } from "../config/web3AuthNetwork";
@@ -33,15 +32,15 @@ export const Web3AuthContext = createContext<IWeb3AuthContext>({
 	user: null,
 	chain: '',
 	login: async () => null,
-	logout: async () => {},
-	getUserInfo: async () => {},
-	signMessage: async () => {},
-	getAccounts: async () => {},
-	getBalance: async () => {},
-	signTransaction: async () => {},
-	signAndSendTransaction: async () => {},
-	addChain: async () => {},
-	switchChain: async () => {},
+	logout: async () => { },
+	getUserInfo: async () => { },
+	signMessage: async () => { },
+	getAccounts: async () => { },
+	getBalance: async () => { },
+	signTransaction: async () => { },
+	signAndSendTransaction: async () => { },
+	addChain: async () => { },
+	switchChain: async () => { },
 	userInfo: null
 })
 export function useWeb3Auth(): IWeb3AuthContext {
@@ -68,7 +67,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 	const [userInfo, setUserInfo] = useState<User | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const newChain: CHAIN_CONFIG_TYPE = 'mainnet'
-	const web3network : WEB3AUTH_NETWORK_TYPE = 'mainnet'
+	const web3network: WEB3AUTH_NETWORK_TYPE = 'mainnet'
 	const setWalletProvider = useCallback(
 		(web3authProvider: SafeEventEmitterProvider) => {
 			const walletProvider = getWalletProvider(
@@ -77,7 +76,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 				uiConsole
 			)
 			console.log('wallet provider is', walletProvider);
-			
+
 			setProvider(walletProvider)
 		},
 		[chain]
@@ -85,7 +84,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 
 	useEffect(() => {
 		console.log('entering to function');
-		
+
 		const subscribeAuthEvents = (web3auth: Web3Auth) => {
 			// Can subscribe to all ADAPTER_EVENTS and LOGIN_MODAL_EVENTS
 			web3auth.on(ADAPTER_EVENTS.CONNECTED, (data: unknown) => {
@@ -180,7 +179,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			return
 		}
 		const localProvider = await web3Auth.connect()
-		if(localProvider){
+		if (localProvider) {
 			setWalletProvider(localProvider)
 			return localProvider
 		}
@@ -241,7 +240,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 			return
 		}
 		const accounts = await provider.getAccounts()
-    return accounts
+		return accounts
 	}
 
 	const getBalance = async () => {
@@ -282,7 +281,7 @@ export const Web3AuthProvider: FunctionComponent<IWeb3AuthState> = ({
 
 	const uiConsole = (...args: unknown[]): void => {
 		console.log(args);
-		
+
 		// const el = document.querySelector('#console>p')
 		// if (el) {
 		// 	el.innerHTML = JSON.stringify(args || {}, null, 2)

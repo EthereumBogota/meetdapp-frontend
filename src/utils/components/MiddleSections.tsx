@@ -3,25 +3,17 @@ import '@/styles/globals.css'
 import { Flex } from '@chakra-ui/react'
 import Section from './Section'
 import { useTranslation } from 'react-i18next'
+import Events from './Events'
+import FAQ from './FAQ'
 
 export default function MiddleSections() {
 	const { t } = useTranslation()
 
 	return (
-		<Flex
-			width={'100%'}
-			zIndex={50}
-			gap={'8em'}
-			direction={'column'}
-			align={'center'}
-			justify={'center'}
-			py={'5em'}
-      data-header-color={'black'}
-			background='#DDEBED'
-			px={{ base: '2em', md: '4em', lg: '6em' }}
-		>
-			<Section
-				badge={t('landing.section1.badge')}
+		<Flex width={"100%"} zIndex={50} gap={"8em"} direction={"column"} align={"center"} justify={"center"} py={"5em"} background="#DDEBED" >
+			<Events />
+
+			<Section badge={t('landing.section1.badge')}
 				heading={t('landing.section1.title')}
 				description={t('landing.section1.description')}
 				button={t('landing.section1.button')}
@@ -47,14 +39,16 @@ export default function MiddleSections() {
 				imageRight={true}
 			/>
 
-			<Section
-				badge={t('landing.section4.badge')}
+			<Section badge={t('landing.section4.badge')}
 				heading={t('landing.section4.title')}
 				description={t('landing.section4.description')}
 				button={t('landing.section4.button')}
 				image={'/img/Section 4 Image.png'}
 				imageRight={false}
 			/>
-		</Flex>
+
+			<FAQ />
+		</Flex >
+
 	)
 }
