@@ -18,15 +18,15 @@ const EventDetails = () => {
 			w='70%'
 			flexDirection='column'
 			px={12}
-      py={10}
+      		py={10}
 		>
-			<VStack align='start' spacing={3}>
+			<VStack align='start' spacing={5}>
 				{' '}
 				{/* Añadido VStack para apilar los textos verticalmente */}
-				<Text fontSize='1.953rem' fontFamily={'bodySections'} fontWeight='semibold' color={'#00001C'}>
+				<Text fontSize='1.953rem' fontFamily={'space'} fontWeight='semibold' color={'#00001C'}>
           Detalles del Evento
 				</Text>
-				<Text fontSize='lg' color={'#00001C'} fontFamily={'tittleSections'}>
+				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
           🌐 Web3 en Acción: Sé voluntari@ de impacto 🌐<br />
           ¡Únete a nosotros el Jueves 14 de septiembre a las 6pm en el restaurante Bitácora (Cra. 19 # 134-69) para una experiencia única que te conectará con el poder de ser un voluntario web3!<br /><br />
 

@@ -1,16 +1,10 @@
 import React, { useEffect } from 'react'
 import {
-	Stack,
 	Flex,
-	Button,
 	Text,
 	VStack,
-	useBreakpointValue,
 	Box,
 	HStack,
-	Image,
-	Spacer,
-	Link,
 	Divider,
 	Avatar
 } from '@chakra-ui/react'
@@ -41,30 +35,30 @@ const EventLocation = () => {
 				<VStack align='start' spacing={0}>
 					{' '}
 					{/* Añadido VStack para apilar los textos verticalmente */}
-					<Text fontSize='md' fontWeight='semibold' color={'gray.500'}>
+					<Text fontSize='md' fontFamily={'space'} fontWeight='semibold' color={'gray.500'}>
 						Hosted By
 					</Text>
-					<Text fontSize='lg' color={'black'}>
+					<Text fontSize='lg' fontFamily={'space'} color={'#00001C'}>
 						{'Ethereum Bogotá'}
 					</Text>
 				</VStack>
 			</HStack>
 
 			{/* Línea divisora */}
-			<Divider mb={4} borderColor={'gray.400'} />
+			<Divider mb={4} borderColor={'gray.500'} />
 
 			{/* Calendario y Fecha */}
 			<HStack spacing={4} mb={4} align='center'>
 				<Box w='24px' h='24px' bg='gray.200'>
 					<CalendarIcon />
 				</Box>
-				<Text fontSize='md'>March 17, 2023</Text>
+				<Text fontSize='md' color={'#00001C'} >March 17, 2023</Text>
 			</HStack>
 			<HStack spacing={4} mb={4} align='center'>
 				<Box w='24px' h='24px' bg='gray.200'>
 					<InfoIcon />
 				</Box>
-				<Text fontSize='md'>
+				<Text fontSize='md' color={'#00001C'} >
 					{'Restaurante Bitácora, Calle 85 # 12-51, Bogotá, Colombia'}
 				</Text>
 			</HStack>

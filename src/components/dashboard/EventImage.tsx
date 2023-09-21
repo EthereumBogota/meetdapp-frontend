@@ -1,16 +1,8 @@
 import React from 'react'
 import {
-	Stack,
 	Flex,
-	Button,
 	Text,
-	VStack,
-	useBreakpointValue,
 	Box,
-	HStack,
-	Image,
-	Spacer,
-	Link
 } from '@chakra-ui/react'
 
 const EventImage = () => {
@@ -28,12 +20,12 @@ const EventImage = () => {
 			>
 				<Text
 					color='#DDEBED'
-					fontFamily={'tittleSections'}
+					fontFamily={'space'}
 					fontWeight={'bold'}
 					fontSize={{ base: '16px', lg: '19px' }}
 				>
 					{/*TODO pick event title from database*/}
-					{'Event Title Event Title Event Title Event Title Event Title '}
+					{'¡Web3 en Acción: Sé voluntari@ de impacto!  '}
 				</Text>
 			</Box>
 			<Flex

@@ -27,6 +27,7 @@ const Dashboard = () => {
 				}
 				direction={{ base: 'column', lg: 'column' }}
 				gap={6}
+				paddingBottom={6}
 			>
 				<Flex
 					paddingTop={{ base: '2rem', lg: 14 }}
