@@ -34,9 +34,11 @@ type Props = {
 function Event(props: Props): JSX.Element {
 	const { event } = props
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
+	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [meetdAppFactoryContract, setMeetdAppFactoryContract] =
-		useState<MeetdAppFactory | null>(null)
+	const [meetdAppEventContract, setMeetdAppEventContract] =
+		useState<MeetdAppEvent | null>(null)
+
 	const router = useRouter()
 
 	// TODO: generate nanoId
@@ -78,21 +80,13 @@ function Event(props: Props): JSX.Element {
 				(window as any).ethereum
 			).getSigner()
 
-			const eventId: string = 'mC8cCmWH5Ws8IZQy'
-			const bytesEventId = ethers.utils.toUtf8Bytes(eventId)
-			const hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
+			if (meetdAppEventContract) {
+				const meetdAppFactoryContractWithSigner: MeetdAppEvent =
+					meetdAppEventContract.connect(signer)
 
-			if (meetdAppFactoryContract) {
-				const eventContractAdress: string =
-					await meetdAppFactoryContract.mapIdEvent(hashBytes32EventId)
-
-				const meetdAppEventContract = new ethers.Contract(
-					eventContractAdress,
-					MeetdAppFactoryEventJson.abi,
-					signer
-				) as MeetdAppEvent
-
-				const tx = await meetdAppEventContract.buyTicket({ gasLimit: 2500000 })
+				const tx = await meetdAppFactoryContractWithSigner.buyTicket({
+					gasLimit: 2500000
+				})
 				await tx.wait(1)
 
 				setIsBuyTicketLoading(false)
@@ -129,10 +123,29 @@ function Event(props: Props): JSX.Element {
 			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
 				MeetdAppFactoryJson.address,
 				MeetdAppFactoryJson.abi,
-				new ethers.providers.JsonRpcProvider(PROVIDER)
+				rpcProvider
 			) as MeetdAppFactory
 
-			setMeetdAppFactoryContract(meetdAppFactoryContract)
+			const eventId: string = 'mC8cCmWH5Ws8IZQy'
+			const bytesEventId = ethers.utils.toUtf8Bytes(eventId)
+			const hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
+
+			const eventContractAdress: string =
+				await meetdAppFactoryContract.mapIdEvent(hashBytes32EventId)
+
+			const meetdAppEventContract = new ethers.Contract(
+				eventContractAdress,
+				MeetdAppFactoryEventJson.abi,
+				rpcProvider
+			) as MeetdAppEvent
+
+			if (address) {
+				const ticket: boolean =
+					await meetdAppEventContract.eventAttendees(address)
+				setHasTicket(ticket)
+			}
+
+			setMeetdAppEventContract(meetdAppEventContract)
 			setIsLoading(false)
 		}, 3000)
 	}
@@ -202,6 +215,7 @@ function Event(props: Props): JSX.Element {
 							<GetTicketCard
 								getTicket={onBuyTicket}
 								isBuyTicketLoading={isBuyTicketLoading}
+								hasTicket={hasTicket}
 							/>
 						</Flex>
 					</Flex>
