@@ -18,6 +18,8 @@ export default function Events(props: Props): React.ReactNode {
 	const { isLoading } = props
 	const { t } = useTranslation()
 
+	const eventId: string = 'mC8cCmWH5Ws8IZQy'
+
 	return (
 		<>
 			<Flex
@@ -46,7 +48,7 @@ export default function Events(props: Props): React.ReactNode {
 					>
 						<Link
 							href={{
-								pathname: `/events/${first_event.id}`
+								pathname: `/events/${eventId}`
 							}}
 						>
 							<GridItem
