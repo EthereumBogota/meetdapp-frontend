@@ -108,6 +108,9 @@
     "error-code": "Error code",
     "home": "Go back home"
   },
+  "event": {
+    "title": ""
+  },
   "toasts": {
     "ticket-bought": {
       "title": "Ticket was bought!",
@@ -116,6 +119,18 @@
     "failed": {
       "title": "Transaction failed.",
       "description": "The transaction failed. Try again."
+    },
+    "install-metamask": {
+      "title": "Install MetaMask",
+      "description": "MetaMask is not installed in your computer"
+    },
+    "connect-metamask": {
+      "title": "Connect your accout",
+      "description": "MetaMask account is  not connected."
+    },
+    "change-network": {
+      "title": "Not valid network",
+      "description": "Set your network to mumbai to get your ticket"
     }
   }
 }

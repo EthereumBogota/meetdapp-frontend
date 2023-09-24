@@ -14,13 +14,13 @@ const Attendees = () => {
 			p={{ base: 5, md: 7 }}
 		>
 			<Text
-				fontSize='1.953rem'
+				fontSize={{ base: '2xl', lg: '3xl' }}
 				fontFamily={'space'}
 				fontWeight='semibold'
 				color={'#00001C'}
 				textAlign={{ base: 'start', md: 'start' }}
 			>
-				X Asistentes
+				Asistentes
 			</Text>
 
 			<SimpleGrid columns={{ sm: 2, md: 3 }} spacing='8'>

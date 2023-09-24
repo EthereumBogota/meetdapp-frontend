@@ -20,21 +20,27 @@ import Footer from '@/components/shared/Footer'
 import '../../../config/i18n'
 import { CHAINID, PROVIDER } from '@/constants/constants'
 import { useAccount, useNetwork } from 'wagmi'
+import { Event, EventDTO } from '@/models/event.model'
+import { mapDTOtoEvent } from '@/functions/dto'
+
+const initialEvent: Event = {
+	id: '',
+	name: '',
+	description: '',
+	location: '',
+	totalTickets: 0,
+	remainingTickets: 0,
+	startTime: 0,
+	endTime: 0,
+	reedemableTime: 0,
+	ownerAddress: '',
+	nftAddress: ''
+}
 import Loader from '@/components/shared/Loader'
 import { useTranslation } from 'react-i18next'
 
-interface Event {
-	id: string
-	title: string
-	description: string
-}
-
-type Props = {
-	event: Event
-}
-
-function Event(props: Props): JSX.Element {
-	const { event } = props
+function Event(): JSX.Element {
+	const [event, setEvent] = useState<Event>(initialEvent)
 	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -54,20 +60,38 @@ function Event(props: Props): JSX.Element {
 		const ethereum = (window as any).ethereum
 
 		if (!ethereum) {
-			// TODO: i18n
-			alert('MetaMask no está instalado en este navegador.')
+			toast({
+				title: t('toasts.install-metamask.title'),
+				description: t('toasts.install-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: false,
+				position: 'top-right'
+			})
 			return
 		}
 
 		if (!address) {
-			// TODO: i18n
-			alert('Conecta tu cuenta de MetaMask para comprar un ticket.')
+			toast({
+				title: t('toasts.connect-metamask.title'),
+				description: t('toasts.connect-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: false,
+				position: 'top-right'
+			})
 			return
 		}
 
 		if (chain?.id !== CHAINID) {
-			// TODO: i18n
-			alert('Cambia a la red mumbai para comprar un ticket.')
+			toast({
+				title: t('toasts.change-network.title'),
+				description: t('toasts.change-network.description'),
+				status: 'warning',
+				duration: 2000,
+				isClosable: false,
+				position: 'top-right'
+			})
 			return
 		}
 
@@ -92,6 +116,10 @@ function Event(props: Props): JSX.Element {
 				})
 				await tx.wait(1)
 
+				const newEvent = event
+				newEvent.remainingTickets = newEvent.remainingTickets - 1
+				setEvent(newEvent)
+
 				setIsBuyTicketLoading(false)
 				setHasTicket(true)
 
@@ -99,7 +127,7 @@ function Event(props: Props): JSX.Element {
 					title: t('toasts.ticket-bought.title'),
 					description: t('toasts.ticket-bought.description'),
 					status: 'success',
-					duration: 3000,
+					duration: 2000,
 					isClosable: false,
 					position: 'top-right'
 				})
@@ -109,33 +137,41 @@ function Event(props: Props): JSX.Element {
 
 			if (error instanceof Error) {
 				if (error.message.includes('user rejected transaction')) {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: false,
+						position: 'top-right'
+					})
 					return
 				} else if (error.message.includes('transaction failed')) {
 					toast({
-						title: 'Could not create account',
-						description: '',
-						status: 'success',
-						duration: 3000,
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
 						isClosable: false,
 						position: 'top-right'
 					})
 				} else {
 					console.error('error: ', error)
 					toast({
-						title: 'Account created.',
-						description: "We've created your account for you.",
-						status: 'success',
-						duration: 3000,
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
 						isClosable: false,
 						position: 'top-right'
 					})
 				}
 			} else {
 				toast({
-					title: 'Account created.',
-					description: "We've created your account for you.",
-					status: 'success',
-					duration: 3000,
+					title: t('toasts.failed.title'),
+					description: t('toasts.failed.description'),
+					status: 'error',
+					duration: 2000,
 					isClosable: false,
 					position: 'top-right'
 				})
@@ -167,6 +203,22 @@ function Event(props: Props): JSX.Element {
 				rpcProvider
 			) as MeetdAppEvent
 
+			const eventDTO: EventDTO = {
+				id: await eventContract.eventId(),
+				name: await eventContract.eventName(),
+				description: await eventContract.eventDescription(),
+				location: await eventContract.eventLocation(),
+				totalTickets: await eventContract.eventTotalTickets(),
+				remainingTickets: await eventContract.eventRemainingTickets(),
+				startTime: await eventContract.eventStartTime(),
+				endTime: await eventContract.eventRemainingTickets(),
+				reedemableTime: await eventContract.eventReedemableTime(),
+				ownerAddress: await eventContract.eventOwner(),
+				nftAddress: await eventContract.eventNfts()
+			}
+
+			setEvent(mapDTOtoEvent(eventDTO))
+
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
 				setHasTicket(ticket)
@@ -176,7 +228,7 @@ function Event(props: Props): JSX.Element {
 
 			setMeetdAppEventContract(eventContract)
 			setIsLoading(false)
-		}, 3000)
+		}, 1000)
 	}
 
 	useEffect(() => {
@@ -196,7 +248,6 @@ function Event(props: Props): JSX.Element {
 	return (
 		<>
 			<Navbar />
-
 			<Flex
 				background={
 					'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
@@ -211,7 +262,7 @@ function Event(props: Props): JSX.Element {
 				) : (
 					<>
 						<Flex
-							mt={'8em'}
+							mt={'9em'}
 							mb={'3em'}
 							maxW={'1200px'}
 							width={'90%'}
@@ -225,7 +276,8 @@ function Event(props: Props): JSX.Element {
 								flex={7}
 								w={'full'}
 								gap={'3em'}
-								order={{ base: 1, lg: 0 }}
+								alignItems={'center'}
+								justify={'center'}
 							>
 								<EventImage />
 								<EventDetails />
@@ -235,21 +287,21 @@ function Event(props: Props): JSX.Element {
 							</Flex>
 
 							<Flex
-								direction={'column'}
-								flex={3}
-								w={'full'}
+								width={'full'}
+								alignItems={'center'}
 								gap={'3em'}
-								order={{ base: 0, lg: 1 }}
+								flex={3}
+								direction={'column'}
 							>
 								<EventLocation />
 								<GetTicketCard
+									event={event}
 									getTicket={onBuyTicket}
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
 								/>
 							</Flex>
 						</Flex>
-
 						<Flex
 							mt={'8em'}
 							width={'90%'}
@@ -267,6 +319,7 @@ function Event(props: Props): JSX.Element {
 								<Attendees />
 								<TagsSection />
 								<GetTicketCard
+									event={event}
 									getTicket={onBuyTicket}
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}

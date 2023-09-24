@@ -54,11 +54,11 @@ const EventLocation = () => {
 					Restaurante Bitácora, Calle 85 # 12-51, Bogotá, Colombia
 				</Text>
 			</HStack>
-			<Box flex='1' w='100%' h='full' bg='gray.300' borderRadius='md' mt={4}>
+			{/* <Box flex='1' w='100%' h='full' bg='gray.300' borderRadius='md' mt={4}>
 				<Text textAlign='center' verticalAlign='middle' m='auto'>
 					Map Placeholder
 				</Text>
-			</Box>
+			</Box> */}
 		</Flex>
 	)
 }

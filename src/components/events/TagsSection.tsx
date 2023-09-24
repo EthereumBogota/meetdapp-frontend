@@ -15,7 +15,7 @@ const TagsSection = () => {
 		>
 			<VStack align='start' spacing={5}>
 				<Text
-					fontSize='1.953rem'
+					fontSize={{ base: '2xl', lg: '3xl' }}
 					fontFamily={'space'}
 					fontWeight='semibold'
 					color={'#00001C'}

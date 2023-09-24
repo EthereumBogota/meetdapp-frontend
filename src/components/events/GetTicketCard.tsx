@@ -1,14 +1,16 @@
 import React from 'react'
-import { Flex, Button, Text } from '@chakra-ui/react'
+import { Flex, Button, Text, VStack } from '@chakra-ui/react'
+import { Event } from '@/models/event.model'
 
 type Props = {
+	event: Event
 	getTicket: () => Promise<void>
 	isBuyTicketLoading: boolean
 	hasTicket: boolean
 }
 
 const GetTicketCard = (props: Props) => {
-	const { getTicket, isBuyTicketLoading, hasTicket } = props
+	const { event, getTicket, isBuyTicketLoading, hasTicket } = props
 	return (
 		<Flex
 			h={'fit-content'}
@@ -32,15 +34,16 @@ const GetTicketCard = (props: Props) => {
 				direction={{ base: 'row', lg: 'column' }}
 				gap={3}
 				justifyContent={'center'}
+				alignItems={'center'}
 			>
 				<Text
-					fontSize='lg'
+					fontSize={{ base: 'md', lg: 'lg' }}
 					fontFamily={'space'}
 					fontWeight='semibold'
 					color={'#00001C'}
 					textAlign={'center'}
 				>
-					GRATIS • Quedan 7 cupos
+					¡GRATIS! • Quedan {event.remainingTickets} cupos
 				</Text>
 				{hasTicket ? (
 					<Button
@@ -52,7 +55,7 @@ const GetTicketCard = (props: Props) => {
 						bg={'teal'}
 						color={'#FFF'}
 						fontFamily={'neue'}
-						fontSize={['18px', '22px']}
+						fontSize={{ base: 'md', lg: 'lg' }}
 						fontWeight={400}
 						_active={{
 							transform: 'scale(0.98)'

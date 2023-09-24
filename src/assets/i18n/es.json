@@ -114,8 +114,20 @@
       "description": "El tiquete fue comprado exitosamente."
     },
     "failed": {
-      "title": "Transaction failed.",
-      "description": "La transacción falló. Intenta de nuevo"
+      "title": "Transacción fallida",
+      "description": "La transacción falló. Intenta de nuevo."
+    },
+    "install-metamask": {
+      "title": "Instala MetaMask",
+      "description": "MetaMask no está instalado en este navegador."
+    },
+    "connect-metamask": {
+      "title": "Cuenta desconectada",
+      "description": "Conecta tu cuenta de MetaMask para comprar un tiquete."
+    },
+    "change-network": {
+      "title": "Red no válida",
+      "description": "Cambia a la red Mumbai para comprar un tiquete."
     }
   }
 }

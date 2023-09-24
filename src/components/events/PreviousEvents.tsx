@@ -17,7 +17,7 @@ export default function PreviousEvents() {
 			>
 				<VStack align='start' justifyContent={'flex-start'} spacing={0}>
 					<Text
-						fontSize='1.953rem'
+						fontSize={{ base: '2xl', lg: '3xl' }}
 						fontFamily={'space'}
 						fontWeight='semibold'
 						color={'#00001C'}
