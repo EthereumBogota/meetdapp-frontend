@@ -1,7 +1,13 @@
 import React from 'react'
 import { Flex, Button, Text, VStack } from '@chakra-ui/react'
 
-const GetTicketCard = () => {
+type Props = {
+	getTicket: () => Promise<void>
+	isBuyTicketLoading: boolean
+}
+
+const GetTicketCard = (props: Props) => {
+	const { getTicket, isBuyTicketLoading } = props
 	return (
 		<Flex
 			position={'sticky'}
@@ -45,8 +51,9 @@ const GetTicketCard = () => {
 					_active={{
 						transform: 'scale(0.98)'
 					}}
+					onClick={getTicket}
 				>
-					Conseguir Entrada NFT
+					{isBuyTicketLoading ? 'Cargando...' : 'Conseguir Entrada NFT'}
 				</Button>
 			</VStack>
 		</Flex>
