@@ -4,11 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import Logo from './Logo'
 import { Link } from '@chakra-ui/next-js'
-import { useWeb3Auth } from '@/services/web3auth'
 
 export default function Navbar(): React.ReactNode {
 	const { t, i18n } = useTranslation()
-	const { login, user, getAccounts, logout, userInfo } = useWeb3Auth()
 	const english: boolean = i18n.language === 'en'
 	const [address, setAddress] = useState<string>('')
 	const [navbarBlur, setNavbarBlur] = useState<boolean>(false)
@@ -29,37 +27,8 @@ export default function Navbar(): React.ReactNode {
 		};
 	}, []);
 
-	useEffect(() => {
-		onGetAccounts()
-	}, [user])
-
-	const onGetAccounts = async () => {
-		if (!user) return
-		const response = await getAccounts()
-		console.log('respose is ', response)
-		setAddress(response[0])
-	}
-
 	const changeLanguage = (lng: string) => {
 		i18n.changeLanguage(lng)
-	}
-
-	const onLogin = async () => {
-		const response = await login()
-		console.log(response)
-	}
-
-	const onLogout = async () => {
-		const response = await logout()
-		console.log(response)
-	}
-
-	const showAddress = (address: string): string => {
-		return address.slice(0, 4) + '...' + address.slice(-4)
-	}
-
-	const showChars = (str: string, x: number): string => {
-		return str.slice(0, x) + '...'
 	}
 
 	return (
@@ -122,39 +91,17 @@ export default function Navbar(): React.ReactNode {
 								Es
 							</Button>
 						</ButtonGroup>
-						{!user ? (
-							<Button
-								margin={'0 auto'}
-								px={{ base: ".5em", lg: "2.5em" }}
-								fontSize={{ base: '.8em', md: '1em' }}
-								color={'#DDEBED'}
-								background={'#348793'}
-								borderRadius={'3xl'}
-								onClick={onLogin}
-								_hover={{ bg: "#236677", transform: "scale(1.05)", transition: "transform .3s" }}
-							>
-								{t('navbar.log-in')}
-							</Button>
-						) : (
-							<Flex alignItems="center" gap="0.5rem">
-								<Avatar
-									size={{ base: "sm", lg: "md" }}
-									src={'../../assets/navbar/Avatar.png'}
-								/>
-								<Box color={'#DDEBED'}>
-									<Text fontSize={{ base: "xs", lg: "lg" }}>{userInfo?.nickName ? showChars(userInfo.nickName, 15) : t('navbar.user')}</Text>
-									<Text fontSize={{ base: "2xs", lg: "xs" }}>{showAddress(address)}</Text>
-								</Box>
-								<Tooltip label={t('navbar.log-out')}>
-									<CloseButton
-										size={{ base: "sm", lg: "md" }}
-										borderRadius="50%"
-										onClick={onLogout}
-										backgroundColor='whiteAlpha.900'
-									/>
-								</Tooltip>
-							</Flex>
-						)}
+						<Button
+							margin={'0 auto'}
+							px={{ base: ".5em", lg: "2.5em" }}
+							fontSize={{ base: '.8em', md: '1em' }}
+							color={'#DDEBED'}
+							background={'#348793'}
+							borderRadius={'3xl'}
+							_hover={{ bg: "#236677", transform: "scale(1.05)", transition: "transform .3s" }}
+						>
+							{t('navbar.log-in')}
+						</Button>
 					</Flex>
 				</Flex>
 			</Flex>

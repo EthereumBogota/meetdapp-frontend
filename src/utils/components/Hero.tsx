@@ -10,6 +10,7 @@ import { useWeb3Auth } from '@/services/web3auth'
 export default function Hero() {
   const { t } = useTranslation()
   const { getAccounts, getUserInfo, user } = useWeb3Auth()
+  console.log(t)
 
 
   return (
