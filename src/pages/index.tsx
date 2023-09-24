@@ -32,18 +32,6 @@ export default function Home() {
 
 	useEffect(() => {
 		fetchActiveEvents()
-		// const ethereum = (window as any).ethereum
-
-		// if (
-		// 	typeof ethereum !== 'undefined' &&
-		// 	typeof ethereum === 'object' &&
-		// 	typeof ethereum.web3 !== 'undefined'
-		// ) {
-		// 	// MetaMask is installed and web3 is available
-		// } else {
-		// 	// MetaMask is not installed or web3 is not available
-		// 	console.log('MetaMask no está instalado en este navegador.')
-		// }
 	}, [])
 
 	return (

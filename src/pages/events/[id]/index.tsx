@@ -40,8 +40,8 @@ const initialEvent: Event = {
 function Event(): JSX.Element {
 	const [event, setEvent] = useState<Event>(initialEvent)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
-	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [meetdAppEventContract, setMeetdAppEventContract] =
 		useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
@@ -49,7 +49,8 @@ function Event(): JSX.Element {
 	const router = useRouter()
 
 	// TODO: generate nanoId
-	const slug: string | string[] | undefined = router.query?.id
+	const splitedPath: string[] = router.asPath.split('/')
+	const id = splitedPath[splitedPath.length - 1]
 
 	const { address } = useAccount()
 	const { chain } = useNetwork()
@@ -124,7 +125,7 @@ function Event(): JSX.Element {
 	}
 
 	const fetchEventInformation = async () => {
-		setTimeout(async () => {
+		try {
 			const rpcProvider: ethers.providers.JsonRpcProvider =
 				new ethers.providers.JsonRpcProvider(PROVIDER)
 
@@ -134,8 +135,7 @@ function Event(): JSX.Element {
 				rpcProvider
 			) as MeetdAppFactory
 
-			const eventId: string = 'mC8cCmWH5Ws8IZQy'
-			const bytesEventId = ethers.utils.toUtf8Bytes(eventId)
+			const bytesEventId = ethers.utils.toUtf8Bytes(id as string)
 			const hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
 
 			const eventContractAdress: string =
@@ -172,7 +172,9 @@ function Event(): JSX.Element {
 
 			setMeetdAppEventContract(eventContract)
 			setIsLoading(false)
-		}, 1000)
+		} catch (error) {
+			router.push('/404')
+		}
 	}
 
 	useEffect(() => {
