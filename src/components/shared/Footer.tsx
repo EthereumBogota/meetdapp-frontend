@@ -22,6 +22,7 @@ export default function Footer(): React.ReactNode {
 				width={'100%'}
 				align={'center'}
 				justify={'center'}
+				fontFamily={'neue'}
 				background={'#00001C'}
 				py={{ base: '3rem', md: '6rem' }}
 			>

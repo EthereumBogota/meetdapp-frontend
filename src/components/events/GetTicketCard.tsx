@@ -34,13 +34,13 @@ const GetTicketCard = (props: Props) => {
 				justifyContent={'center'}
 			>
 				<Text
-					fontSize='1.563rem'
+					fontSize='lg'
 					fontFamily={'space'}
 					fontWeight='semibold'
 					color={'#00001C'}
 					textAlign={'center'}
 				>
-					¡GRATIS!
+					GRATIS • Quedan 7 cupos
 				</Text>
 				{hasTicket ? (
 					<Button

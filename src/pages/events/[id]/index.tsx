@@ -5,7 +5,7 @@ import EventLocation from '@/components/events/EventLocation'
 import GetTicketCard from '@/components/events/GetTicketCard'
 import PreviousEvents from '@/components/events/PreviousEvents'
 import TagsSection from '@/components/events/TagsSection'
-import { Box, Flex, Grid } from '@chakra-ui/react'
+import { Flex, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import MeetdAppFactoryJson from '../../../assets/contracts/MeetdAppFactory.json'
 import MeetdAppFactoryEventJson from '../../../assets/contracts/MeetdAppEvent.json'
@@ -20,9 +20,8 @@ import Footer from '@/components/shared/Footer'
 import '../../../config/i18n'
 import { CHAINID, PROVIDER } from '@/constants/constants'
 import { useAccount, useNetwork } from 'wagmi'
-import { time } from 'console'
-import { TimeIcon } from '@chakra-ui/icons'
-import { t } from 'i18next'
+import Loader from '@/components/shared/Loader'
+import { useTranslation } from 'react-i18next'
 
 interface Event {
 	id: string
@@ -36,17 +35,17 @@ type Props = {
 
 function Event(props: Props): JSX.Element {
 	const { event } = props
-	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [hasTicket, setHasTicket] = useState<boolean>(false)
+	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	const [meetdAppEventContract, setMeetdAppEventContract] =
 		useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
-
 	const router = useRouter()
-
 	// TODO: generate nanoId
 	const slug: string | string[] | undefined = router.query?.id
+	const { t } = useTranslation()
+	const toast = useToast()
 
 	const { address } = useAccount()
 	const { chain } = useNetwork()
@@ -96,8 +95,14 @@ function Event(props: Props): JSX.Element {
 				setIsBuyTicketLoading(false)
 				setHasTicket(true)
 
-				// TODO: i18n
-				alert('Se ha comprado el ticket correctamente.')
+				toast({
+					title: t('toasts.ticket-bought.title'),
+					description: t('toasts.ticket-bought.description'),
+					status: 'success',
+					duration: 3000,
+					isClosable: false,
+					position: 'top-right'
+				})
 			}
 		} catch (error) {
 			setIsBuyTicketLoading(false)
@@ -106,16 +111,34 @@ function Event(props: Props): JSX.Element {
 				if (error.message.includes('user rejected transaction')) {
 					return
 				} else if (error.message.includes('transaction failed')) {
-					// TODO: i18n
-					alert('La transacción falló')
+					toast({
+						title: 'Could not create account',
+						description: '',
+						status: 'success',
+						duration: 3000,
+						isClosable: false,
+						position: 'top-right'
+					})
 				} else {
-					// TODO: i18n
 					console.error('error: ', error)
-					alert('Ocurrió un error inesperado. Por favor intenta de nuevo.')
+					toast({
+						title: 'Account created.',
+						description: "We've created your account for you.",
+						status: 'success',
+						duration: 3000,
+						isClosable: false,
+						position: 'top-right'
+					})
 				}
 			} else {
-				// TODO: i18n
-				alert('Ocurrió un error desconocido.')
+				toast({
+					title: 'Account created.',
+					description: "We've created your account for you.",
+					status: 'success',
+					duration: 3000,
+					isClosable: false,
+					position: 'top-right'
+				})
 			}
 		}
 	}
@@ -174,83 +197,85 @@ function Event(props: Props): JSX.Element {
 		<>
 			<Navbar />
 
-			{isLoading ? (
-				<p>Loading...</p>
-			) : (
-				<Flex
-					background={
-						'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
-					}
-					gap={6}
-					paddingBottom={6}
-					alignItems={'center'}
-					justifyContent={'center'}
-				>
-					<Flex
-						mt={'8em'}
-						mb={'3em'}
-						maxW={'1200px'}
-						width={'90%'}
-						display={{ base: 'none', lg: 'flex' }}
-						gap={'3em'}
-						direction={'row'}
-						justifyContent={'center'}
-					>
+			<Flex
+				background={
+					'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
+				}
+				gap={6}
+				paddingBottom={6}
+				alignItems={'center'}
+				justifyContent={'center'}
+			>
+				{isLoading ? (
+					<Loader width='full' height='100vh' color='#DDEBED' />
+				) : (
+					<>
 						<Flex
-							direction={'column'}
-							flex={7}
-							w={'full'}
+							mt={'8em'}
+							mb={'3em'}
+							maxW={'1200px'}
+							width={'90%'}
+							display={{ base: 'none', lg: 'flex' }}
 							gap={'3em'}
-							order={{ base: 1, lg: 0 }}
+							direction={'row'}
+							justifyContent={'center'}
 						>
-							<EventImage />
-							<EventDetails />
-							<PreviousEvents />
-							<Attendees />
-							<TagsSection />
+							<Flex
+								direction={'column'}
+								flex={7}
+								w={'full'}
+								gap={'3em'}
+								order={{ base: 1, lg: 0 }}
+							>
+								<EventImage />
+								<EventDetails />
+								<PreviousEvents />
+								<Attendees />
+								<TagsSection />
+							</Flex>
+
+							<Flex
+								direction={'column'}
+								flex={3}
+								w={'full'}
+								gap={'3em'}
+								order={{ base: 0, lg: 1 }}
+							>
+								<EventLocation />
+								<GetTicketCard
+									getTicket={onBuyTicket}
+									isBuyTicketLoading={isBuyTicketLoading}
+									hasTicket={hasTicket}
+								/>
+							</Flex>
 						</Flex>
 
 						<Flex
-							direction={'column'}
-							flex={3}
-							w={'full'}
+							mt={'8em'}
+							width={'90%'}
+							display={{ base: 'flex', lg: 'none' }}
 							gap={'3em'}
-							order={{ base: 0, lg: 1 }}
+							direction={'column'}
+							justifyContent={'center'}
+							mb={'3em'}
 						>
-							<EventLocation />
-							<GetTicketCard
-								getTicket={onBuyTicket}
-								isBuyTicketLoading={isBuyTicketLoading}
-								hasTicket={hasTicket}
-							/>
+							<Flex direction={'column'} w={'full'} gap={'3em'}>
+								<EventImage />
+								<EventLocation />
+								<EventDetails />
+								<PreviousEvents />
+								<Attendees />
+								<TagsSection />
+								<GetTicketCard
+									getTicket={onBuyTicket}
+									isBuyTicketLoading={isBuyTicketLoading}
+									hasTicket={hasTicket}
+								/>
+							</Flex>
 						</Flex>
-					</Flex>
-
-					<Flex
-						mt={'8em'}
-						width={'90%'}
-						display={{ base: 'flex', lg: 'none' }}
-						gap={'3em'}
-						direction={'column'}
-						justifyContent={'center'}
-						mb={'3em'}
-					>
-						<Flex direction={'column'} w={'full'} gap={'3em'}>
-							<EventImage />
-							<EventLocation />
-							<EventDetails />
-							<PreviousEvents />
-							<Attendees />
-							<TagsSection />
-							<GetTicketCard
-								getTicket={onBuyTicket}
-								isBuyTicketLoading={isBuyTicketLoading}
-								hasTicket={hasTicket}
-							/>
-						</Flex>
-					</Flex>
-				</Flex>
-			)}
+					</>
+				)}
+			</Flex>
 			<Footer />
 		</>
 	)

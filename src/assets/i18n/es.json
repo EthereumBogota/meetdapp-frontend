@@ -107,5 +107,15 @@
     "not-found": "Esta página no fue encontrada",
     "error-code": "Código de error",
     "home": "Volver al inicio"
+  },
+  "toasts": {
+    "ticket-bought": {
+      "title": "Tiquete comprado!",
+      "description": "El tiquete fue comprado exitosamente."
+    },
+    "failed": {
+      "title": "Transaction failed.",
+      "description": "La transacción falló. Intenta de nuevo"
+    }
   }
 }

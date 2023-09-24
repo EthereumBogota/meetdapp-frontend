@@ -107,5 +107,15 @@
     "not-found": "This page was not found",
     "error-code": "Error code",
     "home": "Go back home"
+  },
+  "toasts": {
+    "ticket-bought": {
+      "title": "Ticket was bought!",
+      "description": "The ticket was successfully bought."
+    },
+    "failed": {
+      "title": "Transaction failed.",
+      "description": "The transaction failed. Try again."
+    }
   }
 }
