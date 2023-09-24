@@ -9,7 +9,7 @@ import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import MeetdAppFactoryJson from '../../../assets/contracts/MeetdAppFactory.json'
 import MeetdAppFactoryEventJson from '../../../assets/contracts/MeetdAppEvent.json'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
 	MeetdAppEvent,
 	MeetdAppFactory
@@ -18,6 +18,7 @@ import { ethers } from 'ethers'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
 import '../../../config/i18n'
+import { PROVIDER } from '@/constants/constants'
 
 interface Event {
 	id: string
@@ -25,102 +26,119 @@ interface Event {
 	description: string
 }
 
-interface EventPageProps {
+type Props = {
 	event: Event
 }
 
-function Event({ event }: EventPageProps) {
+function Event(props: Props): JSX.Element {
+	const { event } = props
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [meetdAppEventContract, setMeetdAppEventContract] =
+		useState<MeetdAppEvent | null>(null)
 	const router = useRouter()
 	const slug: string | string[] | undefined = router.query?.id
 
-	const fetchData = async () => {
-		const ethereum = (window as any).ethereum
-		const web3Provider: ethers.providers.Web3Provider =
-			new ethers.providers.Web3Provider(ethereum)
-		await web3Provider.send('eth_requestAccounts', [])
-		const web3Signer: ethers.providers.JsonRpcSigner = web3Provider.getSigner()
+	const fetchEventInformation = async () => {
+		setTimeout(async () => {
+			const rpcProvider: ethers.providers.JsonRpcProvider =
+				new ethers.providers.JsonRpcProvider(PROVIDER)
 
-		const meetdAppFactoryContract: ethers.Contract = new ethers.Contract(
-			MeetdAppFactoryJson.address,
-			MeetdAppFactoryJson.abi,
-			web3Signer
-		) as MeetdAppFactory
+			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
+				MeetdAppFactoryJson.address,
+				MeetdAppFactoryJson.abi,
+				new ethers.providers.JsonRpcProvider(PROVIDER)
+			) as MeetdAppFactory
 
-		const eventId: string = 'mC8cCmWH5Ws8IZQy'
-		const bytesValue = ethers.utils.toUtf8Bytes(eventId)
-		const hashBytes32 = ethers.utils.keccak256(bytesValue)
+			const eventId: string = 'mC8cCmWH5Ws8IZQy'
+			const bytesEventId = ethers.utils.toUtf8Bytes(eventId)
+			const hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
 
-		const eventContractAdress: string =
-			await meetdAppFactoryContract.mapIdEvent(hashBytes32)
-		const eventContract = new ethers.Contract(
-			eventContractAdress,
-			MeetdAppFactoryEventJson.abi,
-			web3Signer
-		) as MeetdAppEvent
-		await eventContract.buyTicket()
+			const eventContractAdress: string =
+				await meetdAppFactoryContract.mapIdEvent(hashBytes32EventId)
+
+			const eventContract = new ethers.Contract(
+				eventContractAdress,
+				MeetdAppFactoryEventJson.abi,
+				rpcProvider
+			) as MeetdAppEvent
+
+			setMeetdAppEventContract(eventContract)
+			setIsLoading(false)
+		}, 3000)
 	}
 
 	useEffect(() => {
-		fetchData()
+		fetchEventInformation()
 	}, [])
 
 	return (
 		<>
 			<Navbar />
-			<Flex
-				background={
-					'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
-				}
-				direction={{ base: 'column', lg: 'column' }}
-				gap={6}
-				paddingBottom={6}
-			>
+			{isLoading ? (
+				<p>Loading...</p>
+			) : (
 				<Flex
-					paddingTop={{ base: '2rem', lg: 14 }}
-					minH={{ base: 'auto', lg: '100vh' }}
-					width={'full'}
-					justify={'center'}
-					position={'relative'}
+					background={
+						'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
+					}
+					direction={{ base: 'column', lg: 'column' }}
+					gap={6}
+					paddingBottom={6}
 				>
 					<Flex
-						mt={{ base: '6rem', lg: 5 }}
-						gap={'3em'}
-						px={3}
-						maxW={'1300px'}
-						width={'90%'}
-						alignItems={'center'}
-						justify={{ base: 'space-evenly', lg: 'space-between' }}
-						direction={{ base: 'column', lg: 'row' }}
+						paddingTop={{ base: '2rem', lg: 14 }}
+						minH={{ base: 'auto', lg: '100vh' }}
+						width={'full'}
+						justify={'center'}
+						position={'relative'}
 					>
-						<EventImage />
-						<EventLocation />
+						<Flex
+							mt={{ base: '6rem', lg: 5 }}
+							gap={'3em'}
+							px={3}
+							maxW={'1300px'}
+							width={'90%'}
+							alignItems={'center'}
+							justify={{ base: 'space-evenly', lg: 'space-between' }}
+							direction={{ base: 'column', lg: 'row' }}
+						>
+							{isLoading ? (
+								<p>Loading...</p>
+							) : (
+								<>
+									<EventImage />
+									<EventLocation />
+								</>
+							)}
+						</Flex>
 					</Flex>
-				</Flex>
 
-				<Flex
-					minH={{ base: 'auto', lg: '100vh' }}
-					width={'full'}
-					justify={'center'}
-				>
 					<Flex
-						mt={{ base: '6rem', lg: 5 }}
-						gap={'3em'}
-						px={3}
-						maxW={'1300px'}
-						width={'90%'}
-						alignItems={'initial'}
-						justify={{ base: 'space-evenly', lg: 'space-between' }}
-						direction={{ base: 'column', lg: 'row' }}
+						minH={{ base: 'auto', lg: '100vh' }}
+						width={'full'}
+						justify={'center'}
 					>
-						<EventDetails />
-						<GetTicketCard />
+						<Flex
+							mt={{ base: '6rem', lg: 5 }}
+							gap={'3em'}
+							px={3}
+							maxW={'1300px'}
+							width={'90%'}
+							alignItems={'initial'}
+							justify={{ base: 'space-evenly', lg: 'space-between' }}
+							direction={{ base: 'column', lg: 'row' }}
+						>
+							<EventDetails />
+							<GetTicketCard />
+						</Flex>
 					</Flex>
-				</Flex>
 
-				<PreviousEvents />
-				<Attendees />
-				<TagsSection />
-			</Flex>
+					<PreviousEvents />
+					<Attendees />
+					<TagsSection />
+				</Flex>
+			)}
+
 			<Footer />
 		</>
 	)

@@ -17,21 +17,15 @@ const metadata = {
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [meetdAppFactory, setMeetdAppFactory] =
-		useState<MeetdAppFactory | null>(null)
 
 	const fetchActiveEvents = async () => {
 		setTimeout(() => {
-			const provider: ethers.providers.JsonRpcProvider =
-				new ethers.providers.JsonRpcProvider(PROVIDER)
-
 			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
 				MeetdAppFactoryJson.address,
 				MeetdAppFactoryJson.abi,
-				provider
+				new ethers.providers.JsonRpcProvider(PROVIDER)
 			) as MeetdAppFactory
 
-			setMeetdAppFactory(meetdAppFactoryContract)
 			setIsLoading(false)
 		}, 3000)
 	}

@@ -2,6 +2,8 @@ import { Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import EventCard from './EventCard'
 import Link from 'next/link'
+import { MeetdAppFactory } from '../../../@types/typechain-types/MeetdAppFactory'
+import { ethers } from 'ethers'
 
 const first_event = {
 	id: 0,
@@ -43,7 +45,11 @@ export default function Events(props: Props): React.ReactNode {
 						}}
 						gap={{ base: 10, lg: 16 }}
 					>
-						<Link href={`/events/${first_event.id}`}>
+						<Link
+							href={{
+								pathname: `/events/${first_event.id}`
+							}}
+						>
 							<GridItem
 								justifySelf={'center'}
 								transition={'transform .3s'}
