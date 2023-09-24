@@ -4,6 +4,8 @@ import Section from './Section'
 import { useTranslation } from 'react-i18next'
 import Events from './Events'
 import FAQ from './FAQ'
+import { MeetdAppFactory } from '../../../@types/typechain-types/MeetdAppFactory'
+import { ethers } from 'ethers'
 
 type Props = {
 	isLoading: boolean
