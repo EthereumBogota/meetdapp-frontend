@@ -9,14 +9,11 @@ export default function Carousel() {
 	return (
 		<>
 			<Swiper
-				// install Swiper modules
 				modules={[Navigation, Pagination, A11y]}
 				spaceBetween={50}
 				slidesPerView={'auto'}
 				navigation
 				pagination={{ clickable: true }}
-				onSwiper={swiper => console.log(swiper)}
-				onSlideChange={() => console.log('slide change')}
 			>
 				<SwiperSlide>
 					<img src='/images/aprende_solidity.jpg' alt='Image 1' />
