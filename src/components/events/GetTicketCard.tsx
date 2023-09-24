@@ -1,14 +1,16 @@
 import React from 'react'
 import { Flex, Button, Text, VStack } from '@chakra-ui/react'
+import { Event } from '@/models/event.model'
 
 type Props = {
+	event: Event
 	getTicket: () => Promise<void>
 	isBuyTicketLoading: boolean
 	hasTicket: boolean
 }
 
 const GetTicketCard = (props: Props) => {
-	const { getTicket, isBuyTicketLoading, hasTicket } = props
+	const { event, getTicket, isBuyTicketLoading, hasTicket } = props
 	return (
 		<Flex
 			position={'sticky'}
@@ -30,7 +32,7 @@ const GetTicketCard = (props: Props) => {
 					fontWeight='semibold'
 					color={'#00001C'}
 				>
-					¡GRATIS!
+					¡GRATIS! {event.totalTickets - event.remainingTickets}
 				</Text>
 				{hasTicket ? (
 					<Button

@@ -20,22 +20,25 @@ import Footer from '@/components/shared/Footer'
 import '../../../config/i18n'
 import { CHAINID, PROVIDER } from '@/constants/constants'
 import { useAccount, useNetwork } from 'wagmi'
-import { time } from 'console'
-import { TimeIcon } from '@chakra-ui/icons'
-import { t } from 'i18next'
+import { Event, EventDTO } from '@/models/event.model'
+import { mapDTOtoEvent } from '@/functions/dto'
 
-interface Event {
-	id: string
-	title: string
-	description: string
+const initialEvent: Event = {
+	id: '',
+	name: '',
+	description: '',
+	location: '',
+	totalTickets: 0,
+	remainingTickets: 0,
+	startTime: 0,
+	endTime: 0,
+	reedemableTime: 0,
+	ownerAddress: '',
+	nftAddress: ''
 }
 
-type Props = {
-	event: Event
-}
-
-function Event(props: Props): JSX.Element {
-	const { event } = props
+function Event(): JSX.Element {
+	const [event, setEvent] = useState<Event>(initialEvent)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -144,6 +147,22 @@ function Event(props: Props): JSX.Element {
 				rpcProvider
 			) as MeetdAppEvent
 
+			const eventDTO: EventDTO = {
+				id: await eventContract.eventId(),
+				name: await eventContract.eventName(),
+				description: await eventContract.eventDescription(),
+				location: await eventContract.eventLocation(),
+				totalTickets: await eventContract.eventTotalTickets(),
+				remainingTickets: await eventContract.eventRemainingTickets(),
+				startTime: await eventContract.eventStartTime(),
+				endTime: await eventContract.eventRemainingTickets(),
+				reedemableTime: await eventContract.eventReedemableTime(),
+				ownerAddress: await eventContract.eventOwner(),
+				nftAddress: await eventContract.eventNfts()
+			}
+
+			setEvent(mapDTOtoEvent(eventDTO))
+
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
 				setHasTicket(ticket)
@@ -153,7 +172,7 @@ function Event(props: Props): JSX.Element {
 
 			setMeetdAppEventContract(eventContract)
 			setIsLoading(false)
-		}, 3000)
+		}, 1000)
 	}
 
 	useEffect(() => {
@@ -229,6 +248,7 @@ function Event(props: Props): JSX.Element {
 						>
 							<EventDetails />
 							<GetTicketCard
+								event={event}
 								getTicket={onBuyTicket}
 								isBuyTicketLoading={isBuyTicketLoading}
 								hasTicket={hasTicket}
