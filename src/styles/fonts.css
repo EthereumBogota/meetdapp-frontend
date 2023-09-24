@@ -1,27 +1,27 @@
 @font-face {
   font-family: 'Neue Machina';
-  src: url('/fonts/Neue Machina Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Neue-Machina-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Neue Machina Bold';
-  src: url('/fonts/Neue Machina Ultrabold.ttf') format('truetype');
+  src: url('../assets/fonts/Neue-Machina-Ultrabold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Space Grotesk Bold';
-  src: url('/fonts/SpaceGrotesk-Bold.ttf') format('truetype');
+  src: url('../assets/fonts/SpaceGrotesk-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Space Grotesk';
-  src: url('/fonts/SpaceGrotesk-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/SpaceGrotesk-Regular.ttf') format('truetype');
   font-weight: 100;
   font-style: normal;
 }

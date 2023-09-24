@@ -1,0 +1,111 @@
+{
+  "navbar": {
+    "search-bar": "Search events",
+    "log-in": "Log in",
+    "log-out": "Log out",
+    "user": "User"
+  },
+  "landing": {
+    "hero": {
+      "title": "Embrace Meaningful Connections",
+      "description": "Where uniqueness thrives. Unlock the potencial of blockchain technology, elevate your event experience.",
+      "get-started": "Get Started",
+      "more": "Learn more"
+    },
+    "top-events": {
+      "title": "Top Events",
+      "card": {
+        "title": "¡Web3 in action: Be an impactful volunteer in the BSL!",
+        "attendees": "attendees"
+      }
+    },
+    "section1": {
+      "badge": "Prepare an event",
+      "title": "Elevate your Event Experience",
+      "description": "Unleash the power of Blockchain technology to elevate your event experience. Seamlessly create, manage, and customize events without intermediaries. Embrace a transparent and secure platform that redefines the way you connect and share unforgettable moments.",
+      "button": "Create Event"
+    },
+    "section2": {
+      "badge": "Inmutable Ticket",
+      "title": "Your Immutable Pass to Unforgettable Moments",
+      "description": "With MeetDapp's NFT tickets, your pass to unforgettable moments is now secured on the Blockchain. Even if you misplace your ticket, fear not - the immutable Blockchain ensures your access remains intact, allowing you to fully immerse yourself in the magic of each event.",
+      "button": "Join Event"
+    },
+    "section3": {
+      "badge": "Transparency ",
+      "title": "Event Records on the Blockchain",
+      "description": "The power of Blockchain brings an unparalleled level of transparency and immutability to event records. Each event's history, from creation to attendance, is permanently recorded, eliminating doubts and fostering trust among event organizers and attendees alike.",
+      "button": "Try Now"
+    },
+    "section4": {
+      "badge": "Security",
+      "title": "Your Safety, Our Priority",
+      "description": "Safeguard your event experience. Our platform ensures each event remains secure and transparent, empowering you with peace of mind. Your personal data remains private, allowing you to focus wholeheartedly on what truly matters: connecting with others in a worry-free environment.",
+      "button": "Discover More"
+    },
+    "FAQ": {
+      "title": "Frequently Asked Questions (FAQ)",
+      "soon": "Coming soon..."
+    }
+  },
+  "footer": {
+    "copyright": "Ethereum Bogota Community"
+  },
+  "modal": {
+    "adapter-loader.message": "Verify your {{adapter}} account to continue",
+    "adapter-loader.message1": "Verify your {{adapter}}",
+    "adapter-loader.message2": "account to continue",
+    "errors-invalid-number-email": "Invalid Email or Phone Number",
+    "errors-required": "Required",
+    "external.back": "Back",
+    "external.connect": "Connect with Wallet",
+    "external.title": "External Wallet",
+    "external.walletconnect-connect": "Connect",
+    "external.walletconnect-copy": "Click on the QR Code to copy to clipboard",
+    "external.walletconnect-subtitle": "Scan the QR code with a WalletConnect-compatible wallet",
+    "footer.message": "Self-custodial login by",
+    "footer.message-new": "Self-custodial login by Web3Auth",
+    "footer.policy": "Privacy Policy",
+    "footer.terms": "Terms of Use",
+    "footer.terms-service": "Terms of Service",
+    "footer.version": "Version",
+    "header-subtitle": "Select one of the following options to continue",
+    "header-subtitle-name": "Your {{appName}} wallet with one click",
+    "header-subtitle-new": "Your blockchain wallet with one click",
+    "header-title": "Sign in into Meet dApp",
+    "header-tooltip-desc": "The wallet serves as an account to store and manage your digital assets on the blockchain.",
+    "header-tooltip-title": "Wallet",
+    "network.add-request": "This site is requesting to add a network",
+    "network.cancel": "Cancel",
+    "network.from": "From",
+    "network.proceed": "Proceed",
+    "network.switch-request": "This site is requesting to switch networks",
+    "network.to": "To",
+    "popup.phone-body": "Your country code will be detected automatically, but if you're using a phone number from a different country, you'll need to enter the correct country code manually.",
+    "popup.phone-header": "Phone number and country code",
+    "social.continue": "Continue with",
+    "social.continueCustom": "Continue with {{adapter}}",
+    "social.email": "Email",
+    "social.email-continue": "Continue with Email",
+    "social.email-new": "name@example.com",
+    "social.passwordless-cta": "Continue",
+    "social.passwordless-title": "Email or Phone",
+    "social.phone": "Phone",
+    "social.policy": "We do not store any data related to your social logins.",
+    "social.sms": "Mobile",
+    "social.sms-continue": "Continue with Mobile",
+    "social.sms-invalid-number": "Invalid phone number",
+    "social.sms-placeholder-text": "E.g.:",
+    "social.view-less": "View fewer options",
+    "social.view-less-new": "View fewer",
+    "social.view-more": "View more options",
+    "social.view-more-new": "View more",
+    "post-loading.connected": "You are connected with your account",
+    "post-loading.something-wrong": "Something went wrong!"
+  },
+  "404": {
+    "not-found": "This page was not found",
+    "error-code": "Error code",
+    "home": "Go back home"
+  }
+}

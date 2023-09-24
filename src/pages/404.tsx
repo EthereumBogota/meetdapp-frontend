@@ -1,10 +1,10 @@
-import React from 'react'
-import { Box, Button, Text } from '@chakra-ui/react'
+import { Box, Button, Image, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { Image } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 
 export default function NotFoundPage() {
 	const router = useRouter()
+	const { t } = useTranslation()
 
 	const goHome = () => {
 		router.push('/')
@@ -18,18 +18,20 @@ export default function NotFoundPage() {
 			flexDir={'column'}
 			alignItems={'center'}
 			justifyContent={'center'}
+			bgColor={'#00001C'}
 			textAlign={'center'}
-			bgColor={"#00001C"}
-			color={"#DDEBED"}
+			color={'#DDEBED'}
 		>
-			<Image src='/img/Logo.svg' width={"100px"} />
-			<Text marginY={6} fontSize='3xl' as='b'>
-				This Page could not be found
+			<Image src='/img/Logo.svg' w={{ base: '70px', lg: '100px' }} />
+			<Text marginY={6} fontSize={{ base: '2xl', lg: '3xl' }} as='b'>
+				{t('404.not-found')}
 			</Text>
-			<Text marginBottom={6} fontSize='1xl' textTransform={"uppercase"}>
-				Error code: 404
+			<Text marginBottom={6} fontSize='1xl' textTransform={'uppercase'}>
+				{t('404.error-code')}: 404
 			</Text>
-			<Button onClick={goHome}>GO BACK HOME</Button>
+			<Button onClick={goHome} textTransform={'uppercase'}>
+				{t('404.home')}
+			</Button>
 		</Box>
 	)
 }

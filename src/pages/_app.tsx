@@ -1,9 +1,6 @@
-import React from 'react'
 import '../styles/fonts.css'
-import customTheme from '../theme/theme'
-import Layout from '@/utils/components/Layout'
-
-import '@/styles/globals.css'
+import customTheme from '../styles/chakra-themes/theme'
+import '@/styles/stylesPrevEvents.css'
 import '@rainbow-me/rainbowkit/styles.css'
 import {
 	RainbowKitProvider,
@@ -64,9 +61,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 				})}
 			>
 				<ChakraProvider theme={customTheme}>
-					<Layout>
-						<Component {...pageProps} />
-					</Layout>
+					<Component {...pageProps} />
 				</ChakraProvider>
 			</RainbowKitProvider>
 		</WagmiConfig>
