@@ -13,26 +13,37 @@ const GetTicketCard = (props: Props) => {
 	const { event, getTicket, isBuyTicketLoading, hasTicket } = props
 	return (
 		<Flex
-			position={'sticky'}
-			h='fit-content'
-			borderRadius='3xl'
-			margin='0px auto'
-			bg='#DDEBED'
-			backgroundPosition={{ base: '100%', md: 'left top' }}
-			align='center'
-			justifyContent='center'
-			w='30%'
+			h={'fit-content'}
+			borderRadius={{ lg: '3xl' }}
+			borderTopStartRadius={'3xl'}
+			borderTopEndRadius={'3xl'}
+			mx='auto'
+			bg={{ base: '#AACDD1', lg: '#DDEBED' }}
 			flexDirection='column'
-			p={4}
+			justifyContent='center'
+			w='full'
+			p={{ base: 5, md: 7 }}
+			position={{ base: 'fixed', lg: 'static' }}
+			right={0}
+			left={0}
+			bottom={0}
+			zIndex={90}
+			boxShadow={'0 -5px 15px 5px rgba(0, 0, 0, 0.30)'}
 		>
-			<VStack spacing={3}>
+			<Flex
+				direction={{ base: 'row', lg: 'column' }}
+				gap={3}
+				justifyContent={'center'}
+				alignItems={'center'}
+			>
 				<Text
-					fontSize='1.563rem'
+					fontSize={{ base: 'md', lg: 'lg' }}
 					fontFamily={'space'}
 					fontWeight='semibold'
 					color={'#00001C'}
+					textAlign={'center'}
 				>
-					¡GRATIS! {event.totalTickets - event.remainingTickets}
+					¡GRATIS! • Quedan {event.remainingTickets} cupos
 				</Text>
 				{hasTicket ? (
 					<Button
@@ -44,7 +55,7 @@ const GetTicketCard = (props: Props) => {
 						bg={'teal'}
 						color={'#FFF'}
 						fontFamily={'neue'}
-						fontSize={['18px', '22px']}
+						fontSize={{ base: 'md', lg: 'lg' }}
 						fontWeight={400}
 						_active={{
 							transform: 'scale(0.98)'
@@ -80,7 +91,7 @@ const GetTicketCard = (props: Props) => {
 						{isBuyTicketLoading ? 'Cargando...' : 'Conseguir Entrada NFT'}
 					</Button>
 				)}
-			</VStack>
+			</Flex>
 		</Flex>
 	)
 }

@@ -13,7 +13,7 @@ export default function Logo() {
 				gap={{ base: '.4rem', lg: '1rem' }}
 			>
 				<Image
-					src={'/images/Logo.svg'}
+					src={'/images/logo.svg'}
 					alt='MeetdApp logo'
 					width={['30px', '38px', '45px']}
 				/>

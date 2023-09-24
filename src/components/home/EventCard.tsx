@@ -20,7 +20,7 @@ export default function EventCard() {
 				objectFit={'cover'}
 				w={'full'}
 				h={'200px'}
-				src={'/img/BSL.jpg'}
+				src={'/images/bsl.jpg'}
 				zIndex={0}
 			/>
 
@@ -39,7 +39,7 @@ export default function EventCard() {
 				<Box
 					w={'50px'}
 					h={'50px'}
-					bgImage={'url(/img/ETHLogo.svg)'}
+					bgImage={'url(/images/eth_logo.svg)'}
 					position={'absolute'}
 					bgSize={'cover'}
 					bgPosition={'center'}
@@ -51,16 +51,16 @@ export default function EventCard() {
 				</Heading>
 				<Flex direction={'column'} gap={5} fontFamily={'space'}>
 					<Flex gap={4}>
-						<Image w={4} src={'/img/organization.svg'} />
+						<Image w={4} src={'/images/organization.svg'} />
 						<Text>Ethereum Bogotá</Text>
 					</Flex>
 
 					<Flex gap={4}>
-						<Image w={4} src={'/img/location.svg'} />
+						<Image w={4} src={'/images/location.svg'} />
 						<Text>Calle 19 #134 - 89, Bogotá</Text>
 					</Flex>
 					<Flex gap={4}>
-						<Image w={5} src={'/img/user_group.svg'} />
+						<Image w={5} src={'/images/user_group.svg'} />
 						<Text>50 {t('landing.top-events.card.attendees')}</Text>
 					</Flex>
 				</Flex>

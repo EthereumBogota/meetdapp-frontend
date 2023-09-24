@@ -1,63 +1,43 @@
-import React from 'react'
-import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import 'swiper/css/effect-coverflow'
+import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { EffectCoverflow, Pagination } from 'swiper/modules'
+import 'swiper/css/scrollbar'
+import { Navigation, Pagination, A11y } from 'swiper/modules'
 
 export default function Carousel() {
 	return (
 		<>
 			<Swiper
-				effect={'coverflow'}
-				grabCursor={true}
-				centeredSlides={true}
+				modules={[Navigation, Pagination, A11y]}
+				spaceBetween={50}
 				slidesPerView={'auto'}
-				coverflowEffect={{
-					rotate: 0,
-					stretch: 0,
-					depth: 100,
-					modifier: 2.5,
-					slideShadows: true
-				}}
-				pagination={true}
-				modules={[EffectCoverflow, Pagination]}
-				className='mySwiper'
+				navigation
+				pagination={{ clickable: true }}
 			>
 				<SwiperSlide>
-					<Image
-						src={'/images/aprende_solidity.jpg'}
-						alt='slide_image'
-						width={100}
-						height={80}
-					/>
+					<img src='/images/aprende_solidity.jpg' alt='Image 1' />
 				</SwiperSlide>
 				<SwiperSlide>
-					<Image
-						src={'/images/speedrun1.jpg'}
-						alt='slide_image'
-						width={100}
-						height={80}
-					/>
+					<img src='/images/speedrun1.jpg' alt='Image 2' />
 				</SwiperSlide>
 				<SwiperSlide>
-					<Image
-						src={'/images/web3_aming.jpg'}
-						alt='slide_image'
-						width={100}
-						height={80}
-					/>
+					<img src='/images/web3_gaming.jpg' alt='Image 3' />
 				</SwiperSlide>
 				<SwiperSlide>
-					<Image
-						src={'/images/speedrun2.jpg'}
-						alt='slide_image'
-						width={100}
-						height={80}
-					/>
+					<img src='/images/speedrun2.jpg' alt='Image 4' />
 				</SwiperSlide>
 			</Swiper>
+
+			<style jsx>{`
+				img {
+					margin: 2em auto;
+					width: 350px;
+					height: 350px;
+					border-radius: 10px;
+					object-fit: cover;
+				}
+			`}</style>
 		</>
 	)
 }

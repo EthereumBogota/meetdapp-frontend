@@ -1,9 +1,8 @@
-import { Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import EventCard from './EventCard'
 import Link from 'next/link'
-import { MeetdAppFactory } from '../../../@types/typechain-types/MeetdAppFactory'
-import { ethers } from 'ethers'
+import Loader from '../shared/Loader'
 
 const first_event = {
 	id: 0,
@@ -36,7 +35,7 @@ export default function Events(props: Props): React.ReactNode {
 					{t('landing.top-events.title')} 🔥
 				</Heading>
 				{isLoading ? (
-					<p>Loading...</p>
+					<Loader width='full' height='300px' color='#00001C' />
 				) : (
 					<Grid
 						width={'full'}

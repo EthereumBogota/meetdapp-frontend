@@ -22,7 +22,7 @@ export default function NotFoundPage() {
 			textAlign={'center'}
 			color={'#DDEBED'}
 		>
-			<Image src='/img/Logo.svg' w={{ base: '70px', lg: '100px' }} />
+			<Image src='/images/logo.svg' w={{ base: '70px', lg: '100px' }} />
 			<Text marginY={6} fontSize={{ base: '2xl', lg: '3xl' }} as='b'>
 				{t('404.not-found')}
 			</Text>

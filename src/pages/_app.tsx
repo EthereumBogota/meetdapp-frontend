@@ -1,6 +1,5 @@
 import '../styles/fonts.css'
 import customTheme from '../styles/chakra-themes/theme'
-import '@/styles/stylesPrevEvents.css'
 import '@rainbow-me/rainbowkit/styles.css'
 import {
 	RainbowKitProvider,

@@ -107,5 +107,27 @@
     "not-found": "Esta página no fue encontrada",
     "error-code": "Código de error",
     "home": "Volver al inicio"
+  },
+  "toasts": {
+    "ticket-bought": {
+      "title": "Tiquete comprado!",
+      "description": "El tiquete fue comprado exitosamente."
+    },
+    "failed": {
+      "title": "Transacción fallida",
+      "description": "La transacción falló. Intenta de nuevo."
+    },
+    "install-metamask": {
+      "title": "Instala MetaMask",
+      "description": "MetaMask no está instalado en este navegador."
+    },
+    "connect-metamask": {
+      "title": "Cuenta desconectada",
+      "description": "Conecta tu cuenta de MetaMask para comprar un tiquete."
+    },
+    "change-network": {
+      "title": "Red no válida",
+      "description": "Cambia a la red Mumbai para comprar un tiquete."
+    }
   }
 }

@@ -6,25 +6,18 @@ export default function PreviousEvents() {
 	return (
 		<>
 			<Flex
-				maxW={'50.313em'}
-				minH='500px'
 				h='fit-content'
 				borderRadius='3xl'
-				margin='auto 74px'
+				mx='auto'
 				bg='#DDEBED'
-				backgroundPosition={{ base: '100%', md: 'left top' }}
-				align='flex-start'
-				w='70%'
+				w='full'
 				flexDirection='column'
-				px={12}
-				py={10}
+				p={{ base: 5, lg: 7 }}
 				overflow={'hidden'}
 			>
 				<VStack align='start' justifyContent={'flex-start'} spacing={0}>
-					{' '}
-					{/* Añadido VStack para apilar los textos verticalmente */}
 					<Text
-						fontSize='1.953rem'
+						fontSize={{ base: '2xl', lg: '3xl' }}
 						fontFamily={'space'}
 						fontWeight='semibold'
 						color={'#00001C'}

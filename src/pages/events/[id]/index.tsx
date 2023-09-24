@@ -5,7 +5,7 @@ import EventLocation from '@/components/events/EventLocation'
 import GetTicketCard from '@/components/events/GetTicketCard'
 import PreviousEvents from '@/components/events/PreviousEvents'
 import TagsSection from '@/components/events/TagsSection'
-import { Flex } from '@chakra-ui/react'
+import { Flex, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import MeetdAppFactoryJson from '../../../assets/contracts/MeetdAppFactory.json'
 import MeetdAppEventJson from '../../../assets/contracts/MeetdAppEvent.json'
@@ -36,44 +36,65 @@ const initialEvent: Event = {
 	ownerAddress: '',
 	nftAddress: ''
 }
+import Loader from '@/components/shared/Loader'
+import { useTranslation } from 'react-i18next'
 
-function Event(): JSX.Element {
+export default function Event(): JSX.Element {
 	const [attendees, setAttendees] = useState<string[]>([])
 	const [event, setEvent] = useState<Event>(initialEvent)
+	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [meetdAppEventContract, setMeetdAppEventContract] =
 		useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
-
 	const router = useRouter()
 
 	// TODO: generate nanoId
-	const splitedPath: string[] = router.asPath.split('/')
-	const id = splitedPath[splitedPath.length - 1]
+	const { id } = router.query
 
-	const { address } = useAccount()
+  const { address } = useAccount()
 	const { chain } = useNetwork()
+
+  const { t } = useTranslation()
+	const toast = useToast()
 
 	const onBuyTicket = async () => {
 		const ethereum = (window as any).ethereum
 
 		if (!ethereum) {
-			// TODO: i18n
-			alert('MetaMask no está instalado en este navegador.')
+			toast({
+				title: t('toasts.install-metamask.title'),
+				description: t('toasts.install-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: false,
+				position: 'top-right'
+			})
 			return
 		}
 
 		if (!address) {
-			// TODO: i18n
-			alert('Conecta tu cuenta de MetaMask para comprar un ticket.')
+			toast({
+				title: t('toasts.connect-metamask.title'),
+				description: t('toasts.connect-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: false,
+				position: 'top-right'
+			})
 			return
 		}
 
 		if (chain?.id !== CHAINID) {
-			// TODO: i18n
-			alert('Cambia a la red mumbai para comprar un ticket.')
+			toast({
+				title: t('toasts.change-network.title'),
+				description: t('toasts.change-network.description'),
+				status: 'warning',
+				duration: 2000,
+				isClosable: false,
+				position: 'top-right'
+			})
 			return
 		}
 
@@ -90,37 +111,75 @@ function Event(): JSX.Element {
 			).getSigner()
 
 			if (meetdAppEventContract) {
-				const meetdAppFactoryContractWithSigner: MeetdAppEvent =
+				const meetdAppEventContractWithSigner: MeetdAppEvent =
 					meetdAppEventContract.connect(signer)
 
-				const tx = await meetdAppFactoryContractWithSigner.buyTicket({
+				const tx = await meetdAppEventContractWithSigner.buyTicket({
 					gasLimit: 2500000
 				})
 				await tx.wait(1)
 
-				setIsBuyTicketLoading(false)
+				const newEvent:Event = event
+        newEvent.remainingTickets = newEvent.remainingTickets - 1
+				setEvent(newEvent)
+
+        setAttendees(prevAttendees => [...prevAttendees, address]);
+
+        setIsBuyTicketLoading(false)
 				setHasTicket(true)
 
-				// TODO: i18n
-				alert('Se ha comprado el ticket correctamente.')
+				toast({
+					title: t('toasts.ticket-bought.title'),
+					description: t('toasts.ticket-bought.description'),
+					status: 'success',
+					duration: 2000,
+					isClosable: false,
+					position: 'top-right'
+				})
 			}
 		} catch (error) {
 			setIsBuyTicketLoading(false)
 
 			if (error instanceof Error) {
 				if (error.message.includes('user rejected transaction')) {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: false,
+						position: 'top-right'
+					})
 					return
 				} else if (error.message.includes('transaction failed')) {
-					// TODO: i18n
-					alert('La transacción falló')
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: false,
+						position: 'top-right'
+					})
 				} else {
-					// TODO: i18n
 					console.error('error: ', error)
-					alert('Ocurrió un error inesperado. Por favor intenta de nuevo.')
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: false,
+						position: 'top-right'
+					})
 				}
 			} else {
-				// TODO: i18n
-				alert('Ocurrió un error desconocido.')
+				toast({
+					title: t('toasts.failed.title'),
+					description: t('toasts.failed.description'),
+					status: 'error',
+					duration: 2000,
+					isClosable: false,
+					position: 'top-right'
+				})
 			}
 		}
 	}
@@ -183,8 +242,13 @@ function Event(): JSX.Element {
 
 	useEffect(() => {
 		if (owner === undefined) {
+      // TODO: generate nanoId
 			fetchEventInformation()
 			return
+		}
+
+		if (chain?.id !== CHAINID) {
+			setHasTicket(false)
 		}
 
 		if (address && meetdAppEventContract) {
@@ -193,84 +257,95 @@ function Event(): JSX.Element {
 				setOwner(address)
 			})
 		}
-	}, [address])
+
+	}, [address, chain?.id])
 
 	return (
 		<>
 			<Navbar />
-			{isLoading ? (
-				<p>Loading...</p>
-			) : (
-				<Flex
-					background={
-						'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
-					}
-					direction={{ base: 'column', lg: 'column' }}
-					gap={6}
-					paddingBottom={6}
-				>
-					<Flex
-						paddingTop={{ base: '2rem', lg: 14 }}
-						minH={{ base: 'auto', lg: '100vh' }}
-						width={'full'}
-						justify={'center'}
-						position={'relative'}
-					>
+			<Flex
+				background={
+					'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
+				}
+				gap={6}
+				paddingBottom={6}
+				alignItems={'center'}
+				justifyContent={'center'}
+			>
+				{isLoading ? (
+					<Loader width='full' height='100vh' color='#DDEBED' />
+				) : (
+					<>
 						<Flex
-							mt={{ base: '6rem', lg: 5 }}
-							gap={'3em'}
-							px={3}
-							maxW={'1300px'}
+							mt={'9em'}
+							mb={'3em'}
+							maxW={'1200px'}
 							width={'90%'}
-							alignItems={'center'}
-							justify={{ base: 'space-evenly', lg: 'space-between' }}
-							direction={{ base: 'column', lg: 'row' }}
+							display={{ base: 'none', lg: 'flex' }}
+							gap={'3em'}
+							direction={'row'}
+							justifyContent={'center'}
 						>
-							{isLoading ? (
-								<p>Loading...</p>
-							) : (
-								<>
-									<EventImage />
-									<EventLocation />
-								</>
-							)}
-						</Flex>
-					</Flex>
+							<Flex
+								direction={'column'}
+								flex={7}
+								w={'full'}
+								gap={'3em'}
+								alignItems={'center'}
+								justify={'center'}
+							>
+								<EventImage />
+								<EventDetails />
+								<PreviousEvents />
+								<Attendees attendees={attendees} />
+								<TagsSection />
+							</Flex>
 
-					<Flex
-						minH={{ base: 'auto', lg: '100vh' }}
-						width={'full'}
-						justify={'center'}
-					>
+							<Flex
+								width={'full'}
+								alignItems={'center'}
+								gap={'3em'}
+								flex={3}
+								direction={'column'}
+							>
+								<EventLocation />
+								<GetTicketCard
+									event={event}
+									getTicket={onBuyTicket}
+									isBuyTicketLoading={isBuyTicketLoading}
+									hasTicket={hasTicket}
+								/>
+							</Flex>
+						</Flex>
 						<Flex
-							mt={{ base: '6rem', lg: 5 }}
-							gap={'3em'}
-							px={3}
-							maxW={'1300px'}
+							mt={'8em'}
 							width={'90%'}
-							alignItems={'initial'}
-							justify={{ base: 'space-evenly', lg: 'space-between' }}
-							direction={{ base: 'column', lg: 'row' }}
+							display={{ base: 'flex', lg: 'none' }}
+							gap={'3em'}
+							direction={'column'}
+							justifyContent={'center'}
+							mb={'3em'}
 						>
-							<EventDetails />
-							<GetTicketCard
-								event={event}
-								getTicket={onBuyTicket}
-								isBuyTicketLoading={isBuyTicketLoading}
-								hasTicket={hasTicket}
-							/>
+							<Flex direction={'column'} w={'full'} gap={'3em'}>
+								<EventImage />
+								<EventLocation />
+								<EventDetails />
+								<PreviousEvents />
+								<Attendees attendees={attendees}/>
+								<TagsSection />
+								<GetTicketCard
+									event={event}
+									getTicket={onBuyTicket}
+									isBuyTicketLoading={isBuyTicketLoading}
+									hasTicket={hasTicket}
+								/>
+							</Flex>
 						</Flex>
-					</Flex>
-
-					<PreviousEvents />
-					<Attendees attendees={attendees} />
-					<TagsSection />
-				</Flex>
-			)}
-
+					</>
+				)}
+			</Flex>
 			<Footer />
 		</>
 	)
 }
 
-export default Event

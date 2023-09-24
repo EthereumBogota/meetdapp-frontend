@@ -8,28 +8,22 @@ const Attendees = (props: Props) => {
 	const { attendees } = props
 	return (
 		<Flex
-			maxW={'50.313em'}
-			minH='500px'
-			h='fit-content'
 			borderRadius='3xl'
-			margin='auto 74px'
+			mx='auto'
 			bg='#DDEBED'
-			backgroundPosition={{ base: '100%', md: 'left top' }}
-			align='flex-start'
-			w='70%'
+			w='100%'
 			flexDirection='column'
-			px={12}
-			py={10}
 			gap={5}
+			p={{ base: 5, md: 7 }}
 		>
 			<Text
-				fontSize='1.953rem'
+				fontSize={{ base: '2xl', lg: '3xl' }}
 				fontFamily={'space'}
 				fontWeight='semibold'
 				color={'#00001C'}
 				textAlign={{ base: 'start', md: 'start' }}
 			>
-				{`(${attendees.length})`} Asistentes
+				Asistentes
 			</Text>
 
 			<SimpleGrid columns={{ sm: 2, md: 3 }} spacing='8'>

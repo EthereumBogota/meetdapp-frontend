@@ -5,22 +5,17 @@ import TagComponent from './TagComponent'
 const TagsSection = () => {
 	return (
 		<Flex
-			maxW={'50.313em'}
-			minH='fit-content'
-			h='fit-content'
+			p={{ base: 5, md: 7 }}
 			borderRadius='3xl'
-			margin='auto 74px'
+			mx='auto'
 			bg='#DDEBED'
-			backgroundPosition={{ base: '100%', md: 'left top' }}
 			align='flex-start'
-			w='70%'
+			w='full'
 			flexDirection='column'
-			px={12}
-			py={10}
 		>
 			<VStack align='start' spacing={5}>
 				<Text
-					fontSize='1.953rem'
+					fontSize={{ base: '2xl', lg: '3xl' }}
 					fontFamily={'space'}
 					fontWeight='semibold'
 					color={'#00001C'}
