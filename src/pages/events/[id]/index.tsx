@@ -239,13 +239,18 @@ function Event(): JSX.Element {
 			return
 		}
 
+		if (chain?.id !== CHAINID) {
+			setHasTicket(false)
+		}
+
 		if (address && meetdAppEventContract) {
 			meetdAppEventContract.eventAttendees(address).then((ticket: boolean) => {
 				setHasTicket(ticket)
 				setOwner(address)
 			})
 		}
-	}, [address])
+
+	}, [address, chain?.id])
 
 	return (
 		<>
