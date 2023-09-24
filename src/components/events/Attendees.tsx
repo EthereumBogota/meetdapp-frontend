@@ -5,19 +5,13 @@ import AssistantAvatar from './AssistantAvatar'
 const Attendees = () => {
 	return (
 		<Flex
-			maxW={'50.313em'}
-			minH='500px'
-			h='fit-content'
 			borderRadius='3xl'
-			margin='auto 74px'
+			mx='auto'
 			bg='#DDEBED'
-			backgroundPosition={{ base: '100%', md: 'left top' }}
-			align='flex-start'
-			w='70%'
+			w='100%'
 			flexDirection='column'
-			px={12}
-			py={10}
 			gap={5}
+			p={{ base: 5, md: 7 }}
 		>
 			<Text
 				fontSize='1.953rem'

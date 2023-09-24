@@ -23,7 +23,7 @@ export default function Footer(): React.ReactNode {
 				align={'center'}
 				justify={'center'}
 				background={'#00001C'}
-				py={['3rem', '6rem']}
+				py={{ base: '3rem', md: '6rem' }}
 			>
 				<Flex
 					width={'90%'}
@@ -54,7 +54,7 @@ export default function Footer(): React.ReactNode {
 							<Box>
 								<Link href={'https://twitter.com/ethcobogota'} target='_blank'>
 									<Image
-										src='img/Twitter X.svg'
+										src='/images/twitter.svg'
 										alt='X'
 										width={['30px', '38px', '45px']}
 									/>
@@ -102,6 +102,14 @@ export default function Footer(): React.ReactNode {
 					</Grid> */}
 				</Flex>
 			</Flex>
+			<style jsx>{`
+				.container {
+					margin: 50px;
+				}
+				p {
+					color: blue;
+				}
+			`}</style>
 		</>
 	)
 }

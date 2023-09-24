@@ -59,7 +59,7 @@ export default function Hero() {
 					>
 						{t('landing.hero.description')}
 					</Text>
-					<Flex gap={'1em'} justify={{ base: 'center', lg: 'flex-start' }}>
+					{/* <Flex gap={'1em'} justify={{ base: 'center', lg: 'flex-start' }}>
 						<Button
 							boxShadow={
 								'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'
@@ -95,7 +95,7 @@ export default function Hero() {
 						>
 							{t('landing.hero.more')}
 						</Button>
-					</Flex>
+					</Flex> */}
 				</Stack>
 				<Image
 					alt={'Hero Image'}

@@ -5,7 +5,7 @@ import EventLocation from '@/components/events/EventLocation'
 import GetTicketCard from '@/components/events/GetTicketCard'
 import PreviousEvents from '@/components/events/PreviousEvents'
 import TagsSection from '@/components/events/TagsSection'
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import MeetdAppFactoryJson from '../../../assets/contracts/MeetdAppFactory.json'
 import MeetdAppFactoryEventJson from '../../../assets/contracts/MeetdAppEvent.json'
@@ -71,55 +71,66 @@ function Event({ event }: EventPageProps) {
 				background={
 					'linear-gradient(180deg, #348793 -0.41%, #00001C -0.4%, #053763 73.8%)'
 				}
-				direction={{ base: 'column', lg: 'column' }}
 				gap={6}
 				paddingBottom={6}
+				alignItems={'center'}
+				justifyContent={'center'}
 			>
 				<Flex
-					paddingTop={{ base: '2rem', lg: 14 }}
-					minH={{ base: 'auto', lg: '100vh' }}
-					width={'full'}
-					justify={'center'}
-					position={'relative'}
+					mt={'8em'}
+					mb={'3em'}
+					maxW={'1200px'}
+					width={'90%'}
+					display={{ base: 'none', lg: 'flex' }}
+					gap={'3em'}
+					direction={'row'}
+					justifyContent={'center'}
 				>
 					<Flex
-						mt={{ base: '6rem', lg: 5 }}
+						direction={'column'}
+						flex={7}
+						w={'full'}
 						gap={'3em'}
-						px={3}
-						maxW={'1300px'}
-						width={'90%'}
-						alignItems={'center'}
-						justify={{ base: 'space-evenly', lg: 'space-between' }}
-						direction={{ base: 'column', lg: 'row' }}
+						order={{ base: 1, lg: 0 }}
 					>
 						<EventImage />
-						<EventLocation />
-					</Flex>
-				</Flex>
-
-				<Flex
-					minH={{ base: 'auto', lg: '100vh' }}
-					width={'full'}
-					justify={'center'}
-				>
-					<Flex
-						mt={{ base: '6rem', lg: 5 }}
-						gap={'3em'}
-						px={3}
-						maxW={'1300px'}
-						width={'90%'}
-						alignItems={'initial'}
-						justify={{ base: 'space-evenly', lg: 'space-between' }}
-						direction={{ base: 'column', lg: 'row' }}
-					>
 						<EventDetails />
+						<PreviousEvents />
+						<Attendees />
+						<TagsSection />
+					</Flex>
+
+					<Flex
+						direction={'column'}
+						flex={3}
+						w={'full'}
+						gap={'3em'}
+						order={{ base: 0, lg: 1 }}
+					>
+						<EventLocation />
 						<GetTicketCard />
 					</Flex>
 				</Flex>
 
-				<PreviousEvents />
-				<Attendees />
-				<TagsSection />
+				<Flex
+					mt={'8em'}
+					width={'90%'}
+					display={{ base: 'flex', lg: 'none' }}
+					gap={'3em'}
+					direction={'column'}
+					justifyContent={'center'}
+					mb={'3em'}
+				>
+					<Flex direction={'column'} w={'full'} gap={'3em'}>
+						<EventImage />
+						<EventLocation />
+						<EventDetails />
+						<PreviousEvents />
+						<Attendees />
+						<TagsSection />
+						<GetTicketCard />
+					</Flex>
+				</Flex>
 			</Flex>
 			<Footer />
 		</>

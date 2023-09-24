@@ -31,7 +31,7 @@ export default function MiddleSections(props: Props) {
 				heading={t('landing.section1.title')}
 				description={t('landing.section1.description')}
 				button={t('landing.section1.button')}
-				image={'../../assets/images/Section 1 Image.png'}
+				image={'/images/section_1_image.png'}
 				imageRight={true}
 			/>
 
@@ -40,7 +40,7 @@ export default function MiddleSections(props: Props) {
 				heading={t('landing.section2.title')}
 				description={t('landing.section2.description')}
 				button={t('landing.section2.button')}
-				image={'/img/Section 2 Image.png'}
+				image={'/images/section_2_image.png'}
 				imageRight={false}
 			/>
 
@@ -49,7 +49,7 @@ export default function MiddleSections(props: Props) {
 				heading={t('landing.section3.title')}
 				description={t('landing.section3.description')}
 				button={t('landing.section3.button')}
-				image={'/img/Section 3 Image.svg'}
+				image={'/images/section_3_image.svg'}
 				imageRight={true}
 			/>
 
@@ -58,7 +58,7 @@ export default function MiddleSections(props: Props) {
 				heading={t('landing.section4.title')}
 				description={t('landing.section4.description')}
 				button={t('landing.section4.button')}
-				image={'/img/Section 4 Image.png'}
+				image={'/images/section_4_image.png'}
 				imageRight={false}
 			/>
 
