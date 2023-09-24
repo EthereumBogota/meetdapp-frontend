@@ -1,6 +1,7 @@
 import {
   Flex,
   Heading,
+  Text,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import AccordionC from "./AccordionC";
@@ -14,7 +15,15 @@ export default function Events(): React.ReactNode {
         <Heading textAlign={"center"} fontFamily="spaceBold">
           {t('landing.FAQ.title')}
         </Heading>
-        <AccordionC />
+        {/* <AccordionC /> */}
+        <Text
+          textAlign={"center"}
+          fontFamily={"spaceBold"}
+          fontSize={"xl"}
+          my={6}
+        >
+          {t('landing.FAQ.soon')}
+        </Text>
       </Flex>
     </>
   )

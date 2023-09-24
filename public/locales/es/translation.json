@@ -44,7 +44,8 @@
       "button": "Discover More"
     },
     "FAQ": {
-      "title": "Preguntas Frecuentes (PF)"
+      "title": "Preguntas Frecuentes (PF)",
+      "soon": "Pronto..."
     }
   },
   "footer": {
@@ -101,5 +102,10 @@
     "social.view-more-new": "Ver más",
     "post-loading.connected": "Estás conectado con tu cuenta",
     "post-loading.something-wrong": "¡Algo salió mal!"
+  },
+  "404": {
+    "not-found": "Esta página no fue encontrada",
+    "error-code": "Código de error",
+    "home": "Volver al inicio"
   }
 }

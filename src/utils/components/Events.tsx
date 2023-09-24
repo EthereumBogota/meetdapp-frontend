@@ -8,6 +8,10 @@ import { useTranslation } from "react-i18next";
 import EventCard from "./EventCard";
 import Link from "next/link";
 
+const first_event = {
+  id: 0
+}
+
 export default function Events(): React.ReactNode {
   const { t } = useTranslation()
 
@@ -18,8 +22,8 @@ export default function Events(): React.ReactNode {
           {t('landing.top-events.title')} 🔥
         </Heading>
         <Grid width={"full"} templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }} gap={{ base: 10, lg: 16 }}>
-          <Link href={"/dashboard"}>
-            <GridItem justifySelf={"center"}>
+          <Link href={`/events/${first_event.id}`} >
+            <GridItem justifySelf={"center"} transition={"transform .3s"} _hover={{ transform: "scale(1.03)" }}>
               <EventCard />
             </GridItem>
           </Link>

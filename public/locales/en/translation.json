@@ -44,7 +44,8 @@
       "button": "Discover More"
     },
     "FAQ": {
-      "title": "Frequently Asked Questions (FAQ)"
+      "title": "Frequently Asked Questions (FAQ)",
+      "soon": "Coming soon..."
     }
   },
   "footer": {
@@ -101,5 +102,10 @@
     "social.view-more-new": "View more",
     "post-loading.connected": "You are connected with your account",
     "post-loading.something-wrong": "Something went wrong!"
+  },
+  "404": {
+    "not-found": "This page was not found",
+    "error-code": "Error code",
+    "home": "Go back home"
   }
 }

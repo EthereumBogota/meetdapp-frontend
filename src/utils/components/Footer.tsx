@@ -39,12 +39,12 @@ export default function Footer(): React.ReactNode {
 						</Text>
 						<HStack spacing={'1em'}>
 							<Box>
-								<Link href={'#'}>
+								<Link href={'https://www.youtube.com/@EthereumBogota'} target='_blank'>
 									<FaYoutube size={35} color='#fff' />
 								</Link>
 							</Box>
 							<Box>
-								<Link href={'#'}>
+								<Link href={'https://twitter.com/ethcobogota'} target='_blank'>
 									<Image
 										src='img/Twitter X.svg'
 										alt='X'
@@ -53,13 +53,13 @@ export default function Footer(): React.ReactNode {
 								</Link>
 							</Box>
 							<Box>
-								<Link href={'#'}>
+								<Link href={'https://www.instagram.com/ethcobogota/'} target='_blank'>
 									<FaInstagram size={35} color='#fff' />
 								</Link>
 							</Box>
 						</HStack>
 					</Flex>
-					<Divider my={'4rem'} />
+					{/* <Divider my={'4rem'} />
 					<Grid templateColumns='repeat(3, 1fr)' gap={2} color={'#DDEBED'}>
 						<GridItem>
 							<Link href={'#'}>item</Link>
@@ -88,7 +88,7 @@ export default function Footer(): React.ReactNode {
 						<GridItem>
 							<Link href={'#'}>item</Link>
 						</GridItem>
-					</Grid>
+					</Grid> */}
 				</Flex>
 			</Flex>
 		</>
