@@ -8,6 +8,7 @@ import Head from 'next/head'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
 import '../config/i18n'
+import { PROVIDER } from '@/constants/constants'
 
 const metadata = {
 	title: 'MeetdApp',
@@ -15,41 +16,40 @@ const metadata = {
 }
 
 export default function Home() {
-	const [meetdAppFactpry, setMeetdAppFactory] =
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [meetdAppFactory, setMeetdAppFactory] =
 		useState<MeetdAppFactory | null>(null)
-	const [provider, setProvider] =
-		useState<ethers.providers.Web3Provider | null>(null)
-	const [signer, setSigner] = useState<ethers.providers.JsonRpcSigner | null>(
-		null
-	)
 
-	const fecthFactory = async () => {
-		const ethereum = (window as any).ethereum
-		const web3Provider: ethers.providers.Web3Provider =
-			new ethers.providers.Web3Provider(ethereum)
-		await web3Provider.send('eth_requestAccounts', [])
-		const web3Signer: ethers.providers.JsonRpcSigner = web3Provider.getSigner()
+	const fetchActiveEvents = async () => {
+		setTimeout(() => {
+			const provider: ethers.providers.JsonRpcProvider =
+				new ethers.providers.JsonRpcProvider(PROVIDER)
 
-		const meetdAppFactoryContract: ethers.Contract = new ethers.Contract(
-			MeetdAppFactoryJson.address,
-			MeetdAppFactoryJson.abi,
-			web3Signer
-		) as MeetdAppFactory
+			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
+				MeetdAppFactoryJson.address,
+				MeetdAppFactoryJson.abi,
+				provider
+			) as MeetdAppFactory
+
+			setMeetdAppFactory(meetdAppFactoryContract)
+			setIsLoading(false)
+		}, 3000)
 	}
 
 	useEffect(() => {
-		const ethereum = (window as any).ethereum
+		fetchActiveEvents()
+		// const ethereum = (window as any).ethereum
 
-		if (
-			typeof ethereum !== 'undefined' &&
-			typeof ethereum === 'object' &&
-			typeof ethereum.web3 !== 'undefined'
-		) {
-			// MetaMask is installed and web3 is available
-		} else {
-			// MetaMask is not installed or web3 is not available
-			console.log('MetaMask no está instalado en este navegador.')
-		}
+		// if (
+		// 	typeof ethereum !== 'undefined' &&
+		// 	typeof ethereum === 'object' &&
+		// 	typeof ethereum.web3 !== 'undefined'
+		// ) {
+		// 	// MetaMask is installed and web3 is available
+		// } else {
+		// 	// MetaMask is not installed or web3 is not available
+		// 	console.log('MetaMask no está instalado en este navegador.')
+		// }
 	}, [])
 
 	return (
@@ -62,7 +62,7 @@ export default function Home() {
 			</Head>
 			<Navbar />
 			<Hero />
-			<MiddleSections />
+			<MiddleSections isLoading={isLoading} />
 			<Footer />
 		</>
 	)

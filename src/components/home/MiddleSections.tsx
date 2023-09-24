@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next'
 import Events from './Events'
 import FAQ from './FAQ'
 
-export default function MiddleSections() {
+type Props = {
+	isLoading: boolean
+}
+
+export default function MiddleSections(props: Props) {
+	const { isLoading } = props
 	const { t } = useTranslation()
 
 	return (
@@ -19,7 +24,7 @@ export default function MiddleSections() {
 			py={'5em'}
 			background='#DDEBED'
 		>
-			<Events />
+			<Events isLoading={isLoading} />
 
 			<Section
 				badge={t('landing.section1.badge')}

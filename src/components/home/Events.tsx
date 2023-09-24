@@ -9,7 +9,12 @@ const first_event = {
 	description: 'ndineondeond'
 }
 
-export default function Events(): React.ReactNode {
+type Props = {
+	isLoading: boolean
+}
+
+export default function Events(props: Props): React.ReactNode {
+	const { isLoading } = props
 	const { t } = useTranslation()
 
 	return (
@@ -26,25 +31,29 @@ export default function Events(): React.ReactNode {
 				<Heading fontFamily='spaceBold'>
 					{t('landing.top-events.title')} 🔥
 				</Heading>
-				<Grid
-					width={'full'}
-					templateColumns={{
-						base: 'repeat(1, 1fr)',
-						md: 'repeat(2, 1fr)',
-						lg: 'repeat(3, 1fr)'
-					}}
-					gap={{ base: 10, lg: 16 }}
-				>
-					<Link href={`/events/${first_event.id}`}>
-						<GridItem
-							justifySelf={'center'}
-							transition={'transform .3s'}
-							_hover={{ transform: 'scale(1.03)' }}
-						>
-							<EventCard />
-						</GridItem>
-					</Link>
-				</Grid>
+				{isLoading ? (
+					<p>Loading...</p>
+				) : (
+					<Grid
+						width={'full'}
+						templateColumns={{
+							base: 'repeat(1, 1fr)',
+							md: 'repeat(2, 1fr)',
+							lg: 'repeat(3, 1fr)'
+						}}
+						gap={{ base: 10, lg: 16 }}
+					>
+						<Link href={`/events/${first_event.id}`}>
+							<GridItem
+								justifySelf={'center'}
+								transition={'transform .3s'}
+								_hover={{ transform: 'scale(1.03)' }}
+							>
+								<EventCard />
+							</GridItem>
+						</Link>
+					</Grid>
+				)}
 			</Flex>
 		</>
 	)
