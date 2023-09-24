@@ -20,6 +20,9 @@ import Footer from '@/components/shared/Footer'
 import '../../../config/i18n'
 import { CHAINID, PROVIDER } from '@/constants/constants'
 import { useAccount, useNetwork } from 'wagmi'
+import { time } from 'console'
+import { TimeIcon } from '@chakra-ui/icons'
+import { t } from 'i18next'
 
 interface Event {
 	id: string
@@ -38,6 +41,7 @@ function Event(props: Props): JSX.Element {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	const [meetdAppEventContract, setMeetdAppEventContract] =
 		useState<MeetdAppEvent | null>(null)
+	const [owner, setOwner] = useState<string | undefined>(undefined)
 
 	const router = useRouter()
 
@@ -90,6 +94,7 @@ function Event(props: Props): JSX.Element {
 				await tx.wait(1)
 
 				setIsBuyTicketLoading(false)
+				setHasTicket(true)
 
 				// TODO: i18n
 				alert('Se ha comprado el ticket correctamente.')
@@ -133,26 +138,37 @@ function Event(props: Props): JSX.Element {
 			const eventContractAdress: string =
 				await meetdAppFactoryContract.mapIdEvent(hashBytes32EventId)
 
-			const meetdAppEventContract = new ethers.Contract(
+			const eventContract = new ethers.Contract(
 				eventContractAdress,
 				MeetdAppFactoryEventJson.abi,
 				rpcProvider
 			) as MeetdAppEvent
 
 			if (address) {
-				const ticket: boolean =
-					await meetdAppEventContract.eventAttendees(address)
+				const ticket: boolean = await eventContract.eventAttendees(address)
 				setHasTicket(ticket)
 			}
 
-			setMeetdAppEventContract(meetdAppEventContract)
+			setOwner(address)
+
+			setMeetdAppEventContract(eventContract)
 			setIsLoading(false)
 		}, 3000)
 	}
 
 	useEffect(() => {
-		fetchEventInformation()
-	}, [])
+		if (owner === undefined) {
+			fetchEventInformation()
+			return
+		}
+
+		if (address && meetdAppEventContract) {
+			meetdAppEventContract.eventAttendees(address).then((ticket: boolean) => {
+				setHasTicket(ticket)
+				setOwner(address)
+			})
+		}
+	}, [address])
 
 	return (
 		<>
