@@ -2,923 +2,970 @@
 /* tslint:disable */
 /* eslint-disable */
 import {
-  BaseContract,
-  BigNumber,
-  BigNumberish,
-  BytesLike,
-  CallOverrides,
-  ContractTransaction,
-  Overrides,
-  PopulatedTransaction,
-  Signer,
-  utils,
-} from "ethers";
-import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+	BaseContract,
+	BigNumber,
+	BigNumberish,
+	BytesLike,
+	CallOverrides,
+	ContractTransaction,
+	Overrides,
+	PopulatedTransaction,
+	Signer,
+	utils
+} from 'ethers'
+import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi'
+import { Listener, Provider } from '@ethersproject/providers'
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common'
 
 export interface MeetdAppEventInterface extends utils.Interface {
-  contractName: "MeetdAppEvent";
-  functions: {
-    "buyTicket()": FunctionFragment;
-    "eventAttendees(address)": FunctionFragment;
-    "eventDescription()": FunctionFragment;
-    "eventEndTime()": FunctionFragment;
-    "eventFactory()": FunctionFragment;
-    "eventId()": FunctionFragment;
-    "eventLocation()": FunctionFragment;
-    "eventName()": FunctionFragment;
-    "eventNfts()": FunctionFragment;
-    "eventOwner()": FunctionFragment;
-    "eventReedemableTime()": FunctionFragment;
-    "eventRemainingTickets()": FunctionFragment;
-    "eventSecretWordHash()": FunctionFragment;
-    "eventStartTime()": FunctionFragment;
-    "eventTotalTickets()": FunctionFragment;
-    "owner()": FunctionFragment;
-    "reedemNft(string)": FunctionFragment;
-    "refundTicket()": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
-    "transferTicket(address)": FunctionFragment;
-    "updateEventDescription(string)": FunctionFragment;
-    "updateEventEndTime(uint256)": FunctionFragment;
-    "updateEventLocation(string)": FunctionFragment;
-    "updateEventName(string)": FunctionFragment;
-    "updateEventOwner(address)": FunctionFragment;
-    "updateEventStartTime(uint256)": FunctionFragment;
-    "updateEventTotalTickets(uint256)": FunctionFragment;
-  };
+	contractName: 'MeetdAppEvent'
+	functions: {
+		'attendeesList(uint256)': FunctionFragment
+		'buyTicket()': FunctionFragment
+		'eventAttendees(address)': FunctionFragment
+		'eventDescription()': FunctionFragment
+		'eventEndTime()': FunctionFragment
+		'eventFactory()': FunctionFragment
+		'eventId()': FunctionFragment
+		'eventLocation()': FunctionFragment
+		'eventName()': FunctionFragment
+		'eventNfts()': FunctionFragment
+		'eventOwner()': FunctionFragment
+		'eventReedemableTime()': FunctionFragment
+		'eventRemainingTickets()': FunctionFragment
+		'eventSecretWordHash()': FunctionFragment
+		'eventStartTime()': FunctionFragment
+		'eventTotalTickets()': FunctionFragment
+		'getAllAttendees()': FunctionFragment
+		'owner()': FunctionFragment
+		'reedemNft(string)': FunctionFragment
+		'refundTicket()': FunctionFragment
+		'renounceOwnership()': FunctionFragment
+		'transferOwnership(address)': FunctionFragment
+		'transferTicket(address)': FunctionFragment
+		'updateEventDescription(string)': FunctionFragment
+		'updateEventEndTime(uint256)': FunctionFragment
+		'updateEventLocation(string)': FunctionFragment
+		'updateEventName(string)': FunctionFragment
+		'updateEventOwner(address)': FunctionFragment
+		'updateEventStartTime(uint256)': FunctionFragment
+		'updateEventTotalTickets(uint256)': FunctionFragment
+	}
 
-  encodeFunctionData(functionFragment: "buyTicket", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "eventAttendees",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventDescription",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventEndTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventFactory",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "eventId", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "eventLocation",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "eventName", values?: undefined): string;
-  encodeFunctionData(functionFragment: "eventNfts", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "eventOwner",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventReedemableTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventRemainingTickets",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventSecretWordHash",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventStartTime",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "eventTotalTickets",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "reedemNft", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "refundTicket",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferTicket",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventDescription",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventEndTime",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventLocation",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventName",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventOwner",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventStartTime",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateEventTotalTickets",
-    values: [BigNumberish]
-  ): string;
+	encodeFunctionData(
+		functionFragment: 'attendeesList',
+		values: [BigNumberish]
+	): string
+	encodeFunctionData(functionFragment: 'buyTicket', values?: undefined): string
+	encodeFunctionData(
+		functionFragment: 'eventAttendees',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventDescription',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventEndTime',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventFactory',
+		values?: undefined
+	): string
+	encodeFunctionData(functionFragment: 'eventId', values?: undefined): string
+	encodeFunctionData(
+		functionFragment: 'eventLocation',
+		values?: undefined
+	): string
+	encodeFunctionData(functionFragment: 'eventName', values?: undefined): string
+	encodeFunctionData(functionFragment: 'eventNfts', values?: undefined): string
+	encodeFunctionData(functionFragment: 'eventOwner', values?: undefined): string
+	encodeFunctionData(
+		functionFragment: 'eventReedemableTime',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventRemainingTickets',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventSecretWordHash',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventStartTime',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'eventTotalTickets',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'getAllAttendees',
+		values?: undefined
+	): string
+	encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+	encodeFunctionData(functionFragment: 'reedemNft', values: [string]): string
+	encodeFunctionData(
+		functionFragment: 'refundTicket',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'renounceOwnership',
+		values?: undefined
+	): string
+	encodeFunctionData(
+		functionFragment: 'transferOwnership',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'transferTicket',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventDescription',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventEndTime',
+		values: [BigNumberish]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventLocation',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventName',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventOwner',
+		values: [string]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventStartTime',
+		values: [BigNumberish]
+	): string
+	encodeFunctionData(
+		functionFragment: 'updateEventTotalTickets',
+		values: [BigNumberish]
+	): string
 
-  decodeFunctionResult(functionFragment: "buyTicket", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "eventAttendees",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventDescription",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventEndTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventFactory",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "eventId", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "eventLocation",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "eventName", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "eventNfts", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "eventOwner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "eventReedemableTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventRemainingTickets",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventSecretWordHash",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventStartTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "eventTotalTickets",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "reedemNft", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "refundTicket",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferTicket",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventDescription",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventEndTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventLocation",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventName",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventOwner",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventStartTime",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateEventTotalTickets",
-    data: BytesLike
-  ): Result;
+	decodeFunctionResult(
+		functionFragment: 'attendeesList',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(functionFragment: 'buyTicket', data: BytesLike): Result
+	decodeFunctionResult(
+		functionFragment: 'eventAttendees',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventDescription',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventEndTime',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventFactory',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(functionFragment: 'eventId', data: BytesLike): Result
+	decodeFunctionResult(
+		functionFragment: 'eventLocation',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(functionFragment: 'eventName', data: BytesLike): Result
+	decodeFunctionResult(functionFragment: 'eventNfts', data: BytesLike): Result
+	decodeFunctionResult(functionFragment: 'eventOwner', data: BytesLike): Result
+	decodeFunctionResult(
+		functionFragment: 'eventReedemableTime',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventRemainingTickets',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventSecretWordHash',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventStartTime',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'eventTotalTickets',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'getAllAttendees',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+	decodeFunctionResult(functionFragment: 'reedemNft', data: BytesLike): Result
+	decodeFunctionResult(
+		functionFragment: 'refundTicket',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'renounceOwnership',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'transferOwnership',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'transferTicket',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventDescription',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventEndTime',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventLocation',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventName',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventOwner',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventStartTime',
+		data: BytesLike
+	): Result
+	decodeFunctionResult(
+		functionFragment: 'updateEventTotalTickets',
+		data: BytesLike
+	): Result
 
-  events: {
-    "BoughtTicket(address)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
-    "RefundedTicket(address)": EventFragment;
-    "TransferredTicket(address,address)": EventFragment;
-    "UpdatedEventDescription(string)": EventFragment;
-    "UpdatedEventEndTime(uint256)": EventFragment;
-    "UpdatedEventLocation(string)": EventFragment;
-    "UpdatedEventName(string)": EventFragment;
-    "UpdatedEventOwner(address)": EventFragment;
-    "UpdatedEventStartTime(uint256)": EventFragment;
-    "UpdatedEventTotalTickets(uint256)": EventFragment;
-    "UpdatedReedemableTimeAndSecretWordHash(uint256,bytes32)": EventFragment;
-  };
+	events: {
+		'BoughtTicket(address)': EventFragment
+		'OwnershipTransferred(address,address)': EventFragment
+		'RefundedTicket(address)': EventFragment
+		'TransferredTicket(address,address)': EventFragment
+		'UpdatedEventDescription(string)': EventFragment
+		'UpdatedEventEndTime(uint256)': EventFragment
+		'UpdatedEventLocation(string)': EventFragment
+		'UpdatedEventName(string)': EventFragment
+		'UpdatedEventOwner(address)': EventFragment
+		'UpdatedEventStartTime(uint256)': EventFragment
+		'UpdatedEventTotalTickets(uint256)': EventFragment
+		'UpdatedReedemableTimeAndSecretWordHash(uint256,bytes32)': EventFragment
+	}
 
-  getEvent(nameOrSignatureOrTopic: "BoughtTicket"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RefundedTicket"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TransferredTicket"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventDescription"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventEndTime"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventLocation"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventName"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventOwner"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventStartTime"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedEventTotalTickets"): EventFragment;
-  getEvent(
-    nameOrSignatureOrTopic: "UpdatedReedemableTimeAndSecretWordHash"
-  ): EventFragment;
+	getEvent(nameOrSignatureOrTopic: 'BoughtTicket'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'RefundedTicket'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'TransferredTicket'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventDescription'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventEndTime'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventLocation'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventName'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventOwner'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventStartTime'): EventFragment
+	getEvent(nameOrSignatureOrTopic: 'UpdatedEventTotalTickets'): EventFragment
+	getEvent(
+		nameOrSignatureOrTopic: 'UpdatedReedemableTimeAndSecretWordHash'
+	): EventFragment
 }
 
-export type BoughtTicketEvent = TypedEvent<[string], { buyer: string }>;
+export type BoughtTicketEvent = TypedEvent<[string], { buyer: string }>
 
-export type BoughtTicketEventFilter = TypedEventFilter<BoughtTicketEvent>;
+export type BoughtTicketEventFilter = TypedEventFilter<BoughtTicketEvent>
 
 export type OwnershipTransferredEvent = TypedEvent<
-  [string, string],
-  { previousOwner: string; newOwner: string }
->;
+	[string, string],
+	{ previousOwner: string; newOwner: string }
+>
 
 export type OwnershipTransferredEventFilter =
-  TypedEventFilter<OwnershipTransferredEvent>;
+	TypedEventFilter<OwnershipTransferredEvent>
 
-export type RefundedTicketEvent = TypedEvent<[string], { buyer: string }>;
+export type RefundedTicketEvent = TypedEvent<[string], { buyer: string }>
 
-export type RefundedTicketEventFilter = TypedEventFilter<RefundedTicketEvent>;
+export type RefundedTicketEventFilter = TypedEventFilter<RefundedTicketEvent>
 
 export type TransferredTicketEvent = TypedEvent<
-  [string, string],
-  { buyer: string; newOwner: string }
->;
+	[string, string],
+	{ buyer: string; newOwner: string }
+>
 
 export type TransferredTicketEventFilter =
-  TypedEventFilter<TransferredTicketEvent>;
+	TypedEventFilter<TransferredTicketEvent>
 
 export type UpdatedEventDescriptionEvent = TypedEvent<
-  [string],
-  { eventDescription: string }
->;
+	[string],
+	{ eventDescription: string }
+>
 
 export type UpdatedEventDescriptionEventFilter =
-  TypedEventFilter<UpdatedEventDescriptionEvent>;
+	TypedEventFilter<UpdatedEventDescriptionEvent>
 
 export type UpdatedEventEndTimeEvent = TypedEvent<
-  [BigNumber],
-  { eventEndTime: BigNumber }
->;
+	[BigNumber],
+	{ eventEndTime: BigNumber }
+>
 
 export type UpdatedEventEndTimeEventFilter =
-  TypedEventFilter<UpdatedEventEndTimeEvent>;
+	TypedEventFilter<UpdatedEventEndTimeEvent>
 
 export type UpdatedEventLocationEvent = TypedEvent<
-  [string],
-  { eventLocation: string }
->;
+	[string],
+	{ eventLocation: string }
+>
 
 export type UpdatedEventLocationEventFilter =
-  TypedEventFilter<UpdatedEventLocationEvent>;
+	TypedEventFilter<UpdatedEventLocationEvent>
 
-export type UpdatedEventNameEvent = TypedEvent<[string], { eventName: string }>;
+export type UpdatedEventNameEvent = TypedEvent<[string], { eventName: string }>
 
 export type UpdatedEventNameEventFilter =
-  TypedEventFilter<UpdatedEventNameEvent>;
+	TypedEventFilter<UpdatedEventNameEvent>
 
 export type UpdatedEventOwnerEvent = TypedEvent<
-  [string],
-  { eventOwner: string }
->;
+	[string],
+	{ eventOwner: string }
+>
 
 export type UpdatedEventOwnerEventFilter =
-  TypedEventFilter<UpdatedEventOwnerEvent>;
+	TypedEventFilter<UpdatedEventOwnerEvent>
 
 export type UpdatedEventStartTimeEvent = TypedEvent<
-  [BigNumber],
-  { eventStartTime: BigNumber }
->;
+	[BigNumber],
+	{ eventStartTime: BigNumber }
+>
 
 export type UpdatedEventStartTimeEventFilter =
-  TypedEventFilter<UpdatedEventStartTimeEvent>;
+	TypedEventFilter<UpdatedEventStartTimeEvent>
 
 export type UpdatedEventTotalTicketsEvent = TypedEvent<
-  [BigNumber],
-  { eventTotalTickets: BigNumber }
->;
+	[BigNumber],
+	{ eventTotalTickets: BigNumber }
+>
 
 export type UpdatedEventTotalTicketsEventFilter =
-  TypedEventFilter<UpdatedEventTotalTicketsEvent>;
+	TypedEventFilter<UpdatedEventTotalTicketsEvent>
 
 export type UpdatedReedemableTimeAndSecretWordHashEvent = TypedEvent<
-  [BigNumber, string],
-  { eventReedemableTime: BigNumber; eventSecretWordHash: string }
->;
+	[BigNumber, string],
+	{ eventReedemableTime: BigNumber; eventSecretWordHash: string }
+>
 
 export type UpdatedReedemableTimeAndSecretWordHashEventFilter =
-  TypedEventFilter<UpdatedReedemableTimeAndSecretWordHashEvent>;
+	TypedEventFilter<UpdatedReedemableTimeAndSecretWordHashEvent>
 
 export interface MeetdAppEvent extends BaseContract {
-  contractName: "MeetdAppEvent";
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+	contractName: 'MeetdAppEvent'
+	connect(signerOrProvider: Signer | Provider | string): this
+	attach(addressOrName: string): this
+	deployed(): Promise<this>
 
-  interface: MeetdAppEventInterface;
+	interface: MeetdAppEventInterface
 
-  queryFilter<TEvent extends TypedEvent>(
-    event: TypedEventFilter<TEvent>,
-    fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
-  ): Promise<Array<TEvent>>;
+	queryFilter<TEvent extends TypedEvent>(
+		event: TypedEventFilter<TEvent>,
+		fromBlockOrBlockhash?: string | number | undefined,
+		toBlock?: string | number | undefined
+	): Promise<Array<TEvent>>
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
-  listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
-  removeAllListeners(eventName?: string): this;
-  off: OnEvent<this>;
-  on: OnEvent<this>;
-  once: OnEvent<this>;
-  removeListener: OnEvent<this>;
+	listeners<TEvent extends TypedEvent>(
+		eventFilter?: TypedEventFilter<TEvent>
+	): Array<TypedListener<TEvent>>
+	listeners(eventName?: string): Array<Listener>
+	removeAllListeners<TEvent extends TypedEvent>(
+		eventFilter: TypedEventFilter<TEvent>
+	): this
+	removeAllListeners(eventName?: string): this
+	off: OnEvent<this>
+	on: OnEvent<this>
+	once: OnEvent<this>
+	removeListener: OnEvent<this>
 
-  functions: {
-    buyTicket(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+	functions: {
+		attendeesList(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<[string]>
 
-    eventAttendees(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
+		buyTicket(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    eventDescription(overrides?: CallOverrides): Promise<[string]>;
+		eventAttendees(arg0: string, overrides?: CallOverrides): Promise<[boolean]>
 
-    eventEndTime(overrides?: CallOverrides): Promise<[BigNumber]>;
+		eventDescription(overrides?: CallOverrides): Promise<[string]>
 
-    eventFactory(overrides?: CallOverrides): Promise<[string]>;
+		eventEndTime(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    eventId(overrides?: CallOverrides): Promise<[string]>;
+		eventFactory(overrides?: CallOverrides): Promise<[string]>
 
-    eventLocation(overrides?: CallOverrides): Promise<[string]>;
+		eventId(overrides?: CallOverrides): Promise<[string]>
 
-    eventName(overrides?: CallOverrides): Promise<[string]>;
+		eventLocation(overrides?: CallOverrides): Promise<[string]>
 
-    eventNfts(overrides?: CallOverrides): Promise<[string]>;
+		eventName(overrides?: CallOverrides): Promise<[string]>
 
-    eventOwner(overrides?: CallOverrides): Promise<[string]>;
+		eventNfts(overrides?: CallOverrides): Promise<[string]>
 
-    eventReedemableTime(overrides?: CallOverrides): Promise<[BigNumber]>;
+		eventOwner(overrides?: CallOverrides): Promise<[string]>
 
-    eventRemainingTickets(overrides?: CallOverrides): Promise<[BigNumber]>;
+		eventReedemableTime(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    eventSecretWordHash(overrides?: CallOverrides): Promise<[string]>;
+		eventRemainingTickets(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    eventStartTime(overrides?: CallOverrides): Promise<[BigNumber]>;
+		eventSecretWordHash(overrides?: CallOverrides): Promise<[string]>
 
-    eventTotalTickets(overrides?: CallOverrides): Promise<[BigNumber]>;
+		eventStartTime(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
+		eventTotalTickets(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    reedemNft(
-      _eventSecretWord: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		getAllAttendees(overrides?: CallOverrides): Promise<[string[]]>
 
-    refundTicket(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		owner(overrides?: CallOverrides): Promise<[string]>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		reedemNft(
+			_eventSecretWord: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		refundTicket(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    transferTicket(
-      _newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		renounceOwnership(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventDescription(
-      _eventDescription: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		transferOwnership(
+			newOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventEndTime(
-      _eventEndTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		transferTicket(
+			_newOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventLocation(
-      _eventLocation: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		updateEventDescription(
+			_eventDescription: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventName(
-      _eventName: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		updateEventEndTime(
+			_eventEndTime: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventOwner(
-      _eventOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		updateEventLocation(
+			_eventLocation: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventStartTime(
-      _eventStartTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+		updateEventName(
+			_eventName: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-    updateEventTotalTickets(
-      _eventTotalTickets: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+		updateEventOwner(
+			_eventOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-  buyTicket(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+		updateEventStartTime(
+			_eventStartTime: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
 
-  eventAttendees(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+		updateEventTotalTickets(
+			_eventTotalTickets: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<ContractTransaction>
+	}
 
-  eventDescription(overrides?: CallOverrides): Promise<string>;
+	attendeesList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-  eventEndTime(overrides?: CallOverrides): Promise<BigNumber>;
+	buyTicket(
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  eventFactory(overrides?: CallOverrides): Promise<string>;
+	eventAttendees(arg0: string, overrides?: CallOverrides): Promise<boolean>
 
-  eventId(overrides?: CallOverrides): Promise<string>;
+	eventDescription(overrides?: CallOverrides): Promise<string>
 
-  eventLocation(overrides?: CallOverrides): Promise<string>;
+	eventEndTime(overrides?: CallOverrides): Promise<BigNumber>
 
-  eventName(overrides?: CallOverrides): Promise<string>;
+	eventFactory(overrides?: CallOverrides): Promise<string>
 
-  eventNfts(overrides?: CallOverrides): Promise<string>;
+	eventId(overrides?: CallOverrides): Promise<string>
 
-  eventOwner(overrides?: CallOverrides): Promise<string>;
+	eventLocation(overrides?: CallOverrides): Promise<string>
 
-  eventReedemableTime(overrides?: CallOverrides): Promise<BigNumber>;
+	eventName(overrides?: CallOverrides): Promise<string>
 
-  eventRemainingTickets(overrides?: CallOverrides): Promise<BigNumber>;
+	eventNfts(overrides?: CallOverrides): Promise<string>
 
-  eventSecretWordHash(overrides?: CallOverrides): Promise<string>;
+	eventOwner(overrides?: CallOverrides): Promise<string>
 
-  eventStartTime(overrides?: CallOverrides): Promise<BigNumber>;
+	eventReedemableTime(overrides?: CallOverrides): Promise<BigNumber>
 
-  eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>;
+	eventRemainingTickets(overrides?: CallOverrides): Promise<BigNumber>
 
-  owner(overrides?: CallOverrides): Promise<string>;
+	eventSecretWordHash(overrides?: CallOverrides): Promise<string>
 
-  reedemNft(
-    _eventSecretWord: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	eventStartTime(overrides?: CallOverrides): Promise<BigNumber>
 
-  refundTicket(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>
 
-  renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	getAllAttendees(overrides?: CallOverrides): Promise<string[]>
 
-  transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	owner(overrides?: CallOverrides): Promise<string>
 
-  transferTicket(
-    _newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	reedemNft(
+		_eventSecretWord: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventDescription(
-    _eventDescription: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	refundTicket(
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventEndTime(
-    _eventEndTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	renounceOwnership(
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventLocation(
-    _eventLocation: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	transferOwnership(
+		newOwner: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventName(
-    _eventName: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	transferTicket(
+		_newOwner: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventOwner(
-    _eventOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	updateEventDescription(
+		_eventDescription: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventStartTime(
-    _eventStartTime: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	updateEventEndTime(
+		_eventEndTime: BigNumberish,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  updateEventTotalTickets(
-    _eventTotalTickets: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+	updateEventLocation(
+		_eventLocation: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-  callStatic: {
-    buyTicket(overrides?: CallOverrides): Promise<void>;
+	updateEventName(
+		_eventName: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-    eventAttendees(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+	updateEventOwner(
+		_eventOwner: string,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-    eventDescription(overrides?: CallOverrides): Promise<string>;
+	updateEventStartTime(
+		_eventStartTime: BigNumberish,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-    eventEndTime(overrides?: CallOverrides): Promise<BigNumber>;
+	updateEventTotalTickets(
+		_eventTotalTickets: BigNumberish,
+		overrides?: Overrides & { from?: string | Promise<string> }
+	): Promise<ContractTransaction>
 
-    eventFactory(overrides?: CallOverrides): Promise<string>;
+	callStatic: {
+		attendeesList(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<string>
 
-    eventId(overrides?: CallOverrides): Promise<string>;
+		buyTicket(overrides?: CallOverrides): Promise<void>
 
-    eventLocation(overrides?: CallOverrides): Promise<string>;
+		eventAttendees(arg0: string, overrides?: CallOverrides): Promise<boolean>
 
-    eventName(overrides?: CallOverrides): Promise<string>;
+		eventDescription(overrides?: CallOverrides): Promise<string>
 
-    eventNfts(overrides?: CallOverrides): Promise<string>;
+		eventEndTime(overrides?: CallOverrides): Promise<BigNumber>
 
-    eventOwner(overrides?: CallOverrides): Promise<string>;
+		eventFactory(overrides?: CallOverrides): Promise<string>
 
-    eventReedemableTime(overrides?: CallOverrides): Promise<BigNumber>;
+		eventId(overrides?: CallOverrides): Promise<string>
 
-    eventRemainingTickets(overrides?: CallOverrides): Promise<BigNumber>;
+		eventLocation(overrides?: CallOverrides): Promise<string>
 
-    eventSecretWordHash(overrides?: CallOverrides): Promise<string>;
+		eventName(overrides?: CallOverrides): Promise<string>
 
-    eventStartTime(overrides?: CallOverrides): Promise<BigNumber>;
+		eventNfts(overrides?: CallOverrides): Promise<string>
 
-    eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>;
+		eventOwner(overrides?: CallOverrides): Promise<string>
 
-    owner(overrides?: CallOverrides): Promise<string>;
+		eventReedemableTime(overrides?: CallOverrides): Promise<BigNumber>
 
-    reedemNft(
-      _eventSecretWord: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		eventRemainingTickets(overrides?: CallOverrides): Promise<BigNumber>
 
-    refundTicket(overrides?: CallOverrides): Promise<void>;
+		eventSecretWordHash(overrides?: CallOverrides): Promise<string>
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+		eventStartTime(overrides?: CallOverrides): Promise<BigNumber>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>
 
-    transferTicket(_newOwner: string, overrides?: CallOverrides): Promise<void>;
+		getAllAttendees(overrides?: CallOverrides): Promise<string[]>
 
-    updateEventDescription(
-      _eventDescription: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		owner(overrides?: CallOverrides): Promise<string>
 
-    updateEventEndTime(
-      _eventEndTime: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		reedemNft(
+			_eventSecretWord: string,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    updateEventLocation(
-      _eventLocation: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		refundTicket(overrides?: CallOverrides): Promise<void>
 
-    updateEventName(
-      _eventName: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		renounceOwnership(overrides?: CallOverrides): Promise<void>
 
-    updateEventOwner(
-      _eventOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		transferOwnership(
+			newOwner: string,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    updateEventStartTime(
-      _eventStartTime: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+		transferTicket(_newOwner: string, overrides?: CallOverrides): Promise<void>
 
-    updateEventTotalTickets(
-      _eventTotalTickets: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-  };
+		updateEventDescription(
+			_eventDescription: string,
+			overrides?: CallOverrides
+		): Promise<void>
 
-  filters: {
-    "BoughtTicket(address)"(buyer?: null): BoughtTicketEventFilter;
-    BoughtTicket(buyer?: null): BoughtTicketEventFilter;
+		updateEventEndTime(
+			_eventEndTime: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): OwnershipTransferredEventFilter;
-    OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): OwnershipTransferredEventFilter;
+		updateEventLocation(
+			_eventLocation: string,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    "RefundedTicket(address)"(buyer?: null): RefundedTicketEventFilter;
-    RefundedTicket(buyer?: null): RefundedTicketEventFilter;
+		updateEventName(
+			_eventName: string,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    "TransferredTicket(address,address)"(
-      buyer?: null,
-      newOwner?: null
-    ): TransferredTicketEventFilter;
-    TransferredTicket(
-      buyer?: null,
-      newOwner?: null
-    ): TransferredTicketEventFilter;
+		updateEventOwner(
+			_eventOwner: string,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    "UpdatedEventDescription(string)"(
-      eventDescription?: null
-    ): UpdatedEventDescriptionEventFilter;
-    UpdatedEventDescription(
-      eventDescription?: null
-    ): UpdatedEventDescriptionEventFilter;
+		updateEventStartTime(
+			_eventStartTime: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<void>
 
-    "UpdatedEventEndTime(uint256)"(
-      eventEndTime?: null
-    ): UpdatedEventEndTimeEventFilter;
-    UpdatedEventEndTime(eventEndTime?: null): UpdatedEventEndTimeEventFilter;
+		updateEventTotalTickets(
+			_eventTotalTickets: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<void>
+	}
 
-    "UpdatedEventLocation(string)"(
-      eventLocation?: null
-    ): UpdatedEventLocationEventFilter;
-    UpdatedEventLocation(eventLocation?: null): UpdatedEventLocationEventFilter;
+	filters: {
+		'BoughtTicket(address)'(buyer?: null): BoughtTicketEventFilter
+		BoughtTicket(buyer?: null): BoughtTicketEventFilter
 
-    "UpdatedEventName(string)"(eventName?: null): UpdatedEventNameEventFilter;
-    UpdatedEventName(eventName?: null): UpdatedEventNameEventFilter;
+		'OwnershipTransferred(address,address)'(
+			previousOwner?: string | null,
+			newOwner?: string | null
+		): OwnershipTransferredEventFilter
+		OwnershipTransferred(
+			previousOwner?: string | null,
+			newOwner?: string | null
+		): OwnershipTransferredEventFilter
 
-    "UpdatedEventOwner(address)"(
-      eventOwner?: null
-    ): UpdatedEventOwnerEventFilter;
-    UpdatedEventOwner(eventOwner?: null): UpdatedEventOwnerEventFilter;
+		'RefundedTicket(address)'(buyer?: null): RefundedTicketEventFilter
+		RefundedTicket(buyer?: null): RefundedTicketEventFilter
 
-    "UpdatedEventStartTime(uint256)"(
-      eventStartTime?: null
-    ): UpdatedEventStartTimeEventFilter;
-    UpdatedEventStartTime(
-      eventStartTime?: null
-    ): UpdatedEventStartTimeEventFilter;
+		'TransferredTicket(address,address)'(
+			buyer?: null,
+			newOwner?: null
+		): TransferredTicketEventFilter
+		TransferredTicket(
+			buyer?: null,
+			newOwner?: null
+		): TransferredTicketEventFilter
 
-    "UpdatedEventTotalTickets(uint256)"(
-      eventTotalTickets?: null
-    ): UpdatedEventTotalTicketsEventFilter;
-    UpdatedEventTotalTickets(
-      eventTotalTickets?: null
-    ): UpdatedEventTotalTicketsEventFilter;
+		'UpdatedEventDescription(string)'(
+			eventDescription?: null
+		): UpdatedEventDescriptionEventFilter
+		UpdatedEventDescription(
+			eventDescription?: null
+		): UpdatedEventDescriptionEventFilter
 
-    "UpdatedReedemableTimeAndSecretWordHash(uint256,bytes32)"(
-      eventReedemableTime?: null,
-      eventSecretWordHash?: null
-    ): UpdatedReedemableTimeAndSecretWordHashEventFilter;
-    UpdatedReedemableTimeAndSecretWordHash(
-      eventReedemableTime?: null,
-      eventSecretWordHash?: null
-    ): UpdatedReedemableTimeAndSecretWordHashEventFilter;
-  };
+		'UpdatedEventEndTime(uint256)'(
+			eventEndTime?: null
+		): UpdatedEventEndTimeEventFilter
+		UpdatedEventEndTime(eventEndTime?: null): UpdatedEventEndTimeEventFilter
 
-  estimateGas: {
-    buyTicket(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		'UpdatedEventLocation(string)'(
+			eventLocation?: null
+		): UpdatedEventLocationEventFilter
+		UpdatedEventLocation(eventLocation?: null): UpdatedEventLocationEventFilter
 
-    eventAttendees(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+		'UpdatedEventName(string)'(eventName?: null): UpdatedEventNameEventFilter
+		UpdatedEventName(eventName?: null): UpdatedEventNameEventFilter
 
-    eventDescription(overrides?: CallOverrides): Promise<BigNumber>;
+		'UpdatedEventOwner(address)'(
+			eventOwner?: null
+		): UpdatedEventOwnerEventFilter
+		UpdatedEventOwner(eventOwner?: null): UpdatedEventOwnerEventFilter
 
-    eventEndTime(overrides?: CallOverrides): Promise<BigNumber>;
+		'UpdatedEventStartTime(uint256)'(
+			eventStartTime?: null
+		): UpdatedEventStartTimeEventFilter
+		UpdatedEventStartTime(
+			eventStartTime?: null
+		): UpdatedEventStartTimeEventFilter
 
-    eventFactory(overrides?: CallOverrides): Promise<BigNumber>;
+		'UpdatedEventTotalTickets(uint256)'(
+			eventTotalTickets?: null
+		): UpdatedEventTotalTicketsEventFilter
+		UpdatedEventTotalTickets(
+			eventTotalTickets?: null
+		): UpdatedEventTotalTicketsEventFilter
 
-    eventId(overrides?: CallOverrides): Promise<BigNumber>;
+		'UpdatedReedemableTimeAndSecretWordHash(uint256,bytes32)'(
+			eventReedemableTime?: null,
+			eventSecretWordHash?: null
+		): UpdatedReedemableTimeAndSecretWordHashEventFilter
+		UpdatedReedemableTimeAndSecretWordHash(
+			eventReedemableTime?: null,
+			eventSecretWordHash?: null
+		): UpdatedReedemableTimeAndSecretWordHashEventFilter
+	}
 
-    eventLocation(overrides?: CallOverrides): Promise<BigNumber>;
+	estimateGas: {
+		attendeesList(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<BigNumber>
 
-    eventName(overrides?: CallOverrides): Promise<BigNumber>;
+		buyTicket(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventNfts(overrides?: CallOverrides): Promise<BigNumber>;
+		eventAttendees(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    eventOwner(overrides?: CallOverrides): Promise<BigNumber>;
+		eventDescription(overrides?: CallOverrides): Promise<BigNumber>
 
-    eventReedemableTime(overrides?: CallOverrides): Promise<BigNumber>;
+		eventEndTime(overrides?: CallOverrides): Promise<BigNumber>
 
-    eventRemainingTickets(overrides?: CallOverrides): Promise<BigNumber>;
+		eventFactory(overrides?: CallOverrides): Promise<BigNumber>
 
-    eventSecretWordHash(overrides?: CallOverrides): Promise<BigNumber>;
+		eventId(overrides?: CallOverrides): Promise<BigNumber>
 
-    eventStartTime(overrides?: CallOverrides): Promise<BigNumber>;
+		eventLocation(overrides?: CallOverrides): Promise<BigNumber>
 
-    eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>;
+		eventName(overrides?: CallOverrides): Promise<BigNumber>
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
+		eventNfts(overrides?: CallOverrides): Promise<BigNumber>
 
-    reedemNft(
-      _eventSecretWord: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		eventOwner(overrides?: CallOverrides): Promise<BigNumber>
 
-    refundTicket(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		eventReedemableTime(overrides?: CallOverrides): Promise<BigNumber>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		eventRemainingTickets(overrides?: CallOverrides): Promise<BigNumber>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		eventSecretWordHash(overrides?: CallOverrides): Promise<BigNumber>
 
-    transferTicket(
-      _newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		eventStartTime(overrides?: CallOverrides): Promise<BigNumber>
 
-    updateEventDescription(
-      _eventDescription: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>
 
-    updateEventEndTime(
-      _eventEndTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		getAllAttendees(overrides?: CallOverrides): Promise<BigNumber>
 
-    updateEventLocation(
-      _eventLocation: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		owner(overrides?: CallOverrides): Promise<BigNumber>
 
-    updateEventName(
-      _eventName: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		reedemNft(
+			_eventSecretWord: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    updateEventOwner(
-      _eventOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		refundTicket(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    updateEventStartTime(
-      _eventStartTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+		renounceOwnership(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    updateEventTotalTickets(
-      _eventTotalTickets: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+		transferOwnership(
+			newOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-  populateTransaction: {
-    buyTicket(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		transferTicket(
+			_newOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventAttendees(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+		updateEventDescription(
+			_eventDescription: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventDescription(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		updateEventEndTime(
+			_eventEndTime: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventEndTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		updateEventLocation(
+			_eventLocation: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventFactory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		updateEventName(
+			_eventName: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		updateEventOwner(
+			_eventOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventLocation(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		updateEventStartTime(
+			_eventStartTime: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
 
-    eventName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		updateEventTotalTickets(
+			_eventTotalTickets: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<BigNumber>
+	}
 
-    eventNfts(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+	populateTransaction: {
+		attendeesList(
+			arg0: BigNumberish,
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>
 
-    eventOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		buyTicket(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
 
-    eventReedemableTime(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+		eventAttendees(
+			arg0: string,
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>
 
-    eventRemainingTickets(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+		eventDescription(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    eventSecretWordHash(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+		eventEndTime(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    eventStartTime(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		eventFactory(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    eventTotalTickets(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		eventId(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+		eventLocation(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    reedemNft(
-      _eventSecretWord: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventName(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    refundTicket(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventNfts(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventReedemableTime(
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>
 
-    transferTicket(
-      _newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventRemainingTickets(
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>
 
-    updateEventDescription(
-      _eventDescription: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventSecretWordHash(
+			overrides?: CallOverrides
+		): Promise<PopulatedTransaction>
 
-    updateEventEndTime(
-      _eventEndTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventStartTime(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    updateEventLocation(
-      _eventLocation: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		eventTotalTickets(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    updateEventName(
-      _eventName: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		getAllAttendees(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    updateEventOwner(
-      _eventOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    updateEventStartTime(
-      _eventStartTime: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+		reedemNft(
+			_eventSecretWord: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
 
-    updateEventTotalTickets(
-      _eventTotalTickets: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+		refundTicket(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		renounceOwnership(
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		transferOwnership(
+			newOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		transferTicket(
+			_newOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventDescription(
+			_eventDescription: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventEndTime(
+			_eventEndTime: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventLocation(
+			_eventLocation: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventName(
+			_eventName: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventOwner(
+			_eventOwner: string,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventStartTime(
+			_eventStartTime: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+
+		updateEventTotalTickets(
+			_eventTotalTickets: BigNumberish,
+			overrides?: Overrides & { from?: string | Promise<string> }
+		): Promise<PopulatedTransaction>
+	}
 }

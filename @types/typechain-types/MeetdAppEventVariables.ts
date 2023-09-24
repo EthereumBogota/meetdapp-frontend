@@ -4,6 +4,7 @@
 import {
   BaseContract,
   BigNumber,
+  BigNumberish,
   BytesLike,
   CallOverrides,
   PopulatedTransaction,
@@ -17,6 +18,7 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 export interface MeetdAppEventVariablesInterface extends utils.Interface {
   contractName: "MeetdAppEventVariables";
   functions: {
+    "attendeesList(uint256)": FunctionFragment;
     "eventAttendees(address)": FunctionFragment;
     "eventDescription()": FunctionFragment;
     "eventEndTime()": FunctionFragment;
@@ -33,6 +35,10 @@ export interface MeetdAppEventVariablesInterface extends utils.Interface {
     "eventTotalTickets()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "attendeesList",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "eventAttendees",
     values: [string]
@@ -81,6 +87,10 @@ export interface MeetdAppEventVariablesInterface extends utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "attendeesList",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "eventAttendees",
     data: BytesLike
@@ -260,6 +270,11 @@ export interface MeetdAppEventVariables extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    attendeesList(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     eventAttendees(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     eventDescription(overrides?: CallOverrides): Promise<[string]>;
@@ -288,6 +303,8 @@ export interface MeetdAppEventVariables extends BaseContract {
 
     eventTotalTickets(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
+
+  attendeesList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   eventAttendees(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -318,6 +335,11 @@ export interface MeetdAppEventVariables extends BaseContract {
   eventTotalTickets(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
+    attendeesList(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
     eventAttendees(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
     eventDescription(overrides?: CallOverrides): Promise<string>;
@@ -413,6 +435,11 @@ export interface MeetdAppEventVariables extends BaseContract {
   };
 
   estimateGas: {
+    attendeesList(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     eventAttendees(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     eventDescription(overrides?: CallOverrides): Promise<BigNumber>;
@@ -443,6 +470,11 @@ export interface MeetdAppEventVariables extends BaseContract {
   };
 
   populateTransaction: {
+    attendeesList(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     eventAttendees(
       arg0: string,
       overrides?: CallOverrides

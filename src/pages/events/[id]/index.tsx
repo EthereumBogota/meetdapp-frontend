@@ -8,7 +8,7 @@ import TagsSection from '@/components/events/TagsSection'
 import { Flex } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import MeetdAppFactoryJson from '../../../assets/contracts/MeetdAppFactory.json'
-import MeetdAppFactoryEventJson from '../../../assets/contracts/MeetdAppEvent.json'
+import MeetdAppEventJson from '../../../assets/contracts/MeetdAppEvent.json'
 import { useEffect, useState } from 'react'
 import {
 	MeetdAppEvent,
@@ -38,6 +38,7 @@ const initialEvent: Event = {
 }
 
 function Event(): JSX.Element {
+	const [attendees, setAttendees] = useState<string[]>([])
 	const [event, setEvent] = useState<Event>(initialEvent)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -143,7 +144,7 @@ function Event(): JSX.Element {
 
 			const eventContract = new ethers.Contract(
 				eventContractAdress,
-				MeetdAppFactoryEventJson.abi,
+				MeetdAppEventJson.abi,
 				rpcProvider
 			) as MeetdAppEvent
 
@@ -160,6 +161,9 @@ function Event(): JSX.Element {
 				ownerAddress: await eventContract.eventOwner(),
 				nftAddress: await eventContract.eventNfts()
 			}
+
+			const currentAttendees = await eventContract.getAllAttendees()
+			setAttendees(currentAttendees)
 
 			setEvent(mapDTOtoEvent(eventDTO))
 
@@ -259,7 +263,7 @@ function Event(): JSX.Element {
 					</Flex>
 
 					<PreviousEvents />
-					<Attendees />
+					<Attendees attendees={attendees} />
 					<TagsSection />
 				</Flex>
 			)}

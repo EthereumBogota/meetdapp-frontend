@@ -1,18 +1,16 @@
 import React from 'react'
-import { Box, Avatar, Divider, Text } from '@chakra-ui/react'
+import { Box, Divider} from '@chakra-ui/react'
 import CopyTextIcon from './CopyTextIcon'
+import Blockies from 'react-blockies'
 
-interface AssistantAvatarProps {
-	src: string
-	name: string
+type Props = {
 	wallet: string
 }
 
-const AssistantAvatar: React.FC<AssistantAvatarProps> = ({
-	src,
-	name,
-	wallet
-}) => {
+export function AssistantAvatar(props: Props): JSX.Element {
+	const { wallet } = props
+  const shortened:string = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
+
 	return (
 		<Box
 			bg={'#C9DCDF'}
@@ -25,15 +23,9 @@ const AssistantAvatar: React.FC<AssistantAvatarProps> = ({
 			p={3}
 			gap={5}
 		>
-			<Avatar size='xl' name={name} src={src} />
-
+			<Blockies seed={wallet} size={11} scale={8} />
 			<Divider borderColor={'gray.500'} />
-
 			<Box p='3' paddingY={0} fontFamily={'space'} textAlign='center'>
-				<Text fontWeight='medium' as='h4' lineHeight='tight' color={'#00001C'}>
-					{name}
-				</Text>
-
 				<Box
 					display='flex'
 					alignItems='center'
@@ -41,7 +33,7 @@ const AssistantAvatar: React.FC<AssistantAvatarProps> = ({
 					gap={1}
 				>
 					<Box as='span' color='gray.500'>
-						{wallet}
+						{shortened}
 					</Box>
 
 					<Box
@@ -61,5 +53,3 @@ const AssistantAvatar: React.FC<AssistantAvatarProps> = ({
 		</Box>
 	)
 }
-
-export default AssistantAvatar
