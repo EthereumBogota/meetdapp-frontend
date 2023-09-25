@@ -241,6 +241,9 @@ export default function Event(): JSX.Element {
 	}
 
 	useEffect(() => {
+		if (id === undefined) 
+			return
+		
 		if (owner === undefined) {
       // TODO: generate nanoId
 			fetchEventInformation()
@@ -258,7 +261,7 @@ export default function Event(): JSX.Element {
 			})
 		}
 
-	}, [address, chain?.id])
+	}, [address, chain?.id, id])
 
 	return (
 		<>
