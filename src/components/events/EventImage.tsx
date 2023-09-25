@@ -20,7 +20,7 @@ const EventImage = () => {
 					fontWeight={'bold'}
 					fontSize={{ base: '16px', lg: '19px' }}
 				>
-					{'¡Web3 en Acción: Sé voluntari@ de impacto!  '}
+					{'Eres Voluntari@ de Impacto en el BSL 2023  '}
 				</Text>
 			</Box>
 			<Flex
@@ -28,7 +28,7 @@ const EventImage = () => {
 				borderRadius='3xl'
 				mx='auto'
 				bg={'brand.newBlack'}
-				backgroundImage={'/images/bsl.jpg'}
+				backgroundImage={'/images/voluntarioBSL.png'}
 				backgroundSize={'cover'}
 				align='center'
 				position='relative'

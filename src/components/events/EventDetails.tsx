@@ -21,43 +21,45 @@ const EventDetails = () => {
 					Detalles del Evento
 				</Text>
 				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
-					🌐 Web3 en Acción: Sé voluntari@ de impacto 🌐
+					🌐 Felicidades has sido pre-seleccionado como voluntario para el
+					Blockchain Summit Latam! 🌐
 				</Text>
-				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
-					¿Quieres ser parte del cambio y hacer un impacto significativo en la
-					comunidad? ¿Te interesa conocer más sobre la tecnología web3 y cómo
-					puedes usarla para el bien común? ¡Este evento es para ti!
+				<Text
+					fontSize='md'
+					color={'#00001C'}
+					fontFamily={'space'}
+					fontWeight={'bold'}
+				>
+					BENEFICIOS COMO VOLUNTARIADO
 				</Text>
-				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
-					¡Únete a nosotros el Jueves 14 de septiembre a las 6pm en el
-					restaurante Bitácora (Cra. 19 # 134-69) para una experiencia única que
-					te conectará con el poder de ser un voluntario web3! Tendremos un
-					preámbulo a la Blockchain Summit Latam donde conocerás más detalles de
-					los beneficios que recibirás al registrarte como voluntario,
-					igualmente encontrarás:
-				</Text>
-				<List spacing={3}>
-					<ListItem ml={10}>
-						🗣️ Charlas Inspiradoras: Escucha a expertos de la industria
-						compartir su visión y experiencias en el mundo web3 y cómo el
-						voluntariado puede impulsar un cambio real.
+				<List spacing={1}>
+					<ListItem ml={1}>
+						🚀 Formarás parte de un equipo exclusivo de gente que quiere
+						impactar en Web3
 					</ListItem>
-					<ListItem ml={10}>
-						🍽️ Comida deliciosa: Disfruta de la sazón del restaurante Bitácora
-						mientras conectas con otros apasionados por la tecnología y el
-						voluntariado web3.
+					<ListItem ml={1}>
+						🚀 Conocerás experiencias de líderes que comenzaron como voluntarios
+						en nuestro MeetUP con ETH Colombia.
 					</ListItem>
-					<ListItem ml={10}>
-						🤝 Networking enriquecedor: Amplía tu red de contactos, conoce a
-						personas afines y crea conexiones valiosas que pueden marcar la
-						diferencia.
+					<ListItem ml={1}>🚀 Recibirás el swag oficial del evento.</ListItem>
+					<ListItem ml={1}>
+						🚀 Tendrás acceso a un día completo del evento.
 					</ListItem>
+					<ListItem ml={1}>
+						🚀 Serás invitado a nuestra exclusiva fiesta VIP, donde podrás hacer
+						valiosas conexiones.
+					</ListItem>
+					<ListItem ml={1}>
+						🚀 Consideración para programas en Colledge.
+					</ListItem>
+					<ListItem ml={1}>
+						🚀 Tendrás la oportunidad de participar activamente en el evento y
+						establecer conexiones con oradores y participantes.
+					</ListItem>
+					<ListItem ml={1}>🚀 Recibirás NFT y POAP de participación.</ListItem>
 				</List>
 				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
-					Este evento es una oportunidad única para inspirarte, aprender y tomar
-					acción. ¡Juntos podemos construir un futuro mejor a través de la
-					tecnología y el voluntariado!¡Regístrate ahora y sé parte de este
-					movimiento de cambio!#Web3EnAccion #VoluntariadoWeb3 #ImpactoPositivo
+					¡Llegó tu oportunidad de marcar la diferencia!
 				</Text>
 			</VStack>
 		</Flex>

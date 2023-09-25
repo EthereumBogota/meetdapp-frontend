@@ -53,10 +53,10 @@ export default function Event(): JSX.Element {
 	// TODO: generate nanoId
 	const { id } = router.query
 
-  const { address } = useAccount()
+	const { address } = useAccount()
 	const { chain } = useNetwork()
 
-  const { t } = useTranslation()
+	const { t } = useTranslation()
 	const toast = useToast()
 
 	const onBuyTicket = async () => {
@@ -119,13 +119,13 @@ export default function Event(): JSX.Element {
 				})
 				await tx.wait(1)
 
-				const newEvent:Event = event
-        newEvent.remainingTickets = newEvent.remainingTickets - 1
+				const newEvent: Event = event
+				newEvent.remainingTickets = newEvent.remainingTickets - 1
 				setEvent(newEvent)
 
-        setAttendees(prevAttendees => [...prevAttendees, address]);
+				setAttendees(prevAttendees => [...prevAttendees, address])
 
-        setIsBuyTicketLoading(false)
+				setIsBuyTicketLoading(false)
 				setHasTicket(true)
 
 				toast({
@@ -198,6 +198,11 @@ export default function Event(): JSX.Element {
 			const bytesEventId = ethers.utils.toUtf8Bytes(id as string)
 			const hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
 
+			const _bytesEventId = ethers.utils.toUtf8Bytes('ETHBerlin')
+			const _hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
+
+			console.log('_hashBytes32EventId: ', _hashBytes32EventId)
+
 			const eventContractAdress: string =
 				await meetdAppFactoryContract.mapIdEvent(hashBytes32EventId)
 
@@ -241,11 +246,10 @@ export default function Event(): JSX.Element {
 	}
 
 	useEffect(() => {
-		if (id === undefined) 
-			return
-		
+		if (id === undefined) return
+
 		if (owner === undefined) {
-      // TODO: generate nanoId
+			// TODO: generate nanoId
 			fetchEventInformation()
 			return
 		}
@@ -260,7 +264,6 @@ export default function Event(): JSX.Element {
 				setOwner(address)
 			})
 		}
-
 	}, [address, chain?.id, id])
 
 	return (
@@ -334,7 +337,7 @@ export default function Event(): JSX.Element {
 								<EventLocation />
 								<EventDetails />
 								<PreviousEvents />
-								<Attendees attendees={attendees}/>
+								<Attendees attendees={attendees} />
 								<TagsSection />
 								<GetTicketCard
 									event={event}
@@ -351,4 +354,3 @@ export default function Event(): JSX.Element {
 		</>
 	)
 }
-
