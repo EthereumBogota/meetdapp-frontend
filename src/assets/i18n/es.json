@@ -108,6 +108,9 @@
     "error-code": "Código de error",
     "home": "Volver al inicio"
   },
+  "event": {
+    "event-details": "Event Details"
+  },
   "toasts": {
     "ticket-bought": {
       "title": "Tiquete comprado!",

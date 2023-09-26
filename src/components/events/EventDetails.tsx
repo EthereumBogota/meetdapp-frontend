@@ -1,7 +1,10 @@
 import React from 'react'
 import { Flex, List, ListItem, Text, VStack } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 
 const EventDetails = () => {
+	const { t } = useTranslation()
+
 	return (
 		<Flex
 			borderRadius='3xl'
@@ -18,7 +21,7 @@ const EventDetails = () => {
 					fontWeight='semibold'
 					color={'#00001C'}
 				>
-					Detalles del Evento
+					{t('event.event-details')}
 				</Text>
 				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
 					🌐 Felicidades has sido pre-seleccionado como voluntario para el

@@ -109,7 +109,7 @@
     "home": "Go back home"
   },
   "event": {
-    "title": ""
+    "event-details": "Event Details"
   },
   "toasts": {
     "ticket-bought": {

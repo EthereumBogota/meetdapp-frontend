@@ -225,7 +225,8 @@ export default function Event(): JSX.Element {
 			setAttendees(currentAttendees)
 
 			setEvent(mapDTOtoEvent(eventDTO))
-
+			console.log('event is: ', mapDTOtoEvent(eventDTO));
+			
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
 				setHasTicket(ticket)
