@@ -3,7 +3,7 @@ import Hero from '@/components/home/Hero'
 import MiddleSections from '@/components/home/MiddleSections'
 import { ethers } from 'ethers'
 import { MeetdAppFactory } from '../../@types/typechain-types'
-import MeetdAppFactoryJson from '../assets/contracts/MeetdAppFactory.json'
+import { CONTRACTS_JSON } from '@/constants/constants'
 import Head from 'next/head'
 import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
@@ -16,13 +16,14 @@ const metadata = {
 }
 
 export default function Home() {
+	const contractsJson = CONTRACTS_JSON()
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 
 	const fetchActiveEvents = async () => {
 		setTimeout(() => {
 			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
-				MeetdAppFactoryJson.address,
-				MeetdAppFactoryJson.abi,
+				contractsJson.meetdAppFactory.address,
+				contractsJson.meetdAppFactory.abi,
 				new ethers.providers.JsonRpcProvider(PROVIDER)
 			) as MeetdAppFactory
 
