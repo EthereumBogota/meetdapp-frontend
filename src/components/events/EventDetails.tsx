@@ -29,17 +29,6 @@ const EventDetails = ({event} : EventDetailsProps) => {
 				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
 					{event?.description}
 				</Text>
-				<Text
-					fontSize='md'
-					color={'#00001C'}
-					fontFamily={'space'}
-					fontWeight={'bold'}
-				>
-					BENEFICIOS COMO VOLUNTARIADO
-				</Text>
-				<Text fontSize='md' color={'#00001C'} fontFamily={'space'}>
-					{}
-				</Text>
 			</VStack>
 		</Flex>
 	)

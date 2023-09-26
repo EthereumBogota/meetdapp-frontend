@@ -296,7 +296,9 @@ export default function Event(): JSX.Element {
 								alignItems={'center'}
 								justify={'center'}
 							>
-								<EventImage />
+								<EventImage 
+									eventName={eventInfo?.name ?? 'My event'}
+								/>
 								<EventDetails 
 									event={eventInfo}
 								/>
@@ -331,7 +333,9 @@ export default function Event(): JSX.Element {
 							mb={'3em'}
 						>
 							<Flex direction={'column'} w={'full'} gap={'3em'}>
-								<EventImage />
+								<EventImage 
+									eventName={eventInfo?.name ?? 'My event'}
+								/>
 								<EventLocation />
 								<EventDetails 
 									event={eventInfo}
