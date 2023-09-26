@@ -7,8 +7,7 @@ import PreviousEvents from '@/components/events/PreviousEvents'
 import TagsSection from '@/components/events/TagsSection'
 import { Flex, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import MeetdAppFactoryJson from '../../../assets/contracts/MeetdAppFactory.json'
-import MeetdAppEventJson from '../../../assets/contracts/MeetdAppEvent.json'
+import { CONTRACTS_JSON } from '@/constants/constants'
 import { useEffect, useState } from 'react'
 import {
 	MeetdAppEvent,
@@ -190,8 +189,8 @@ export default function Event(): JSX.Element {
 				new ethers.providers.JsonRpcProvider(PROVIDER)
 
 			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
-				MeetdAppFactoryJson.address,
-				MeetdAppFactoryJson.abi,
+				CONTRACTS_JSON.meetdAppFactory.address,
+				CONTRACTS_JSON.meetdAppFactory.abi,
 				rpcProvider
 			) as MeetdAppFactory
 
@@ -203,7 +202,7 @@ export default function Event(): JSX.Element {
 
 			const eventContract = new ethers.Contract(
 				eventContractAdress,
-				MeetdAppEventJson.abi,
+				CONTRACTS_JSON.meetdAppEvent.abi,
 				rpcProvider
 			) as MeetdAppEvent
 
