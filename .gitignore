@@ -25,6 +25,9 @@
 .env
 .env.local
 
+# package lock
+package-lock.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*
