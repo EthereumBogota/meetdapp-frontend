@@ -25,11 +25,10 @@ const EventImage = () => {
 			</Box>
 			<Flex
 				minH={{ base: '300px', md: '400px', lg: '500px' }}
-				borderRadius='3xl'
 				mx='auto'
 				bg={'brand.newBlack'}
 				backgroundImage={'/images/voluntarioBSL.png'}
-				backgroundSize={'cover'}
+				backgroundSize={'contain'}
 				align='center'
 				position='relative'
 			/>

@@ -43,7 +43,7 @@ const EventLocation = () => {
 					<CalendarIcon />
 				</Box>
 				<Text fontSize='md' color={'#00001C'}>
-					March 17, 2023
+					Octubre 4 - 6, 2023
 				</Text>
 			</HStack>
 			<HStack spacing={4} mb={4} align='center'>
@@ -51,7 +51,8 @@ const EventLocation = () => {
 					<InfoIcon />
 				</Box>
 				<Text fontSize='md' color={'#00001C'}>
-					Restaurante Bitácora, Calle 85 # 12-51, Bogotá, Colombia
+					Centro de Convenciones Ágora Bogotá&rsquo;, Ac. 24 #38-47, Bogotá,
+					Colombia
 				</Text>
 			</HStack>
 			{/* <Box flex='1' w='100%' h='full' bg='gray.300' borderRadius='md' mt={4}>

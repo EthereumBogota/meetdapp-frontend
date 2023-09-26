@@ -122,6 +122,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "string",
+        name: "_URI",
+        type: "string",
+      },
+    ],
+    name: "changeBaseURI",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "tokenId",
         type: "uint256",

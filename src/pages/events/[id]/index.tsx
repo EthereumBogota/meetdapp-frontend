@@ -198,11 +198,6 @@ export default function Event(): JSX.Element {
 			const bytesEventId = ethers.utils.toUtf8Bytes(id as string)
 			const hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
 
-			const _bytesEventId = ethers.utils.toUtf8Bytes('ETHBerlin')
-			const _hashBytes32EventId = ethers.utils.keccak256(bytesEventId)
-
-			console.log('_hashBytes32EventId: ', _hashBytes32EventId)
-
 			const eventContractAdress: string =
 				await meetdAppFactoryContract.mapIdEvent(hashBytes32EventId)
 
