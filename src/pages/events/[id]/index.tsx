@@ -49,7 +49,7 @@ export default function Event(): JSX.Element {
 		useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
 	const router = useRouter()
-
+	const [eventInfo, setEventInfo] = useState<Event | null>(null)
 	// TODO: generate nanoId
 	const { id } = router.query
 
@@ -226,7 +226,7 @@ export default function Event(): JSX.Element {
 
 			setEvent(mapDTOtoEvent(eventDTO))
 			console.log('event is: ', mapDTOtoEvent(eventDTO));
-			
+			setEventInfo(mapDTOtoEvent(eventDTO))
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
 				setHasTicket(ticket)
@@ -297,7 +297,9 @@ export default function Event(): JSX.Element {
 								justify={'center'}
 							>
 								<EventImage />
-								<EventDetails />
+								<EventDetails 
+									event={eventInfo}
+								/>
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
@@ -331,7 +333,9 @@ export default function Event(): JSX.Element {
 							<Flex direction={'column'} w={'full'} gap={'3em'}>
 								<EventImage />
 								<EventLocation />
-								<EventDetails />
+								<EventDetails 
+									event={eventInfo}
+								/>
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
