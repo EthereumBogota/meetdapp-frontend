@@ -24,6 +24,7 @@
 		"ethers": "5.7.2",
 		"framer-motion": "^10.16.2",
 		"i18next": "^23.5.1",
+		"moment": "^2.29.4",
 		"next": "13.4.10",
 		"postcss": "8.4.26",
 		"prettier": "^3.0.0",

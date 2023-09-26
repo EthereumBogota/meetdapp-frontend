@@ -313,7 +313,9 @@ export default function Event(): JSX.Element {
 								flex={3}
 								direction={'column'}
 							>
-								<EventLocation />
+								<EventLocation 
+									event={eventInfo}
+								/>
 								<GetTicketCard
 									event={event}
 									getTicket={onBuyTicket}
@@ -335,7 +337,9 @@ export default function Event(): JSX.Element {
 								<EventImage 
 									eventName={eventInfo?.name ?? 'My event'}
 								/>
-								<EventLocation />
+								<EventLocation 
+									event={eventInfo}
+								/>
 								<EventDetails 
 									event={eventInfo}
 								/>

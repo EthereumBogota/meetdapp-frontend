@@ -1,6 +1,7 @@
 import React from 'react'
 import { Flex, Button, Text, VStack } from '@chakra-ui/react'
 import { Event } from '@/models/event.model'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
 	event: Event
@@ -11,6 +12,7 @@ type Props = {
 
 const GetTicketCard = (props: Props) => {
 	const { event, getTicket, isBuyTicketLoading, hasTicket } = props
+	const { t } = useTranslation()
 	return (
 		<Flex
 			h={'fit-content'}
@@ -44,7 +46,7 @@ const GetTicketCard = (props: Props) => {
 					textAlign={'center'}
 				>
 					¡GRATIS! • Quedan {event.remainingTickets} cupos
-				</Text>
+				</Text>	
 				{hasTicket ? (
 					<Button
 						boxShadow={
@@ -88,7 +90,7 @@ const GetTicketCard = (props: Props) => {
 						}}
 						onClick={getTicket}
 					>
-						{isBuyTicketLoading ? 'Cargando...' : 'Conseguir Entrada NFT'}
+						{isBuyTicketLoading ? t('event.loading') : t('event.get-ticket')}
 					</Button>
 				)}
 			</Flex>

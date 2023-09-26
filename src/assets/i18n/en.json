@@ -109,7 +109,13 @@
     "home": "Go back home"
   },
   "event": {
-    "event-details": "Event Details"
+    "event-details": "Event Details",
+    "hosted-by" : "Hosted by",
+    "assistants" : "Assistants",
+    "event-pictures": "Previous Event Pictures",
+    "labels": "Labels",
+    "get-ticket": "Get NFT Ticket",
+    "loading": "Loading..."
   },
   "toasts": {
     "ticket-bought": {

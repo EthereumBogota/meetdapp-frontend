@@ -109,7 +109,13 @@
     "home": "Volver al inicio"
   },
   "event": {
-    "event-details": "Detalles del Evento"
+    "event-details": "Detalles del Evento",
+    "hosted-by" : "Hosteado por",
+    "assistants" : "Asistentes",
+    "event-pictures": "Fotos de Eventos Anteriores",
+    "labels": "Etiquetas",
+    "get-ticket": "Conseguir Entrada NFT",
+    "loading": "Cargando..."
   },
   "toasts": {
     "ticket-bought": {
