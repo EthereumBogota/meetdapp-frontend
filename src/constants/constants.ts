@@ -15,24 +15,32 @@ interface ContractsJson {
 	meetdAppNFT: typeof meetdAppNFTJsonPolygon | typeof meetdAppNFTJsonMumbai
 }
 
-export const CHAINID = process.env.NEXT_PUBLIC_CHAIN_ID
+const mumbaiContracts: ContractsJson = {
+	meetdAppFactory: meetdAppFactoryJsonMumbai,
+	meetdAppEvent: meetdAppEventJsonMumbai,
+	meetdAppNFT: meetdAppNFTJsonMumbai
+}
+
+const polygonContracts: ContractsJson = {
+	meetdAppFactory: meetdAppFactoryJsonPolygon,
+	meetdAppEvent: meetdAppEventJsonPolygon,
+	meetdAppNFT: meetdAppNFTJsonPolygon
+}
+
 export const PROVIDER = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+
 export const SCAN = (
 	address: string,
 	scan: string | undefined = process.env.NEXT_PUBLIC_EVM_EXPLORER
 ) => `${scan}/${address}`
 
+const setChainId = () =>
+	process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? '80001' : '137'
+
+export const CHAINID = setChainId()
+
 export const CONTRACTS_JSON = (): ContractsJson => {
-	if (process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true') {
-		return {
-			meetdAppEvent: meetdAppEventJsonMumbai,
-			meetdAppFactory: meetdAppFactoryJsonMumbai,
-			meetdAppNFT: meetdAppNFTJsonMumbai
-		}
-	}
-	return {
-		meetdAppEvent: meetdAppEventJsonPolygon,
-		meetdAppFactory: meetdAppFactoryJsonPolygon,
-		meetdAppNFT: meetdAppNFTJsonPolygon
-	}
+	return process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
+		? mumbaiContracts
+		: polygonContracts
 }
