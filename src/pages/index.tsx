@@ -16,15 +16,17 @@ const metadata = {
 }
 
 export default function Home() {
-	const contractsJson = CONTRACTS_JSON()
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 
 	const fetchActiveEvents = async () => {
 		setTimeout(() => {
-			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
-				contractsJson.meetdAppFactory.address,
-				contractsJson.meetdAppFactory.abi,
+			const rpcProvider: ethers.providers.JsonRpcProvider =
 				new ethers.providers.JsonRpcProvider(PROVIDER)
+
+			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
+				CONTRACTS_JSON.meetdAppFactory.address,
+				CONTRACTS_JSON.meetdAppFactory.abi,
+				rpcProvider
 			) as MeetdAppFactory
 
 			setIsLoading(false)

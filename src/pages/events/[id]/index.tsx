@@ -39,7 +39,6 @@ import Loader from '@/components/shared/Loader'
 import { useTranslation } from 'react-i18next'
 
 export default function Event(): JSX.Element {
-	const contractsJson = CONTRACTS_JSON()
 	const [attendees, setAttendees] = useState<string[]>([])
 	const [event, setEvent] = useState<Event>(initialEvent)
 	const [hasTicket, setHasTicket] = useState<boolean>(false)
@@ -189,14 +188,9 @@ export default function Event(): JSX.Element {
 			const rpcProvider: ethers.providers.JsonRpcProvider =
 				new ethers.providers.JsonRpcProvider(PROVIDER)
 
-			console.log(
-				'contractsJson.meetdAppFactory.address: ',
-				contractsJson.meetdAppFactory.address
-			)
-
 			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
-				contractsJson.meetdAppFactory.address,
-				contractsJson.meetdAppFactory.abi,
+				CONTRACTS_JSON.meetdAppFactory.address,
+				CONTRACTS_JSON.meetdAppFactory.abi,
 				rpcProvider
 			) as MeetdAppFactory
 
@@ -208,7 +202,7 @@ export default function Event(): JSX.Element {
 
 			const eventContract = new ethers.Contract(
 				eventContractAdress,
-				contractsJson.meetdAppEvent.abi,
+				CONTRACTS_JSON.meetdAppEvent.abi,
 				rpcProvider
 			) as MeetdAppEvent
 

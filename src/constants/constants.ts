@@ -35,12 +35,14 @@ export const SCAN = (
 ) => `${scan}/${address}`
 
 const setChainId = () =>
-	process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? '80001' : '137'
+	process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? 80001 : 137
 
 export const CHAINID = setChainId()
 
-export const CONTRACTS_JSON = (): ContractsJson => {
+const setContractsJson = (): ContractsJson => {
 	return process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
 		? mumbaiContracts
 		: polygonContracts
 }
+
+export const CONTRACTS_JSON = setContractsJson()
