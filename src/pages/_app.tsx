@@ -24,7 +24,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[publicProvider()]
 )
 
-const projectId = '0'
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID ?? '0';
 
 const { wallets } = getDefaultWallets({
 	appName: 'RainbowKit dApp',
