@@ -9,6 +9,7 @@ import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
 import '../config/i18n'
 import { PROVIDER } from '@/constants/constants'
+import { FactoryEvent } from '@/models/event.model'
 
 const metadata = {
 	title: 'MeetdApp',
@@ -17,20 +18,21 @@ const metadata = {
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [activeEvents, setActiveEvents] = useState<FactoryEvent[]>([])
 
 	const fetchActiveEvents = async () => {
-		setTimeout(() => {
-			const rpcProvider: ethers.providers.JsonRpcProvider =
-				new ethers.providers.JsonRpcProvider(PROVIDER)
+		const rpcProvider: ethers.providers.JsonRpcProvider =
+			new ethers.providers.JsonRpcProvider(PROVIDER)
 
-			const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
-				CONTRACTS_JSON.meetdAppFactory.address,
-				CONTRACTS_JSON.meetdAppFactory.abi,
-				rpcProvider
-			) as MeetdAppFactory
+		const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
+			CONTRACTS_JSON.meetdAppFactory.address,
+			CONTRACTS_JSON.meetdAppFactory.abi,
+			rpcProvider
+		) as MeetdAppFactory
 
-			setIsLoading(false)
-		}, 3000)
+		setActiveEvents(await getActiveFactoryEvents(meetdAppFactoryContract))
+
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
@@ -51,4 +53,25 @@ export default function Home() {
 			<Footer />
 		</>
 	)
+}
+
+async function getActiveFactoryEvents(
+	meetdAppFactoryContract: MeetdAppFactory
+): Promise<FactoryEvent[]> {
+	let numberFactoryEvents: ethers.BigNumber | number =
+		await meetdAppFactoryContract.numEvents()
+
+	numberFactoryEvents = numberFactoryEvents.toNumber()
+
+	const factoryEvents: FactoryEvent[] = []
+
+	for (let i = 1; i <= numberFactoryEvents; i++) {
+		const factoryEvent: FactoryEvent =
+			await meetdAppFactoryContract.mapEventNum(i)
+		if (factoryEvent.active) {
+			factoryEvents.push(factoryEvent)
+		}
+	}
+
+	return factoryEvents
 }

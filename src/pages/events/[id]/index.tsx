@@ -206,6 +206,10 @@ export default function Event(): JSX.Element {
 				rpcProvider
 			) as MeetdAppEvent
 
+			const convertTimestampToDate = (timestamp: number) => {
+				return new Date(timestamp * 1000)
+			}
+
 			const eventDTO: EventDTO = {
 				id: await eventContract.eventId(),
 				name: await eventContract.eventName(),
@@ -219,6 +223,23 @@ export default function Event(): JSX.Element {
 				ownerAddress: await eventContract.eventOwner(),
 				nftAddress: await eventContract.eventNfts()
 			}
+
+			// Print
+			console.log(
+				'Start Time:',
+				convertTimestampToDate(eventDTO.startTime.toNumber())
+			)
+
+			console.log('End Time timestamp:', eventDTO.endTime.toNumber())
+
+			console.log(
+				'End Time:',
+				convertTimestampToDate(eventDTO.endTime.toNumber())
+			)
+			console.log(
+				'Redeemable Time:',
+				convertTimestampToDate(eventDTO.reedemableTime.toNumber())
+			)
 
 			const currentAttendees = await eventContract.getAllAttendees()
 			setAttendees(currentAttendees)
