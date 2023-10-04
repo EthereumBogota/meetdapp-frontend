@@ -1,12 +1,7 @@
 import {
-	Box,
 	Flex,
-	Text,
 	Button,
 	ButtonGroup,
-	Avatar,
-	CloseButton,
-	Tooltip
 } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +12,6 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 export default function Navbar(): React.ReactNode {
 	const { t, i18n } = useTranslation()
 	const english: boolean = i18n.language === 'en'
-	const [address, setAddress] = useState<string>('')
 	const [navbarBlur, setNavbarBlur] = useState<boolean>(false)
 
 	useEffect(() => {

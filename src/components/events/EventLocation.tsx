@@ -51,7 +51,7 @@ const EventLocation = () => {
 					<InfoIcon />
 				</Box>
 				<Text fontSize='md' color={'#00001C'}>
-					Centro de Convenciones Ágora Bogotá&rsquo;, Ac. 24 #38-47, Bogotá,
+					Centro de Convenciones Ágora Bogotá, Ac. 24 #38-47, Bogotá,
 					Colombia
 				</Text>
 			</HStack>

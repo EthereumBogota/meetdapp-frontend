@@ -31,6 +31,7 @@ const EventImage = () => {
 				backgroundSize={'contain'}
 				align='center'
 				position='relative'
+				borderRadius={"xl"}
 			/>
 		</Box>
 	)

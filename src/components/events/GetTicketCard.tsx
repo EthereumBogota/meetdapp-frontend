@@ -1,16 +1,27 @@
 import React from 'react'
-import { Flex, Button, Text, VStack } from '@chakra-ui/react'
+import { Flex, Button, Text, Input } from '@chakra-ui/react'
 import { Event } from '@/models/event.model'
+import { Field, Form, Formik } from 'formik'
 
 type Props = {
 	event: Event
 	getTicket: () => Promise<void>
 	isBuyTicketLoading: boolean
 	hasTicket: boolean
+	isRedeemable?: boolean
 }
 
 const GetTicketCard = (props: Props) => {
-	const { event, getTicket, isBuyTicketLoading, hasTicket } = props
+	const { event, getTicket, isBuyTicketLoading, isRedeemable, hasTicket } = props
+
+	const validateWord = (value: string) => {
+		if (value.toLowerCase() === 'secreto') {
+			alert("NFT!!")
+		} else {
+			alert("Esta no es la palabra secreta :(")
+		}
+	}
+
 	return (
 		<Flex
 			h={'fit-content'}
@@ -43,54 +54,91 @@ const GetTicketCard = (props: Props) => {
 					color={'#00001C'}
 					textAlign={'center'}
 				>
-					¡GRATIS! • Quedan {event.remainingTickets} cupos
+					{isRedeemable ? "¡Redime tu NFT!" : `¡GRATIS! • Quedan ${event.remainingTickets} cupos`}
 				</Text>
-				{hasTicket ? (
-					<Button
-						boxShadow={
-							'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'
-						}
-						padding={'1em 0.5em'}
-						rounded={'12px'}
-						bg={'teal'}
-						color={'#FFF'}
-						fontFamily={'neue'}
-						fontSize={{ base: 'md', lg: 'lg' }}
-						fontWeight={400}
-						_active={{
-							transform: 'scale(0.98)'
-						}}
-						_hover={{ bg: 'teal' }}
-						cursor={'default'}
-					>
-						Registrado
-					</Button>
-				) : (
-					<Button
-						boxShadow={
-							'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'
-						}
-						padding={'1em 0.5em'}
-						rounded={'12px'}
-						bg={'#FF8D3E'}
-						color={'#FFF'}
-						fontFamily={'neue'}
-						fontSize={['18px', '22px']}
-						fontWeight={400}
-						// onClick={getUserInfo}
-						_hover={{
-							bg: '#EE7A29',
-							transform: 'scale(1.03)',
-							transition: 'transform 0.3s ease-in-out'
-						}}
-						_active={{
-							transform: 'scale(0.98)'
-						}}
-						onClick={getTicket}
-					>
-						{isBuyTicketLoading ? 'Cargando...' : 'Conseguir Entrada NFT'}
-					</Button>
-				)}
+				{hasTicket ?
+					isRedeemable
+						?
+						<Formik
+							initialValues={{ word: "" }}
+							onSubmit={(values, actions) => {
+								setTimeout(() => {
+									validateWord(values.word)
+									actions.setSubmitting(false)
+								}, 1000)
+							}}
+						>
+							{(props) => (
+								<Form>
+									<Flex direction={{ base: 'row', lg: 'column' }} gap={5} justify={'center'} alignItems={'center'}>
+										<Field name='word'>
+											{({ field, form }: any) => (
+												<Input
+													{...field}
+													variant={'outline'}
+													background={"DDEBED"}
+													placeholder='Palabra secreta' />
+											)}
+										</Field>
+										<Button
+											colorScheme='orange'
+											isLoading={props.isSubmitting}
+											type='submit'
+										>
+											Redimir
+										</Button>
+									</Flex>
+								</Form>
+							)}
+						</Formik>
+						:
+
+						<Button
+							boxShadow={
+								'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'
+							}
+							padding={'1em 0.5em'}
+							rounded={'12px'}
+							bg={'teal'}
+							color={'#FFF'}
+							fontFamily={'neue'}
+							fontSize={{ base: 'md', lg: 'lg' }}
+							fontWeight={400}
+							_active={{
+								transform: 'scale(0.98)'
+							}}
+							_hover={{ bg: 'teal' }}
+							cursor={'default'}
+						>
+							Registrado
+						</Button>
+					: (
+						<Button
+							boxShadow={
+								'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'
+							}
+							padding={'1em 0.5em'}
+							rounded={'12px'}
+							bg={'#FF8D3E'}
+							color={'#FFF'}
+							fontFamily={'neue'}
+							fontSize={{ base: 'sm', lg: 'lg' }}
+							fontWeight={400}
+							width={'fit-content'}
+							_hover={{
+								bg: '#EE7A29',
+								transform: 'scale(1.03)',
+								transition: 'transform 0.3s ease-in-out'
+							}}
+							_active={{
+								transform: 'scale(0.98)'
+							}}
+							onClick={getTicket}
+						>
+							{isBuyTicketLoading ? 'Cargando...' : 'Conseguir Entrada'}
+						</Button>
+					)}
+
 			</Flex>
 		</Flex>
 	)

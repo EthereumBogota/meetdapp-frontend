@@ -47,6 +47,7 @@ export default function Event(): JSX.Element {
 	const [meetdAppEventContract, setMeetdAppEventContract] =
 		useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
+	const [isRedeemable, setIsRedeemable] = useState<boolean>(false)
 	const router = useRouter()
 
 	// TODO: generate nanoId
@@ -223,7 +224,25 @@ export default function Event(): JSX.Element {
 			const currentAttendees = await eventContract.getAllAttendees()
 			setAttendees(currentAttendees)
 
-			setEvent(mapDTOtoEvent(eventDTO))
+			const currentEvent: Event = mapDTOtoEvent(eventDTO)
+
+			setEvent(currentEvent)
+
+			const endDate = new Date("2023-10-06 19:00:00")
+			const endTime = endDate.getTime()
+			const newDate = new Date(1696431600)
+			alert(endTime + " / " + newDate)
+
+
+			const now = new Date()
+			const nowTimestamp = now.getTime()
+			setIsRedeemable(currentEvent.endTime < nowTimestamp && nowTimestamp < currentEvent.reedemableTime)
+
+			let dateObject = new Date(currentEvent.endTime)
+			let humanDateFormat = dateObject.toLocaleString([], {
+				hour12: false
+			})
+			alert(humanDateFormat)
 
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
@@ -314,6 +333,7 @@ export default function Event(): JSX.Element {
 									getTicket={onBuyTicket}
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
+									isRedeemable={isRedeemable}
 								/>
 							</Flex>
 						</Flex>
@@ -338,6 +358,7 @@ export default function Event(): JSX.Element {
 									getTicket={onBuyTicket}
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
+									isRedeemable={isRedeemable}
 								/>
 							</Flex>
 						</Flex>
