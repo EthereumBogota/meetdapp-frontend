@@ -49,10 +49,12 @@ export default function Event(): JSX.Element {
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
 	const [isRedeemable, setIsRedeemable] = useState<boolean>(false)
+	const [isRedeemed, setIsRedeemed] = useState<boolean>(false)
+	const [isRedeemingNFT, setIsRedeemingNFT] = useState<boolean>(false)
 	const [meetdAppEventContract, setMeetdAppEventContract] = useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
 	const router = useRouter()
-	const { t, i18n } = useTranslation()
+	const { t } = useTranslation()
 	const toast = useToast()
 	// TODO: generate nanoId
 	const { id } = router.query
@@ -66,7 +68,7 @@ export default function Event(): JSX.Element {
 				description: t('toasts.install-metamask.description'),
 				status: 'warning',
 				duration: 3000,
-				isClosable: false,
+				isClosable: true,
 				position: 'top-right'
 			})
 			return
@@ -78,7 +80,7 @@ export default function Event(): JSX.Element {
 				description: t('toasts.connect-metamask.description'),
 				status: 'warning',
 				duration: 3000,
-				isClosable: false,
+				isClosable: true,
 				position: 'top-right'
 			})
 			return
@@ -90,7 +92,7 @@ export default function Event(): JSX.Element {
 				description: t('toasts.change-network.description'),
 				status: 'warning',
 				duration: 2000,
-				isClosable: false,
+				isClosable: true,
 				position: 'top-right'
 			})
 			return
@@ -131,7 +133,7 @@ export default function Event(): JSX.Element {
 					description: t('toasts.ticket-bought.description'),
 					status: 'success',
 					duration: 2000,
-					isClosable: false,
+					isClosable: true,
 					position: 'top-right'
 				})
 			}
@@ -145,7 +147,7 @@ export default function Event(): JSX.Element {
 						description: t('toasts.failed.description'),
 						status: 'error',
 						duration: 2000,
-						isClosable: false,
+						isClosable: true,
 						position: 'top-right'
 					})
 					return
@@ -155,17 +157,16 @@ export default function Event(): JSX.Element {
 						description: t('toasts.failed.description'),
 						status: 'error',
 						duration: 2000,
-						isClosable: false,
+						isClosable: true,
 						position: 'top-right'
 					})
 				} else {
-					console.error('error: ', error)
 					toast({
 						title: t('toasts.failed.title'),
 						description: t('toasts.failed.description'),
 						status: 'error',
 						duration: 2000,
-						isClosable: false,
+						isClosable: true,
 						position: 'top-right'
 					})
 				}
@@ -175,7 +176,7 @@ export default function Event(): JSX.Element {
 					description: t('toasts.failed.description'),
 					status: 'error',
 					duration: 2000,
-					isClosable: false,
+					isClosable: true,
 					position: 'top-right'
 				})
 			}
@@ -213,7 +214,7 @@ export default function Event(): JSX.Element {
 				totalTickets: await eventContract.eventTotalTickets(),
 				remainingTickets: await eventContract.eventRemainingTickets(),
 				startTime: await eventContract.eventStartTime(),
-				endTime: await eventContract.eventRemainingTickets(),
+				endTime: await eventContract.eventEndTime(),
 				reedemableTime: await eventContract.eventReedemableTime(),
 				ownerAddress: await eventContract.eventOwner(),
 				nftAddress: await eventContract.eventNfts()
@@ -225,13 +226,9 @@ export default function Event(): JSX.Element {
 			const currentEvent: Event = mapDTOtoEvent(eventDTO)
 			setEvent(currentEvent)
 
-			const nowTimestamp: number = moment().valueOf()
+			const nowTimestampSeconds: number = moment().valueOf() / 1000
 
-			console.log(currentEvent.endTime)
-
-			alert(moment.unix(currentEvent.endTime).format('DD MMMM YYYY') + " - " + moment.unix(nowTimestamp / 1000).format('DD MMMM YYYY') + " - " + moment.unix(currentEvent.reedemableTime).format('DD MMMM YYYY'))
-
-			setIsRedeemable(currentEvent.endTime < nowTimestamp && nowTimestamp < currentEvent.reedemableTime)
+			setIsRedeemable(currentEvent.endTime < nowTimestampSeconds && nowTimestampSeconds < currentEvent.reedemableTime)
 
 			setEventInfo(mapDTOtoEvent(eventDTO))
 
@@ -246,6 +243,120 @@ export default function Event(): JSX.Element {
 			setIsLoading(false)
 		} catch (error) {
 			router.push('/404')
+		}
+	}
+
+	const onRedeemNFT = async (secretWord: string) => {
+		const ethereum = (window as any).ethereum
+
+		if (!ethereum) {
+			toast({
+				title: t('toasts.install-metamask.title'),
+				description: t('toasts.install-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: true,
+				position: 'top-right'
+			})
+			return
+		}
+
+		if (!address) {
+			toast({
+				title: t('toasts.connect-metamask.title'),
+				description: t('toasts.connect-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: true,
+				position: 'top-right'
+			})
+			return
+		}
+
+		if (chain?.id !== CHAINID) {
+			toast({
+				title: t('toasts.change-network.title'),
+				description: t('toasts.change-network.description'),
+				status: 'warning',
+				duration: 2000,
+				isClosable: true,
+				position: 'top-right'
+			})
+			return
+		}
+
+		try {
+			setIsRedeemingNFT(true)
+
+			const web3Provider: ethers.providers.Web3Provider =
+				new ethers.providers.Web3Provider(ethereum)
+
+			await web3Provider.send('eth_requestAccounts', [])
+
+			const signer = new ethers.providers.Web3Provider(
+				(window as any).ethereum
+			).getSigner()
+
+			if (meetdAppEventContract) {
+				const meetdAppEventContractWithSigner: MeetdAppEvent =
+					meetdAppEventContract.connect(signer)
+
+				const tx = await meetdAppEventContractWithSigner.reedemNft(secretWord, { gasLimit: 250000 })
+				await tx.wait(1)
+
+				toast({
+					title: t('NFT redimido!'),
+					description: t('Tu NFT se redimió exitosamente'),
+					status: 'success',
+					duration: 2000,
+					isClosable: true,
+					position: 'top-right'
+				})
+				setIsRedeemingNFT(false)
+				setIsRedeemed(true)
+			}
+		} catch (error) {
+			setIsRedeemingNFT(false)
+			if (error instanceof Error) {
+				if (error.message.includes('user rejected transaction')) {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: true,
+						position: 'top-right'
+					})
+					return
+				} else if (error.message.includes('transaction failed')) {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: true,
+						position: 'top-right'
+					})
+				} else {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: true,
+						position: 'top-right'
+					})
+				}
+			} else {
+				toast({
+					title: t('toasts.failed.title'),
+					description: t('toasts.failed.description'),
+					status: 'error',
+					duration: 2000,
+					isClosable: true,
+					position: 'top-right'
+				})
+			}
 		}
 	}
 
@@ -332,6 +443,9 @@ export default function Event(): JSX.Element {
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
 									isRedeemable={isRedeemable}
+									onRedeemNFT={onRedeemNFT}
+									isReedemingNFT={isRedeemingNFT}
+									isRedeemed={isRedeemed}
 								/>
 							</Flex>
 						</Flex>
@@ -364,6 +478,9 @@ export default function Event(): JSX.Element {
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
 									isRedeemable={isRedeemable}
+									onRedeemNFT={onRedeemNFT}
+									isReedemingNFT={isRedeemingNFT}
+									isRedeemed={isRedeemed}
 								/>
 							</Flex>
 						</Flex>

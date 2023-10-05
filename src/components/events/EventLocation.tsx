@@ -29,10 +29,8 @@ const EventLocation = ({ event }: EventLocationProps) => {
 	}, [event, i18n.language])
 
 	const readDate = () => {
-		console.log(i18n.language);
 		moment.locale(i18n.language as string)
 		const date = moment.unix(event?.startTime!).format('DD MMMM YYYY')
-		console.log(date);
 		setStartDate(date)
 	}
 

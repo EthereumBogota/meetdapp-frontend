@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Button, Text, Input } from '@chakra-ui/react'
+import { Flex, Button, Text, Input, useToast } from '@chakra-ui/react'
 import { Event } from '@/models/event.model'
 import { useTranslation } from 'react-i18next'
 import { Field, Form, Formik } from 'formik'
@@ -10,19 +10,15 @@ type Props = {
 	isBuyTicketLoading: boolean
 	hasTicket: boolean
 	isRedeemable?: boolean
+	onRedeemNFT: Function
+	isReedemingNFT: boolean
+	isRedeemed: boolean
 }
 
 const GetTicketCard = (props: Props) => {
-	const { event, getTicket, isBuyTicketLoading, isRedeemable, hasTicket } = props
+	const { event, getTicket, isBuyTicketLoading, isRedeemable, hasTicket, onRedeemNFT, isReedemingNFT, isRedeemed } = props
 	const { t } = useTranslation()
-
-	const validateWord = (value: string) => {
-		if (value.toLowerCase() === 'secreto') {
-			alert("NFT!!")
-		} else {
-			alert("Esta no es la palabra secreta :(")
-		}
-	}
+	const toast = useToast()
 
 	return (
 		<Flex
@@ -59,40 +55,62 @@ const GetTicketCard = (props: Props) => {
 					{isRedeemable ? "¡Redime tu NFT!" : `¡GRATIS! • Quedan ${event.remainingTickets} cupos`}
 				</Text>
 				{hasTicket ?
-					isRedeemable
-						?
-						<Formik
-							initialValues={{ word: "" }}
-							onSubmit={(values, actions) => {
-								setTimeout(() => {
-									validateWord(values.word)
-									actions.setSubmitting(false)
-								}, 1000)
-							}}
-						>
-							{(props) => (
-								<Form>
-									<Flex direction={{ base: 'row', lg: 'column' }} gap={5} justify={'center'} alignItems={'center'}>
-										<Field name='word'>
-											{({ field, form }: any) => (
-												<Input
-													{...field}
-													variant={'outline'}
-													background={"DDEBED"}
-													placeholder='Palabra secreta' />
-											)}
-										</Field>
-										<Button
-											colorScheme='orange'
-											isLoading={props.isSubmitting}
-											type='submit'
-										>
-											Redimir
-										</Button>
-									</Flex>
-								</Form>
-							)}
-						</Formik>
+					isRedeemable ?
+						isRedeemed ?
+							<Button
+								boxShadow={
+									'0px 0px 0px 0px rgba(0, 0, 0, 0.30), 3px 2px 8px 0px rgba(0, 0, 0, 0.29), 11px 8px 14px 0px rgba(0, 0, 0, 0.26), 25px 18px 19px 0px rgba(0, 0, 0, 0.15), 45px 31px 22px 0px rgba(0, 0, 0, 0.04), 71px 49px 24px 0px rgba(0, 0, 0, 0.01)'
+								}
+								padding={'1em 0.5em'}
+								rounded={'md'}
+								bg={'teal'}
+								color={'#FFF'}
+								fontFamily={'neue'}
+								fontSize={{ base: 'md', lg: 'lg' }}
+								fontWeight={400}
+								_active={{
+									transform: 'scale(0.98)'
+								}}
+								_hover={{ bg: 'teal' }}
+								cursor={'default'}
+							>
+								Redimido
+							</Button>
+							:
+							<Formik
+								initialValues={{ word: "" }}
+								onSubmit={(values, actions) => {
+									setTimeout(() => {
+										onRedeemNFT(values.word)
+										actions.setSubmitting(false)
+									}, 1000)
+								}}
+							>
+								{(props) => (
+									<Form>
+										<Flex direction={{ base: 'row', lg: 'column' }} gap={5} justify={'center'} alignItems={'center'}>
+											<Field name='word'>
+												{({ field, form }: any) => (
+													<Input
+														{...field}
+														variant={'outline'}
+														background={"DDEBED"}
+														required
+														autoComplete='off'
+														placeholder='Palabra secreta' />
+												)}
+											</Field>
+											<Button
+												colorScheme='orange'
+												isLoading={isReedemingNFT}
+												type='submit'
+											>
+												Redimir
+											</Button>
+										</Flex>
+									</Form>
+								)}
+							</Formik>
 						:
 
 						<Button

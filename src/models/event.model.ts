@@ -27,3 +27,12 @@ export interface EventDTO {
 	ownerAddress: string
 	nftAddress: string
 }
+
+export interface FactoryEvent {
+	0: boolean
+	1: string
+	2: string
+	active: boolean
+	eventId: string
+	eventAddr: string
+}
