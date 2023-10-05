@@ -1,9 +1,16 @@
-'use client'
-
 import { Box, Text, Image, Heading, Flex } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
-export default function EventCard() {
+type Props = {
+	capacity: number
+	image: string
+	location: string
+	owner: string
+	title: string
+}
+
+export default function EventCard(props: Props): JSX.Element {
+	const { capacity, image, location, owner, title } = props
 	const { t } = useTranslation()
 
 	return (
@@ -20,8 +27,9 @@ export default function EventCard() {
 				objectFit={'cover'}
 				w={'full'}
 				h={'200px'}
-				src={'/images/bsl.jpg'}
 				zIndex={0}
+				alt={'event image'}
+				src={image}
 			/>
 
 			<Flex
@@ -47,21 +55,29 @@ export default function EventCard() {
 					top={-7}
 				></Box>
 				<Heading fontSize={{ base: 'xl' }} fontFamily={'spaceBold'}>
-					{t('landing.top-events.card.title')}
+					{title}
 				</Heading>
 				<Flex direction={'column'} gap={5} fontFamily={'space'}>
 					<Flex gap={4}>
-						<Image w={4} src={'/images/organization.svg'} />
-						<Text>Ethereum Bogotá</Text>
+						<Image
+							w={4}
+							src={'/images/organization.svg'}
+							alt={'oganization image'}
+						/>
+						<Text>{owner}</Text>
 					</Flex>
 
 					<Flex gap={4}>
-						<Image w={4} src={'/images/location.svg'} />
-						<Text>Calle 19 #134 - 89, Bogotá</Text>
+						<Image w={4} src={'/images/location.svg'} alt={'location image'} />
+						<Text>{location}</Text>
 					</Flex>
 					<Flex gap={4}>
-						<Image w={5} src={'/images/user_group.svg'} />
-						<Text>50 {t('landing.top-events.card.attendees')}</Text>
+						<Image
+							w={5}
+							src={'/images/user_group.svg'}
+							alt={'user group image'}
+						/>
+						<Text>{`${capacity} attendees`}</Text>
 					</Flex>
 				</Flex>
 
