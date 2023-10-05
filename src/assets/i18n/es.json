@@ -14,9 +14,15 @@
     },
     "top-events": {
       "title": "Eventos populares",
-      "card": {
+      "card1": {
+        "title": "Side Event de ETHColombia en la BSL: Celebración de los Nodos Latinoamericanos",
+        "attendees": "{{number}} asistentes",
+        "cost": "Gratis"
+      },
+      "card2": {
         "title": "¡Web3 en acción: Sé un voluntari@ de impacto en la BSL!",
-        "attendees": "asistentes"
+        "attendees": "{{number}} asistentes",
+        "cost": "Gratis"
       }
     },
     "section1": {
@@ -55,6 +61,15 @@
     "not-found": "Esta página no fue encontrada",
     "error-code": "Código de error",
     "home": "Volver al inicio"
+  },
+  "event": {
+    "event-details": "Detalles del Evento",
+    "hosted-by": "Hosteado por",
+    "assistants": "Asistentes",
+    "event-pictures": "Fotos de Eventos Anteriores",
+    "labels": "Etiquetas",
+    "get-ticket": "Conseguir Entrada NFT",
+    "loading": "Cargando..."
   },
   "toasts": {
     "ticket-bought": {

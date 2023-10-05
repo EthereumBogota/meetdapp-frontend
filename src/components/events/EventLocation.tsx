@@ -8,8 +8,34 @@ import {
 	Avatar
 } from '@chakra-ui/react'
 import { CalendarIcon, InfoIcon } from '@chakra-ui/icons'
+import { useTranslation } from 'react-i18next'
+import { Event } from '@/models/event.model'
+import { useEffect, useState } from 'react'
+import moment from 'moment'
+import 'moment/locale/es';
 
-const EventLocation = () => {
+interface EventLocationProps {
+	event: Event | null
+}
+
+const EventLocation = ({ event }: EventLocationProps) => {
+	const [startDate, setStartDate] = useState<string>('');
+	const { t, i18n } = useTranslation()
+
+	useEffect(() => {
+		if (event) {
+			readDate()
+		}
+	}, [event, i18n.language])
+
+	const readDate = () => {
+		console.log(i18n.language);
+		moment.locale(i18n.language as string)
+		const date = moment.unix(event?.startTime!).format('DD MMMM YYYY')
+		console.log(date);
+		setStartDate(date)
+	}
+
 	return (
 		<Flex
 			borderRadius='3xl'
@@ -28,9 +54,10 @@ const EventLocation = () => {
 						fontWeight='semibold'
 						color={'gray.500'}
 					>
-						Hosted By
+						{t('event.hosted-by')}
 					</Text>
 					<Text fontSize='lg' fontFamily={'space'} color={'#00001C'}>
+						{/* TODO include in smart contract structure */}
 						{'Ethereum Bogotá'}
 					</Text>
 				</VStack>
@@ -43,7 +70,7 @@ const EventLocation = () => {
 					<CalendarIcon />
 				</Box>
 				<Text fontSize='md' color={'#00001C'}>
-					Octubre 4 - 6, 2023
+					{startDate}
 				</Text>
 			</HStack>
 			<HStack spacing={4} mb={4} align='center'>
@@ -51,8 +78,7 @@ const EventLocation = () => {
 					<InfoIcon />
 				</Box>
 				<Text fontSize='md' color={'#00001C'}>
-					Centro de Convenciones Ágora Bogotá, Ac. 24 #38-47, Bogotá,
-					Colombia
+					{event?.location}
 				</Text>
 			</HStack>
 			{/* <Box flex='1' w='100%' h='full' bg='gray.300' borderRadius='md' mt={4}>

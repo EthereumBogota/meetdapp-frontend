@@ -1,6 +1,7 @@
 import React from 'react'
 import { Flex, Button, Text, Input } from '@chakra-ui/react'
 import { Event } from '@/models/event.model'
+import { useTranslation } from 'react-i18next'
 import { Field, Form, Formik } from 'formik'
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 
 const GetTicketCard = (props: Props) => {
 	const { event, getTicket, isBuyTicketLoading, isRedeemable, hasTicket } = props
+	const { t } = useTranslation()
 
 	const validateWord = (value: string) => {
 		if (value.toLowerCase() === 'secreto') {

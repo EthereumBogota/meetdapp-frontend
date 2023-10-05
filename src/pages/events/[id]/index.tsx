@@ -1,26 +1,29 @@
+import '../../../config/i18n'
 import Attendees from '@/components/events/Attendees'
+import { CHAINID, PROVIDER } from '@/constants/constants'
+import { CONTRACTS_JSON } from '@/constants/constants'
+import { ethers } from 'ethers'
+import { Event, EventDTO } from '@/models/event.model'
 import EventDetails from '@/components/events/EventDetails'
 import EventImage from '@/components/events/EventImage'
 import EventLocation from '@/components/events/EventLocation'
-import GetTicketCard from '@/components/events/GetTicketCard'
-import PreviousEvents from '@/components/events/PreviousEvents'
-import TagsSection from '@/components/events/TagsSection'
 import { Flex, useToast } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { CONTRACTS_JSON } from '@/constants/constants'
-import { useEffect, useState } from 'react'
+import Footer from '@/components/shared/Footer'
+import GetTicketCard from '@/components/events/GetTicketCard'
+import { mapDTOtoEvent } from '@/functions/dto'
+import Loader from '@/components/shared/Loader'
 import {
 	MeetdAppEvent,
 	MeetdAppFactory
 } from '../../../../@types/typechain-types'
-import { ethers } from 'ethers'
 import Navbar from '@/components/shared/Navbar'
-import Footer from '@/components/shared/Footer'
-import '../../../config/i18n'
-import { CHAINID, PROVIDER } from '@/constants/constants'
+import PreviousEvents from '@/components/events/PreviousEvents'
+import TagsSection from '@/components/events/TagsSection'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
-import { Event, EventDTO } from '@/models/event.model'
-import { mapDTOtoEvent } from '@/functions/dto'
+import { useTranslation } from 'react-i18next'
+import moment from 'moment'
 
 const initialEvent: Event = {
 	id: '',
@@ -35,29 +38,24 @@ const initialEvent: Event = {
 	ownerAddress: '',
 	nftAddress: ''
 }
-import Loader from '@/components/shared/Loader'
-import { useTranslation } from 'react-i18next'
 
 export default function Event(): JSX.Element {
+	const { address } = useAccount()
 	const [attendees, setAttendees] = useState<string[]>([])
+	const { chain } = useNetwork()
 	const [event, setEvent] = useState<Event>(initialEvent)
+	const [eventInfo, setEventInfo] = useState<Event | null>(null)
 	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [meetdAppEventContract, setMeetdAppEventContract] =
-		useState<MeetdAppEvent | null>(null)
-	const [owner, setOwner] = useState<string | undefined>(undefined)
 	const [isRedeemable, setIsRedeemable] = useState<boolean>(false)
+	const [meetdAppEventContract, setMeetdAppEventContract] = useState<MeetdAppEvent | null>(null)
+	const [owner, setOwner] = useState<string | undefined>(undefined)
 	const router = useRouter()
-
+	const { t, i18n } = useTranslation()
+	const toast = useToast()
 	// TODO: generate nanoId
 	const { id } = router.query
-
-	const { address } = useAccount()
-	const { chain } = useNetwork()
-
-	const { t } = useTranslation()
-	const toast = useToast()
 
 	const onBuyTicket = async () => {
 		const ethereum = (window as any).ethereum
@@ -221,28 +219,21 @@ export default function Event(): JSX.Element {
 				nftAddress: await eventContract.eventNfts()
 			}
 
-			const currentAttendees = await eventContract.getAllAttendees()
+			const currentAttendees: string[] = await eventContract.getAllAttendees()
 			setAttendees(currentAttendees)
 
 			const currentEvent: Event = mapDTOtoEvent(eventDTO)
-
 			setEvent(currentEvent)
 
-			const endDate = new Date("2023-10-06 19:00:00")
-			const endTime = endDate.getTime()
-			const newDate = new Date(1696431600)
-			alert(endTime + " / " + newDate)
+			const nowTimestamp: number = moment().valueOf()
 
+			console.log(currentEvent.endTime)
 
-			const now = new Date()
-			const nowTimestamp = now.getTime()
+			alert(moment.unix(currentEvent.endTime).format('DD MMMM YYYY') + " - " + moment.unix(nowTimestamp / 1000).format('DD MMMM YYYY') + " - " + moment.unix(currentEvent.reedemableTime).format('DD MMMM YYYY'))
+
 			setIsRedeemable(currentEvent.endTime < nowTimestamp && nowTimestamp < currentEvent.reedemableTime)
 
-			let dateObject = new Date(currentEvent.endTime)
-			let humanDateFormat = dateObject.toLocaleString([], {
-				hour12: false
-			})
-			alert(humanDateFormat)
+			setEventInfo(mapDTOtoEvent(eventDTO))
 
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
@@ -313,8 +304,13 @@ export default function Event(): JSX.Element {
 								alignItems={'center'}
 								justify={'center'}
 							>
-								<EventImage />
-								<EventDetails />
+								<EventImage
+									eventName={eventInfo?.name ?? 'My event'}
+									eventId={eventInfo?.id ?? '0'}
+								/>
+								<EventDetails
+									event={eventInfo}
+								/>
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
@@ -327,7 +323,9 @@ export default function Event(): JSX.Element {
 								flex={3}
 								direction={'column'}
 							>
-								<EventLocation />
+								<EventLocation
+									event={eventInfo}
+								/>
 								<GetTicketCard
 									event={event}
 									getTicket={onBuyTicket}
@@ -347,9 +345,16 @@ export default function Event(): JSX.Element {
 							mb={'3em'}
 						>
 							<Flex direction={'column'} w={'full'} gap={'3em'}>
-								<EventImage />
-								<EventLocation />
-								<EventDetails />
+								<EventImage
+									eventName={eventInfo?.name ?? 'My event'}
+									eventId={eventInfo?.id ?? '0'}
+								/>
+								<EventLocation
+									event={eventInfo}
+								/>
+								<EventDetails
+									event={eventInfo}
+								/>
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
