@@ -29,10 +29,10 @@ const polygonContracts: ContractsJson = {
 
 export const PROVIDER = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
 
-export const SCAN = (
-	address: string,
-	scan: string | undefined = process.env.NEXT_PUBLIC_EVM_EXPLORER
-) => `${scan}/${address}`
+export const SCAN = (wallet: string) =>
+	process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true'
+		? `https://mumbai.polygonscan.com/address/${wallet}`
+		: `https://polygonscan.com/address/${wallet}`
 
 const setChainId = () =>
 	process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? 80001 : 137

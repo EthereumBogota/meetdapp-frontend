@@ -1,14 +1,8 @@
-import { Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 import EventCard from './EventCard'
 import Link from 'next/link'
 import Loader from '../shared/Loader'
-
-const first_event = {
-	id: 0,
-	title: 'Web3 en acción',
-	description: 'ndineondeond'
-}
 
 type Props = {
 	isLoading: boolean
@@ -17,8 +11,6 @@ type Props = {
 export default function Events(props: Props): React.ReactNode {
 	const { isLoading } = props
 	const { t } = useTranslation()
-
-	const eventId: string = 'mC8cCmWH5Ws8IZQy'
 
 	return (
 		<>
@@ -48,7 +40,7 @@ export default function Events(props: Props): React.ReactNode {
 					>
 						<Link
 							href={{
-								pathname: `/events/${eventId}`
+								pathname: '/events/mC8cCmWH5Ws8IZQy'
 							}}
 						>
 							<GridItem
@@ -56,7 +48,36 @@ export default function Events(props: Props): React.ReactNode {
 								transition={'transform .3s'}
 								_hover={{ transform: 'scale(1.03)' }}
 							>
-								<EventCard />
+								<EventCard
+									capacity={60}
+									image={'images/bsl.jpg'}
+									location={'Calle 19 #134 - 89, Bogotá'}
+									owner={'ETHColombia'}
+									title={
+										'¡Web3 in action: Be an impactful volunteer in the BSL!'
+									}
+								/>
+							</GridItem>
+						</Link>
+						<Link
+							href={{
+								pathname: '/events/mC8cCmWH5Ws8IZQz'
+							}}
+						>
+							<GridItem
+								justifySelf={'center'}
+								transition={'transform .3s'}
+								_hover={{ transform: 'scale(1.03)' }}
+							>
+								<EventCard
+									capacity={60}
+									image={'images/flyer_side_event_ethcol.jpeg'}
+									location={'Life 72 - Av. Caracas No. 71-44'}
+									owner={'ETHColombia'}
+									title={
+										'Side Event de ETHColombia en la BSL: Celebración de los Nodos Latinoamericanos'
+									}
+								/>
 							</GridItem>
 						</Link>
 					</Grid>

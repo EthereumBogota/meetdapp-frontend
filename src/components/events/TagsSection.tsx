@@ -1,8 +1,10 @@
 import React from 'react'
 import { Flex, Text, VStack, Stack } from '@chakra-ui/react'
 import TagComponent from './TagComponent'
+import { useTranslation } from 'react-i18next'
 
 const TagsSection = () => {
+	const { t } = useTranslation()
 	return (
 		<Flex
 			p={{ base: 5, md: 7 }}
@@ -20,7 +22,7 @@ const TagsSection = () => {
 					fontWeight='semibold'
 					color={'#00001C'}
 				>
-					Etiquetas
+					{t('event.labels')}
 				</Text>
 				<Stack direction='row' flexWrap={'wrap'} spacing={4}>
 					<TagComponent text='#web3' />

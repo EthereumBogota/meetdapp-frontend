@@ -1,26 +1,29 @@
+import '../../../config/i18n'
 import Attendees from '@/components/events/Attendees'
+import { CHAINID, PROVIDER } from '@/constants/constants'
+import { CONTRACTS_JSON } from '@/constants/constants'
+import { ethers } from 'ethers'
+import { Event, EventDTO } from '@/models/event.model'
 import EventDetails from '@/components/events/EventDetails'
 import EventImage from '@/components/events/EventImage'
 import EventLocation from '@/components/events/EventLocation'
-import GetTicketCard from '@/components/events/GetTicketCard'
-import PreviousEvents from '@/components/events/PreviousEvents'
-import TagsSection from '@/components/events/TagsSection'
 import { Flex, useToast } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { CONTRACTS_JSON } from '@/constants/constants'
-import { useEffect, useState } from 'react'
+import Footer from '@/components/shared/Footer'
+import GetTicketCard from '@/components/events/GetTicketCard'
+import { mapDTOtoEvent } from '@/functions/dto'
+import Loader from '@/components/shared/Loader'
 import {
 	MeetdAppEvent,
 	MeetdAppFactory
 } from '../../../../@types/typechain-types'
-import { ethers } from 'ethers'
 import Navbar from '@/components/shared/Navbar'
-import Footer from '@/components/shared/Footer'
-import '../../../config/i18n'
-import { CHAINID, PROVIDER } from '@/constants/constants'
+import PreviousEvents from '@/components/events/PreviousEvents'
+import TagsSection from '@/components/events/TagsSection'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
-import { Event, EventDTO } from '@/models/event.model'
-import { mapDTOtoEvent } from '@/functions/dto'
+import { useTranslation } from 'react-i18next'
+import moment from 'moment'
 
 const initialEvent: Event = {
 	id: '',
@@ -35,28 +38,26 @@ const initialEvent: Event = {
 	ownerAddress: '',
 	nftAddress: ''
 }
-import Loader from '@/components/shared/Loader'
-import { useTranslation } from 'react-i18next'
 
 export default function Event(): JSX.Element {
+	const { address } = useAccount()
 	const [attendees, setAttendees] = useState<string[]>([])
+	const { chain } = useNetwork()
 	const [event, setEvent] = useState<Event>(initialEvent)
+	const [eventInfo, setEventInfo] = useState<Event | null>(null)
 	const [hasTicket, setHasTicket] = useState<boolean>(false)
 	const [isBuyTicketLoading, setIsBuyTicketLoading] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [meetdAppEventContract, setMeetdAppEventContract] =
-		useState<MeetdAppEvent | null>(null)
+	const [isRedeemable, setIsRedeemable] = useState<boolean>(false)
+	const [isRedeemed, setIsRedeemed] = useState<boolean>(false)
+	const [isRedeemingNFT, setIsRedeemingNFT] = useState<boolean>(false)
+	const [meetdAppEventContract, setMeetdAppEventContract] = useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
 	const router = useRouter()
-
-	// TODO: generate nanoId
-	const { id } = router.query
-
-	const { address } = useAccount()
-	const { chain } = useNetwork()
-
 	const { t } = useTranslation()
 	const toast = useToast()
+	// TODO: generate nanoId
+	const { id } = router.query
 
 	const onBuyTicket = async () => {
 		const ethereum = (window as any).ethereum
@@ -67,7 +68,7 @@ export default function Event(): JSX.Element {
 				description: t('toasts.install-metamask.description'),
 				status: 'warning',
 				duration: 3000,
-				isClosable: false,
+				isClosable: true,
 				position: 'top-right'
 			})
 			return
@@ -79,7 +80,7 @@ export default function Event(): JSX.Element {
 				description: t('toasts.connect-metamask.description'),
 				status: 'warning',
 				duration: 3000,
-				isClosable: false,
+				isClosable: true,
 				position: 'top-right'
 			})
 			return
@@ -91,7 +92,7 @@ export default function Event(): JSX.Element {
 				description: t('toasts.change-network.description'),
 				status: 'warning',
 				duration: 2000,
-				isClosable: false,
+				isClosable: true,
 				position: 'top-right'
 			})
 			return
@@ -132,7 +133,7 @@ export default function Event(): JSX.Element {
 					description: t('toasts.ticket-bought.description'),
 					status: 'success',
 					duration: 2000,
-					isClosable: false,
+					isClosable: true,
 					position: 'top-right'
 				})
 			}
@@ -146,7 +147,7 @@ export default function Event(): JSX.Element {
 						description: t('toasts.failed.description'),
 						status: 'error',
 						duration: 2000,
-						isClosable: false,
+						isClosable: true,
 						position: 'top-right'
 					})
 					return
@@ -156,17 +157,16 @@ export default function Event(): JSX.Element {
 						description: t('toasts.failed.description'),
 						status: 'error',
 						duration: 2000,
-						isClosable: false,
+						isClosable: true,
 						position: 'top-right'
 					})
 				} else {
-					console.error('error: ', error)
 					toast({
 						title: t('toasts.failed.title'),
 						description: t('toasts.failed.description'),
 						status: 'error',
 						duration: 2000,
-						isClosable: false,
+						isClosable: true,
 						position: 'top-right'
 					})
 				}
@@ -176,7 +176,7 @@ export default function Event(): JSX.Element {
 					description: t('toasts.failed.description'),
 					status: 'error',
 					duration: 2000,
-					isClosable: false,
+					isClosable: true,
 					position: 'top-right'
 				})
 			}
@@ -214,16 +214,23 @@ export default function Event(): JSX.Element {
 				totalTickets: await eventContract.eventTotalTickets(),
 				remainingTickets: await eventContract.eventRemainingTickets(),
 				startTime: await eventContract.eventStartTime(),
-				endTime: await eventContract.eventRemainingTickets(),
+				endTime: await eventContract.eventEndTime(),
 				reedemableTime: await eventContract.eventReedemableTime(),
 				ownerAddress: await eventContract.eventOwner(),
 				nftAddress: await eventContract.eventNfts()
 			}
 
-			const currentAttendees = await eventContract.getAllAttendees()
+			const currentAttendees: string[] = await eventContract.getAllAttendees()
 			setAttendees(currentAttendees)
 
-			setEvent(mapDTOtoEvent(eventDTO))
+			const currentEvent: Event = mapDTOtoEvent(eventDTO)
+			setEvent(currentEvent)
+
+			const nowTimestampSeconds: number = moment().valueOf() / 1000
+
+			setIsRedeemable(currentEvent.endTime < nowTimestampSeconds && nowTimestampSeconds < currentEvent.reedemableTime)
+
+			setEventInfo(mapDTOtoEvent(eventDTO))
 
 			if (address) {
 				const ticket: boolean = await eventContract.eventAttendees(address)
@@ -236,6 +243,120 @@ export default function Event(): JSX.Element {
 			setIsLoading(false)
 		} catch (error) {
 			router.push('/404')
+		}
+	}
+
+	const onRedeemNFT = async (secretWord: string) => {
+		const ethereum = (window as any).ethereum
+
+		if (!ethereum) {
+			toast({
+				title: t('toasts.install-metamask.title'),
+				description: t('toasts.install-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: true,
+				position: 'top-right'
+			})
+			return
+		}
+
+		if (!address) {
+			toast({
+				title: t('toasts.connect-metamask.title'),
+				description: t('toasts.connect-metamask.description'),
+				status: 'warning',
+				duration: 3000,
+				isClosable: true,
+				position: 'top-right'
+			})
+			return
+		}
+
+		if (chain?.id !== CHAINID) {
+			toast({
+				title: t('toasts.change-network.title'),
+				description: t('toasts.change-network.description'),
+				status: 'warning',
+				duration: 2000,
+				isClosable: true,
+				position: 'top-right'
+			})
+			return
+		}
+
+		try {
+			setIsRedeemingNFT(true)
+
+			const web3Provider: ethers.providers.Web3Provider =
+				new ethers.providers.Web3Provider(ethereum)
+
+			await web3Provider.send('eth_requestAccounts', [])
+
+			const signer = new ethers.providers.Web3Provider(
+				(window as any).ethereum
+			).getSigner()
+
+			if (meetdAppEventContract) {
+				const meetdAppEventContractWithSigner: MeetdAppEvent =
+					meetdAppEventContract.connect(signer)
+
+				const tx = await meetdAppEventContractWithSigner.reedemNft(secretWord, { gasLimit: 250000 })
+				await tx.wait(1)
+
+				toast({
+					title: t('NFT redimido!'),
+					description: t('Tu NFT se redimió exitosamente'),
+					status: 'success',
+					duration: 2000,
+					isClosable: true,
+					position: 'top-right'
+				})
+				setIsRedeemingNFT(false)
+				setIsRedeemed(true)
+			}
+		} catch (error) {
+			setIsRedeemingNFT(false)
+			if (error instanceof Error) {
+				if (error.message.includes('user rejected transaction')) {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: true,
+						position: 'top-right'
+					})
+					return
+				} else if (error.message.includes('transaction failed')) {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: true,
+						position: 'top-right'
+					})
+				} else {
+					toast({
+						title: t('toasts.failed.title'),
+						description: t('toasts.failed.description'),
+						status: 'error',
+						duration: 2000,
+						isClosable: true,
+						position: 'top-right'
+					})
+				}
+			} else {
+				toast({
+					title: t('toasts.failed.title'),
+					description: t('toasts.failed.description'),
+					status: 'error',
+					duration: 2000,
+					isClosable: true,
+					position: 'top-right'
+				})
+			}
 		}
 	}
 
@@ -294,8 +415,13 @@ export default function Event(): JSX.Element {
 								alignItems={'center'}
 								justify={'center'}
 							>
-								<EventImage />
-								<EventDetails />
+								<EventImage
+									eventName={eventInfo?.name ?? 'My event'}
+									eventId={eventInfo?.id ?? '0'}
+								/>
+								<EventDetails
+									event={eventInfo}
+								/>
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
@@ -308,12 +434,18 @@ export default function Event(): JSX.Element {
 								flex={3}
 								direction={'column'}
 							>
-								<EventLocation />
+								<EventLocation
+									event={eventInfo}
+								/>
 								<GetTicketCard
 									event={event}
 									getTicket={onBuyTicket}
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
+									isRedeemable={isRedeemable}
+									onRedeemNFT={onRedeemNFT}
+									isReedemingNFT={isRedeemingNFT}
+									isRedeemed={isRedeemed}
 								/>
 							</Flex>
 						</Flex>
@@ -327,9 +459,16 @@ export default function Event(): JSX.Element {
 							mb={'3em'}
 						>
 							<Flex direction={'column'} w={'full'} gap={'3em'}>
-								<EventImage />
-								<EventLocation />
-								<EventDetails />
+								<EventImage
+									eventName={eventInfo?.name ?? 'My event'}
+									eventId={eventInfo?.id ?? '0'}
+								/>
+								<EventLocation
+									event={eventInfo}
+								/>
+								<EventDetails
+									event={eventInfo}
+								/>
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
@@ -338,6 +477,10 @@ export default function Event(): JSX.Element {
 									getTicket={onBuyTicket}
 									isBuyTicketLoading={isBuyTicketLoading}
 									hasTicket={hasTicket}
+									isRedeemable={isRedeemable}
+									onRedeemNFT={onRedeemNFT}
+									isReedemingNFT={isRedeemingNFT}
+									isRedeemed={isRedeemed}
 								/>
 							</Flex>
 						</Flex>
