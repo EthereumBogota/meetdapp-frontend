@@ -1,7 +1,12 @@
 import React from 'react'
 import { Flex, Text, Box } from '@chakra-ui/react'
+interface EventImageProps {
+	eventName: string
+	eventId: string
+}
+const EventImage = ({ eventName, eventId }: EventImageProps) => {
+	const firstEvent: boolean = eventId == "mC8cCmWH5Ws8IZQy"
 
-const EventImage = () => {
 	return (
 		<Box position='relative' width='full' mx='auto'>
 			<Box
@@ -20,17 +25,20 @@ const EventImage = () => {
 					fontWeight={'bold'}
 					fontSize={{ base: '16px', lg: '19px' }}
 				>
-					{'Eres Voluntari@ de Impacto en el BSL 2023  '}
+					{eventName}
 				</Text>
 			</Box>
 			<Flex
 				minH={{ base: '300px', md: '400px', lg: '500px' }}
 				mx='auto'
 				bg={'brand.newBlack'}
-				backgroundImage={'/images/voluntarioBSL.png'}
-				backgroundSize={'contain'}
+				backgroundImage={firstEvent ? '/images/voluntarioBSL.png' : '/images/side_event.jpg'}
+				backgroundSize={'cover'}
+				backgroundRepeat={'no-repeat'}
+				backgroundPosition={'center'}
 				align='center'
 				position='relative'
+				borderRadius={"3xl"}
 			/>
 		</Box>
 	)

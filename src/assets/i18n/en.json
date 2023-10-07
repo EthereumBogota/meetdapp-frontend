@@ -14,9 +14,15 @@
     },
     "top-events": {
       "title": "Top Events",
-      "card": {
+      "card1": {
         "title": "¡Web3 in action: Be an impactful volunteer in the BSL!",
-        "attendees": "attendees"
+        "attendees": "{{number}} attendees",
+        "cost": "Free"
+      },
+      "card2": {
+        "title": "ETHColombia Side Event in the BSL: Latin American Nodes Celebration",
+        "attendees": "{{number}} attendees",
+        "cost": "Free"
       }
     },
     "section1": {
@@ -57,7 +63,13 @@
     "home": "Go back home"
   },
   "event": {
-    "title": ""
+    "event-details": "Event Details",
+    "hosted-by": "Hosted by",
+    "assistants": "Assistants",
+    "event-pictures": "Previous Event Pictures",
+    "labels": "Labels",
+    "get-ticket": "Get NFT Ticket",
+    "loading": "Loading..."
   },
   "toasts": {
     "ticket-bought": {
