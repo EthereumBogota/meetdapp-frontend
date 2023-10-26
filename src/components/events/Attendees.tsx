@@ -1,10 +1,12 @@
 import React from 'react'
-import { Flex, Text, VStack, SimpleGrid, Box } from '@chakra-ui/react'
+import { Flex, SimpleGrid, Text } from '@chakra-ui/react'
 import { AssistantAvatar } from './AssistantAvatar'
 import { useTranslation } from 'react-i18next'
+
 type Props = {
 	attendees: string[]
 }
+
 const Attendees = (props: Props) => {
 	const { attendees } = props
 	const { t } = useTranslation()
@@ -25,7 +27,8 @@ const Attendees = (props: Props) => {
 				color={'#00001C'}
 				textAlign={{ base: 'start', md: 'start' }}
 			>
-				{t('event.assistants')}{` (${attendees.length})`}
+				{t('event.assistants')}
+				{` (${attendees.length})`}
 			</Text>
 
 			<SimpleGrid columns={{ sm: 2, md: 3 }} spacing='8'>

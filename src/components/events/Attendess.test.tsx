@@ -24,7 +24,7 @@ describe('Attendees', () => {
 		render(<Attendees attendees={attendees} />)
 
 		// @ts-ignore
-		expect(screen.getByText('Asistentes')).toBeInTheDocument()
+		expect(screen.getByText('Asistntes')).toBeInTheDocument()
 	})
 
 	it('should render shorted attendee wallet', () => {
