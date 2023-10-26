@@ -16,6 +16,7 @@
 /build
 /src/assets/contracts
 # misc
+.swc
 .DS_Store
 *.pem
 
