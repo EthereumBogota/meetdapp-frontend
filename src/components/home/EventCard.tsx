@@ -1,4 +1,4 @@
-import { Box, Text, Image, Heading, Flex } from '@chakra-ui/react'
+import { Box, Text, Image, Flex } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
@@ -22,6 +22,8 @@ export default function EventCard(props: Props): JSX.Element {
 			borderRadius={15}
 			alignItems={'flex-start'}
 			maxW={'400px'}
+			mx={'auto'}
+			height={'full'}
 		>
 			<Image
 				objectFit={'cover'}
@@ -54,9 +56,16 @@ export default function EventCard(props: Props): JSX.Element {
 					right={4}
 					top={-7}
 				></Box>
-				<Heading fontSize={{ base: 'xl' }} fontFamily={'spaceBold'}>
-					{title}
-				</Heading>
+				<Box fontSize={{ base: 'xl' }} fontFamily={'spaceBold'}>
+					<h1 style={{
+						overflow: 'hidden',
+						display: '-webkit-box',
+						WebkitBoxOrient: 'vertical',
+						WebkitLineClamp: 2
+					}}>
+						{title}
+					</h1>
+				</Box>
 				<Flex direction={'column'} gap={5} fontFamily={'space'}>
 					<Flex gap={4}>
 						<Image
@@ -82,13 +91,14 @@ export default function EventCard(props: Props): JSX.Element {
 				</Flex>
 
 				<Text
+					textTransform={'uppercase'}
 					background={'-webkit-linear-gradient(#FF9A03, #FF0000)'}
 					backgroundClip={'text'}
 					textAlign={'right'}
 					fontFamily={'spaceBold'}
 					fontSize={'xl'}
 				>
-					FREE
+					Free
 				</Text>
 			</Flex>
 		</Flex>

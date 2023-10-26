@@ -1,8 +1,11 @@
 import React from 'react'
 import { Box, Flex, Text, VStack } from '@chakra-ui/react'
 import Carousel from './Carousel'
+import { useTranslation } from 'react-i18next'
 
 export default function PreviousEvents() {
+	const { t } = useTranslation()
+
 	return (
 		<>
 			<Flex
@@ -22,7 +25,7 @@ export default function PreviousEvents() {
 						fontWeight='semibold'
 						color={'#00001C'}
 					>
-						Fotos de Eventos Anteriores
+						{t('event.event-pictures')}
 					</Text>
 					<Box justifyContent={'center'}>
 						<Carousel />
