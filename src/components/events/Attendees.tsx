@@ -9,7 +9,7 @@ type Props = {
 	attendees: string[]
 }
 
-const Attendees = (props: Props) => {
+export function Attendees(props: Props): JSX.Element {
 	const { attendees } = props
 	const { t } = useTranslation()
 	return (
@@ -41,5 +41,3 @@ const Attendees = (props: Props) => {
 		</Flex>
 	)
 }
-
-export default Attendees

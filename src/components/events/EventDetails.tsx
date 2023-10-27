@@ -6,7 +6,7 @@ import { Flex, Text, VStack } from '@chakra-ui/react'
 interface EventDetailsProps {
 	event: Event | null
 }
-const EventDetails = ({ event }: EventDetailsProps) => {
+export function EventDetails({ event }: EventDetailsProps): JSX.Element {
 	const { t } = useTranslation()
 
 	return (
@@ -34,5 +34,3 @@ const EventDetails = ({ event }: EventDetailsProps) => {
 		</Flex>
 	)
 }
-
-export default EventDetails

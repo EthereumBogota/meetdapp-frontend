@@ -30,7 +30,7 @@
 		"**/*.tsx",
 		".next/types/**/*.ts",
 		"src/lib/magic.js",
-		"src/components/events/Attendess.test.tsx"
+		"src/components/events/Attendees.test.tsx"
 	],
 	"exclude": ["node_modules"]
 }
