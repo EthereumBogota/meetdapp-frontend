@@ -1,11 +1,4 @@
-import {
-	Button,
-	Flex,
-	Heading,
-	Image,
-	StackDivider,
-	Text
-} from '@chakra-ui/react'
+import { Flex, Heading, Image, StackDivider, Text } from '@chakra-ui/react'
 
 interface ISectionProps {
 	badge: string
@@ -17,7 +10,7 @@ interface ISectionProps {
 }
 
 export default function Section(props: ISectionProps): React.ReactNode {
-	const { badge, heading, description, button, image, imageRight } = props
+	const { badge, heading, description, image, imageRight } = props
 
 	return (
 		<Flex

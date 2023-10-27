@@ -1,9 +1,8 @@
 import React from 'react'
 import { Field, Form, Formik } from 'formik'
-import { useTranslation } from 'react-i18next'
 
 import { Event } from '@/models/event.model'
-import { Button, Flex, Input, Text, useToast } from '@chakra-ui/react'
+import { Button, Flex, Input, Text } from '@chakra-ui/react'
 
 type Props = {
 	event: Event
@@ -11,7 +10,7 @@ type Props = {
 	isBuyTicketLoading: boolean
 	hasTicket: boolean
 	isRedeemable?: boolean
-	onRedeemNFT: Function
+	onRedeemNFT: (secretWord: string) => Promise<void>
 	isReedemingNFT: boolean
 	isRedeemed: boolean
 }
@@ -27,8 +26,6 @@ const GetTicketCard = (props: Props) => {
 		isReedemingNFT,
 		isRedeemed
 	} = props
-	const { t } = useTranslation()
-	const toast = useToast()
 
 	return (
 		<Flex
@@ -98,7 +95,7 @@ const GetTicketCard = (props: Props) => {
 									}, 1000)
 								}}
 							>
-								{props => (
+								{_props => (
 									<Form>
 										<Flex
 											direction={{ base: 'row', lg: 'column' }}
@@ -107,7 +104,10 @@ const GetTicketCard = (props: Props) => {
 											alignItems={'center'}
 										>
 											<Field name='word'>
-												{({ field, form }: any) => (
+												{(
+													// eslint-disable-next-line @typescript-eslint/no-explicit-any
+													{ field, _form }: any
+												) => (
 													<Input
 														{...field}
 														variant={'outline'}

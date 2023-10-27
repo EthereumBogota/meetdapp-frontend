@@ -35,10 +35,6 @@ const { wallets } = getDefaultWallets({
 	chains
 })
 
-const demoAppInfo = {
-	appName: 'RainbowKit dApp'
-}
-
 const connectors = connectorsForWallets([...wallets])
 
 const wagmiConfig = createConfig({

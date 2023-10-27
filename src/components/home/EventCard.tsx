@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 
 type Props = {
@@ -12,7 +10,6 @@ type Props = {
 
 export default function EventCard(props: Props): JSX.Element {
 	const { capacity, image, location, owner, title } = props
-	const { t } = useTranslation()
 
 	return (
 		<Flex

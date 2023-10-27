@@ -63,6 +63,7 @@ export default function Event(): JSX.Element {
 	const { id } = router.query
 
 	const onBuyTicket = async () => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const ethereum = (window as any).ethereum
 
 		if (!ethereum) {
@@ -110,6 +111,7 @@ export default function Event(): JSX.Element {
 			await web3Provider.send('eth_requestAccounts', [])
 
 			const signer = new ethers.providers.Web3Provider(
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(window as any).ethereum
 			).getSigner()
 
@@ -252,6 +254,7 @@ export default function Event(): JSX.Element {
 	}
 
 	const onRedeemNFT = async (secretWord: string) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const ethereum = (window as any).ethereum
 
 		if (!ethereum) {
@@ -299,6 +302,7 @@ export default function Event(): JSX.Element {
 			await web3Provider.send('eth_requestAccounts', [])
 
 			const signer = new ethers.providers.Web3Provider(
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(window as any).ethereum
 			).getSigner()
 

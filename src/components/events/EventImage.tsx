@@ -6,7 +6,7 @@ interface EventImageProps {
 	eventId: string
 }
 const EventImage = ({ eventName, eventId }: EventImageProps) => {
-	const firstEvent: boolean = eventId == 'mC8cCmWH5Ws8IZQy'
+	const firstEvent: boolean = eventId === 'mC8cCmWH5Ws8IZQy'
 
 	return (
 		<Box position='relative' width='full' mx='auto'>

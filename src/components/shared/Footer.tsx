@@ -2,16 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { FaInstagram, FaYoutube } from 'react-icons/fa'
 
 import { Link } from '@chakra-ui/next-js'
-import {
-	Box,
-	Divider,
-	Flex,
-	Grid,
-	GridItem,
-	HStack,
-	Image,
-	Text
-} from '@chakra-ui/react'
+import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
 
 import Logo from './Logo'
 

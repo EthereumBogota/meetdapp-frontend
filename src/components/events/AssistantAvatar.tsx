@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Blockies from 'react-blockies'
 
 import { SCAN } from '@/constants/constants'
-import { Box, Divider, Text, useClipboard, useToast } from '@chakra-ui/react'
+import { Box, Divider, Text, useClipboard } from '@chakra-ui/react'
 
 import CopyTextIcon from './CopyTextIcon'
 

@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
-import { Button, Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
-import ArrowRight from './ArrowRight'
 import UnderlineHero from './UnderlineHero'
 
 export default function Hero() {
