@@ -1,7 +1,9 @@
 import React from 'react'
-import { Flex, SimpleGrid, Text } from '@chakra-ui/react'
-import { AssistantAvatar } from './AssistantAvatar'
 import { useTranslation } from 'react-i18next'
+
+import { Flex, SimpleGrid, Text } from '@chakra-ui/react'
+
+import { AssistantAvatar } from './AssistantAvatar'
 
 type Props = {
 	attendees: string[]

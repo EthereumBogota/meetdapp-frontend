@@ -1,5 +1,6 @@
-import { Event, EventDTO } from '@/models/event.model'
 import { BigNumber } from 'ethers'
+
+import { Event, EventDTO } from '@/models/event.model'
 
 export function mapDTOtoEvent(eventDTO: EventDTO): Event {
 	return {

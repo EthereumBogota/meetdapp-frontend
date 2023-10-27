@@ -1,7 +1,8 @@
 import React from 'react'
-import { Flex, Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
+
 import { Event } from '@/models/event.model'
+import { Flex, Text, VStack } from '@chakra-ui/react'
 interface EventDetailsProps {
 	event: Event | null
 }

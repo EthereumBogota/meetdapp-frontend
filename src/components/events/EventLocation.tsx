@@ -1,25 +1,27 @@
-import {
-	Flex,
-	Text,
-	VStack,
-	Box,
-	HStack,
-	Divider,
-	Avatar
-} from '@chakra-ui/react'
-import { CalendarIcon, InfoIcon } from '@chakra-ui/icons'
-import { useTranslation } from 'react-i18next'
-import { Event } from '@/models/event.model'
 import { useEffect, useState } from 'react'
 import moment from 'moment'
-import 'moment/locale/es';
+import { useTranslation } from 'react-i18next'
+
+import { Event } from '@/models/event.model'
+import { CalendarIcon, InfoIcon } from '@chakra-ui/icons'
+import {
+	Avatar,
+	Box,
+	Divider,
+	Flex,
+	HStack,
+	Text,
+	VStack
+} from '@chakra-ui/react'
+
+import 'moment/locale/es'
 
 interface EventLocationProps {
 	event: Event | null
 }
 
 const EventLocation = ({ event }: EventLocationProps) => {
-	const [startDate, setStartDate] = useState<string>('');
+	const [startDate, setStartDate] = useState<string>('')
 	const { t, i18n } = useTranslation()
 
 	useEffect(() => {

@@ -1,8 +1,11 @@
-import { Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
-import EventCard from './EventCard'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
+
+import { Flex, Grid, GridItem, Heading } from '@chakra-ui/react'
+
 import Loader from '../shared/Loader'
+
+import EventCard from './EventCard'
 
 type Props = {
 	isLoading: boolean

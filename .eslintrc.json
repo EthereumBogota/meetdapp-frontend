@@ -1,10 +1,13 @@
 {
 	"env": {
 		"browser": true,
-		"es2021": true
+		"es2021": true,
+		"jest": true
 	},
 	"extends": [
 		"eslint:recommended",
+		"standard",
+		"eslint-config-prettier",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:react/recommended",
 		"plugin:testing-library/react",
@@ -15,8 +18,38 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint", "react"],
+	"plugins": ["@typescript-eslint", "react", "simple-import-sort"],
 	"rules": {
-		"@typescript-eslint/ban-ts-comment": "off"
-	}
+		"@typescript-eslint/ban-ts-comment": "off",
+		"simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error"
+	},
+	"overrides": [
+		{
+			"files": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
+			"rules": {
+				"simple-import-sort/imports": [
+					"error",
+					{
+						"groups": [
+							// `react` first, `next` second, then packages starting with a character
+							["^react$", "^next", "^[a-z]"],
+							// Packages starting with `@`
+							["^@"],
+							// Packages starting with `~`
+							["^~"],
+							// Imports starting with `../`
+							["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+							// Imports starting with `./`
+							["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+							// Style imports
+							["^.+\\.s?css$"],
+							// Side effect imports
+							["^\\u0000"]
+						]
+					}
+				]
+			}
+		}
+	]
 }

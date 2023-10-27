@@ -1,9 +1,11 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/react'
-import Section from './Section'
 import { useTranslation } from 'react-i18next'
+
+import { Flex } from '@chakra-ui/react'
+
 import Events from './Events'
 import FAQ from './FAQ'
+import Section from './Section'
 
 type Props = {
 	isLoading: boolean

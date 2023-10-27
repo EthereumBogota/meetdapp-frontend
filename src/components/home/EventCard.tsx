@@ -1,5 +1,6 @@
-import { Box, Text, Image, Flex } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
+
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 
 type Props = {
 	capacity: number
@@ -57,12 +58,14 @@ export default function EventCard(props: Props): JSX.Element {
 					top={-7}
 				></Box>
 				<Box fontSize={{ base: 'xl' }} fontFamily={'spaceBold'}>
-					<h1 style={{
-						overflow: 'hidden',
-						display: '-webkit-box',
-						WebkitBoxOrient: 'vertical',
-						WebkitLineClamp: 2
-					}}>
+					<h1
+						style={{
+							overflow: 'hidden',
+							display: '-webkit-box',
+							WebkitBoxOrient: 'vertical',
+							WebkitLineClamp: 2
+						}}
+					>
 						{title}
 					</h1>
 				</Box>

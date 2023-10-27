@@ -1,17 +1,20 @@
-import '../styles/fonts.css'
-import customTheme from '../styles/chakra-themes/theme'
-import '@rainbow-me/rainbowkit/styles.css'
-import {
-	RainbowKitProvider,
-	getDefaultWallets,
-	connectorsForWallets,
-	darkTheme
-} from '@rainbow-me/rainbowkit'
 import type { AppProps } from 'next/app'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
+
 import { ChakraProvider } from '@chakra-ui/react'
+import {
+	connectorsForWallets,
+	darkTheme,
+	getDefaultWallets,
+	RainbowKitProvider
+} from '@rainbow-me/rainbowkit'
+
+import customTheme from '../styles/chakra-themes/theme'
+
+import '../styles/fonts.css'
+import '@rainbow-me/rainbowkit/styles.css'
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[
@@ -24,7 +27,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[publicProvider()]
 )
 
-const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID ?? '0';
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_ID ?? '0'
 
 const { wallets } = getDefaultWallets({
 	appName: 'RainbowKit dApp',

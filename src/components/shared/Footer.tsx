@@ -1,17 +1,19 @@
+import { useTranslation } from 'react-i18next'
+import { FaInstagram, FaYoutube } from 'react-icons/fa'
+
+import { Link } from '@chakra-ui/next-js'
 import {
-	Flex,
 	Box,
-	HStack,
-	Text,
 	Divider,
+	Flex,
 	Grid,
 	GridItem,
-	Image
+	HStack,
+	Image,
+	Text
 } from '@chakra-ui/react'
-import { useTranslation } from 'react-i18next'
+
 import Logo from './Logo'
-import { Link } from '@chakra-ui/next-js'
-import { FaYoutube, FaInstagram } from 'react-icons/fa'
 
 export default function Footer(): React.ReactNode {
 	const { t } = useTranslation()

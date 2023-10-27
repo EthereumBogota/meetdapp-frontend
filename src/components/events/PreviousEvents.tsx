@@ -1,7 +1,9 @@
 import React from 'react'
-import { Box, Flex, Text, VStack } from '@chakra-ui/react'
-import Carousel from './Carousel'
 import { useTranslation } from 'react-i18next'
+
+import { Box, Flex, Text, VStack } from '@chakra-ui/react'
+
+import Carousel from './Carousel'
 
 export default function PreviousEvents() {
 	const { t } = useTranslation()

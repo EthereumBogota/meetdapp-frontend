@@ -1,9 +1,11 @@
 import React from 'react'
-import { Box, Divider, Text, useClipboard, useToast } from '@chakra-ui/react'
-import CopyTextIcon from './CopyTextIcon'
-import Blockies from 'react-blockies'
 import Link from 'next/link'
+import Blockies from 'react-blockies'
+
 import { SCAN } from '@/constants/constants'
+import { Box, Divider, Text, useClipboard, useToast } from '@chakra-ui/react'
+
+import CopyTextIcon from './CopyTextIcon'
 
 type Props = {
 	wallet: string
@@ -15,7 +17,6 @@ export function AssistantAvatar(props: Props): JSX.Element {
 		wallet.substring(0, 6) + '...' + wallet.substring(wallet.length - 4)
 
 	const { hasCopied, onCopy } = useClipboard(wallet)
-	const toast = useToast()
 
 	const handleCopy = () => {
 		onCopy()

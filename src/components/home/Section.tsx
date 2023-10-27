@@ -3,8 +3,8 @@ import {
 	Flex,
 	Heading,
 	Image,
-	Text,
-	StackDivider
+	StackDivider,
+	Text
 } from '@chakra-ui/react'
 
 interface ISectionProps {

@@ -1,8 +1,8 @@
-import meetdAppFactoryJsonMumbai from '@/assets/deployments/mumbai/MeetdAppFactory.json'
 import meetdAppEventJsonMumbai from '@/assets/deployments/mumbai/MeetdAppEvent.json'
+import meetdAppFactoryJsonMumbai from '@/assets/deployments/mumbai/MeetdAppFactory.json'
 import meetdAppNFTJsonMumbai from '@/assets/deployments/mumbai/MeetdAppNFT.json'
-import meetdAppFactoryJsonPolygon from '@/assets/deployments/polygon/MeetdAppFactory.json'
 import meetdAppEventJsonPolygon from '@/assets/deployments/polygon/MeetdAppEvent.json'
+import meetdAppFactoryJsonPolygon from '@/assets/deployments/polygon/MeetdAppFactory.json'
 import meetdAppNFTJsonPolygon from '@/assets/deployments/polygon/MeetdAppNFT.json'
 
 interface ContractsJson {

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import { ethers } from 'ethers'
+
 import Hero from '@/components/home/Hero'
 import MiddleSections from '@/components/home/MiddleSections'
-import { ethers } from 'ethers'
-import { MeetdAppFactory } from '../../@types/typechain-types'
-import { CONTRACTS_JSON } from '@/constants/constants'
-import Head from 'next/head'
-import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
-import '../config/i18n'
-import { PROVIDER } from '@/constants/constants'
+import Navbar from '@/components/shared/Navbar'
+import { CONTRACTS_JSON, PROVIDER } from '@/constants/constants'
 import { FactoryEvent } from '@/models/event.model'
+
+import { MeetdAppFactory } from '../../@types/typechain-types'
+
+import '../config/i18n'
 
 const metadata = {
 	title: 'MeetdApp',
