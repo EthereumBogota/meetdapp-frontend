@@ -1,8 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-files=$(git diff --cached --name-only --diff-filter=AM | grep ".tsx\?$")
-
-[ -z "$files" ] && exit 0
-
-yarn test --findRelatedTests $files
+yarn test
