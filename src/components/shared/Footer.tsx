@@ -6,7 +6,7 @@ import { Box, Flex, HStack, Image, Text } from '@chakra-ui/react'
 
 import Logo from './Logo'
 
-export default function Footer(): React.ReactNode {
+export default function Footer(): JSX.Element {
 	const { t } = useTranslation()
 
 	return (

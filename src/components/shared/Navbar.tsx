@@ -7,7 +7,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 import Logo from './Logo'
 
-export default function Navbar(): React.ReactNode {
+export default function Navbar(): JSX.Element {
 	const { i18n } = useTranslation()
 	const english: boolean = i18n.language === 'en'
 	const [navbarBlur, setNavbarBlur] = useState<boolean>(false)
