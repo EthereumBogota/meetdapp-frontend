@@ -1,16 +1,14 @@
-import {
-	Flex,
-	Button,
-	ButtonGroup,
-} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Logo from './Logo'
+
 import { Link } from '@chakra-ui/next-js'
+import { Button, ButtonGroup, Flex } from '@chakra-ui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
+import Logo from './Logo'
+
 export default function Navbar(): React.ReactNode {
-	const { t, i18n } = useTranslation()
+	const { i18n } = useTranslation()
 	const english: boolean = i18n.language === 'en'
 	const [navbarBlur, setNavbarBlur] = useState<boolean>(false)
 

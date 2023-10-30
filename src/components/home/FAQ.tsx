@@ -1,6 +1,6 @@
-import { Flex, Heading, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
-import AccordionC from './AccordionC'
+
+import { Flex, Heading, Text } from '@chakra-ui/react'
 
 export default function Events(): React.ReactNode {
 	const { t } = useTranslation()

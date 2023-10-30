@@ -1,0 +1,10 @@
+#!/bin/sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn test
+# yarn build
+
+# if [ $? -ne 0 ]; then
+#   echo "'yarn build' failed, please fix your code before pushing again"
+#   exit 1
+# fi

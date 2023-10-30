@@ -1,7 +1,9 @@
 import React from 'react'
-import { Flex, Text, VStack, Stack } from '@chakra-ui/react'
-import TagComponent from './TagComponent'
 import { useTranslation } from 'react-i18next'
+
+import { Flex, Stack, Text, VStack } from '@chakra-ui/react'
+
+import TagComponent from './TagComponent'
 
 const TagsSection = () => {
 	const { t } = useTranslation()

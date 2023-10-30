@@ -1,29 +1,31 @@
-import '../../../config/i18n'
-import Attendees from '@/components/events/Attendees'
-import { CHAINID, PROVIDER } from '@/constants/constants'
-import { CONTRACTS_JSON } from '@/constants/constants'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { ethers } from 'ethers'
-import { Event, EventDTO } from '@/models/event.model'
-import EventDetails from '@/components/events/EventDetails'
+import moment from 'moment'
+import { useTranslation } from 'react-i18next'
+import { useAccount, useNetwork } from 'wagmi'
+
+import { Attendees } from '@/components/events/Attendees'
+import { EventDetails } from '@/components/events/EventDetails'
 import EventImage from '@/components/events/EventImage'
 import EventLocation from '@/components/events/EventLocation'
-import { Flex, useToast } from '@chakra-ui/react'
-import Footer from '@/components/shared/Footer'
 import GetTicketCard from '@/components/events/GetTicketCard'
-import { mapDTOtoEvent } from '@/functions/dto'
+import PreviousEvents from '@/components/events/PreviousEvents'
+import TagsSection from '@/components/events/TagsSection'
+import Footer from '@/components/shared/Footer'
 import Loader from '@/components/shared/Loader'
+import Navbar from '@/components/shared/Navbar'
+import { CHAINID, CONTRACTS_JSON, PROVIDER } from '@/constants/constants'
+import { mapDTOtoEvent } from '@/functions/dto'
+import { Event, EventDTO } from '@/models/event.model'
+import { Flex, useToast } from '@chakra-ui/react'
+
 import {
 	MeetdAppEvent,
 	MeetdAppFactory
 } from '../../../../@types/typechain-types'
-import Navbar from '@/components/shared/Navbar'
-import PreviousEvents from '@/components/events/PreviousEvents'
-import TagsSection from '@/components/events/TagsSection'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useAccount, useNetwork } from 'wagmi'
-import { useTranslation } from 'react-i18next'
-import moment from 'moment'
+
+import '../../../config/i18n'
 
 const initialEvent: Event = {
 	id: '',
@@ -51,7 +53,8 @@ export default function Event(): JSX.Element {
 	const [isRedeemable, setIsRedeemable] = useState<boolean>(false)
 	const [isRedeemed, setIsRedeemed] = useState<boolean>(false)
 	const [isRedeemingNFT, setIsRedeemingNFT] = useState<boolean>(false)
-	const [meetdAppEventContract, setMeetdAppEventContract] = useState<MeetdAppEvent | null>(null)
+	const [meetdAppEventContract, setMeetdAppEventContract] =
+		useState<MeetdAppEvent | null>(null)
 	const [owner, setOwner] = useState<string | undefined>(undefined)
 	const router = useRouter()
 	const { t } = useTranslation()
@@ -60,6 +63,7 @@ export default function Event(): JSX.Element {
 	const { id } = router.query
 
 	const onBuyTicket = async () => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const ethereum = (window as any).ethereum
 
 		if (!ethereum) {
@@ -107,6 +111,7 @@ export default function Event(): JSX.Element {
 			await web3Provider.send('eth_requestAccounts', [])
 
 			const signer = new ethers.providers.Web3Provider(
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(window as any).ethereum
 			).getSigner()
 
@@ -150,7 +155,6 @@ export default function Event(): JSX.Element {
 						isClosable: true,
 						position: 'top-right'
 					})
-					return
 				} else if (error.message.includes('transaction failed')) {
 					toast({
 						title: t('toasts.failed.title'),
@@ -228,7 +232,10 @@ export default function Event(): JSX.Element {
 
 			const nowTimestampSeconds: number = moment().valueOf() / 1000
 
-			setIsRedeemable(currentEvent.endTime < nowTimestampSeconds && nowTimestampSeconds < currentEvent.reedemableTime)
+			setIsRedeemable(
+				currentEvent.endTime < nowTimestampSeconds &&
+					nowTimestampSeconds < currentEvent.reedemableTime
+			)
 
 			setEventInfo(mapDTOtoEvent(eventDTO))
 
@@ -247,6 +254,7 @@ export default function Event(): JSX.Element {
 	}
 
 	const onRedeemNFT = async (secretWord: string) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const ethereum = (window as any).ethereum
 
 		if (!ethereum) {
@@ -294,6 +302,7 @@ export default function Event(): JSX.Element {
 			await web3Provider.send('eth_requestAccounts', [])
 
 			const signer = new ethers.providers.Web3Provider(
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(window as any).ethereum
 			).getSigner()
 
@@ -301,7 +310,9 @@ export default function Event(): JSX.Element {
 				const meetdAppEventContractWithSigner: MeetdAppEvent =
 					meetdAppEventContract.connect(signer)
 
-				const tx = await meetdAppEventContractWithSigner.reedemNft(secretWord, { gasLimit: 250000 })
+				const tx = await meetdAppEventContractWithSigner.reedemNft(secretWord, {
+					gasLimit: 250000
+				})
 				await tx.wait(1)
 
 				toast({
@@ -327,7 +338,6 @@ export default function Event(): JSX.Element {
 						isClosable: true,
 						position: 'top-right'
 					})
-					return
 				} else if (error.message.includes('transaction failed')) {
 					toast({
 						title: t('toasts.failed.title'),
@@ -419,9 +429,7 @@ export default function Event(): JSX.Element {
 									eventName={eventInfo?.name ?? 'My event'}
 									eventId={eventInfo?.id ?? '0'}
 								/>
-								<EventDetails
-									event={eventInfo}
-								/>
+								<EventDetails event={eventInfo} />
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />
@@ -434,9 +442,7 @@ export default function Event(): JSX.Element {
 								flex={3}
 								direction={'column'}
 							>
-								<EventLocation
-									event={eventInfo}
-								/>
+								<EventLocation event={eventInfo} />
 								<GetTicketCard
 									event={event}
 									getTicket={onBuyTicket}
@@ -463,12 +469,8 @@ export default function Event(): JSX.Element {
 									eventName={eventInfo?.name ?? 'My event'}
 									eventId={eventInfo?.id ?? '0'}
 								/>
-								<EventLocation
-									event={eventInfo}
-								/>
-								<EventDetails
-									event={eventInfo}
-								/>
+								<EventLocation event={eventInfo} />
+								<EventDetails event={eventInfo} />
 								<PreviousEvents />
 								<Attendees attendees={attendees} />
 								<TagsSection />

@@ -1,13 +1,14 @@
+import { FaChevronDown } from 'react-icons/fa'
+
 import {
 	Accordion,
-	AccordionItem,
 	AccordionButton,
+	AccordionItem,
 	AccordionPanel,
+	Container,
 	Flex,
-	Text,
-	Container
+	Text
 } from '@chakra-ui/react'
-import { FaChevronDown } from 'react-icons/fa'
 
 export default function AccordionC() {
 	return (

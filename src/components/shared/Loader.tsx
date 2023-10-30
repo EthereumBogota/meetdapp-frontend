@@ -1,5 +1,6 @@
-import { Center } from '@chakra-ui/react'
 import { TailSpin } from 'react-loader-spinner'
+
+import { Center } from '@chakra-ui/react'
 
 interface loaderProps {
 	width: string

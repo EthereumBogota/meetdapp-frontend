@@ -1,6 +1,7 @@
-import { Box, Button, Image, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
+
+import { Box, Button, Image, Text } from '@chakra-ui/react'
 
 export default function NotFoundPage() {
 	const router = useRouter()

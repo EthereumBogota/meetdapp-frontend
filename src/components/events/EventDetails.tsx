@@ -1,11 +1,12 @@
 import React from 'react'
-import { Flex, Text, VStack } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
+
 import { Event } from '@/models/event.model'
+import { Flex, Text, VStack } from '@chakra-ui/react'
 interface EventDetailsProps {
 	event: Event | null
 }
-const EventDetails = ({ event }: EventDetailsProps) => {
+export function EventDetails({ event }: EventDetailsProps): JSX.Element {
 	const { t } = useTranslation()
 
 	return (
@@ -33,5 +34,3 @@ const EventDetails = ({ event }: EventDetailsProps) => {
 		</Flex>
 	)
 }
-
-export default EventDetails

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Arrow_Right() {
+export default function ArrowRight() {
 	return (
 		<div>
 			<svg

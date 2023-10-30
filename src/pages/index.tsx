@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
+
+// import { ethers } from 'ethers'
 import Hero from '@/components/home/Hero'
 import MiddleSections from '@/components/home/MiddleSections'
-import { ethers } from 'ethers'
-import { MeetdAppFactory } from '../../@types/typechain-types'
-import { CONTRACTS_JSON } from '@/constants/constants'
-import Head from 'next/head'
-import Navbar from '@/components/shared/Navbar'
 import Footer from '@/components/shared/Footer'
+import Navbar from '@/components/shared/Navbar'
+
+// import { CONTRACTS_JSON, PROVIDER } from '@/constants/constants'
+// import { FactoryEvent } from '@/models/event.model'
+// import { MeetdAppFactory } from '../../@types/typechain-types'
 import '../config/i18n'
-import { PROVIDER } from '@/constants/constants'
-import { FactoryEvent } from '@/models/event.model'
 
 const metadata = {
 	title: 'MeetdApp',
@@ -18,19 +19,19 @@ const metadata = {
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [activeEvents, setActiveEvents] = useState<FactoryEvent[]>([])
+	// const [activeEvents, setActiveEvents] = useState<FactoryEvent[]>([])
 
 	const fetchActiveEvents = async () => {
-		const rpcProvider: ethers.providers.JsonRpcProvider =
-			new ethers.providers.JsonRpcProvider(PROVIDER)
+		// const rpcProvider: ethers.providers.JsonRpcProvider =
+		// 	new ethers.providers.JsonRpcProvider(PROVIDER)
 
-		const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
-			CONTRACTS_JSON.meetdAppFactory.address,
-			CONTRACTS_JSON.meetdAppFactory.abi,
-			rpcProvider
-		) as MeetdAppFactory
+		// const meetdAppFactoryContract: MeetdAppFactory = new ethers.Contract(
+		// 	CONTRACTS_JSON.meetdAppFactory.address,
+		// 	CONTRACTS_JSON.meetdAppFactory.abi,
+		// 	rpcProvider
+		// ) as MeetdAppFactory
 
-		setActiveEvents(await getActiveFactoryEvents(meetdAppFactoryContract))
+		// setActiveEvents(await getActiveFactoryEvents(meetdAppFactoryContract))
 
 		setIsLoading(false)
 	}
@@ -54,23 +55,23 @@ export default function Home() {
 	)
 }
 
-async function getActiveFactoryEvents(
-	meetdAppFactoryContract: MeetdAppFactory
-): Promise<FactoryEvent[]> {
-	let numberFactoryEvents: ethers.BigNumber | number =
-		await meetdAppFactoryContract.numEvents()
+// async function getActiveFactoryEvents(
+// 	meetdAppFactoryContract: MeetdAppFactory
+// ): Promise<FactoryEvent[]> {
+// 	let numberFactoryEvents: ethers.BigNumber | number =
+// 		await meetdAppFactoryContract.numEvents()
 
-	numberFactoryEvents = numberFactoryEvents.toNumber()
+// 	numberFactoryEvents = numberFactoryEvents.toNumber()
 
-	const factoryEvents: FactoryEvent[] = []
+// 	const factoryEvents: FactoryEvent[] = []
 
-	for (let i = 1; i <= numberFactoryEvents; i++) {
-		const factoryEvent: FactoryEvent =
-			await meetdAppFactoryContract.mapEventNum(i)
-		if (factoryEvent.active) {
-			factoryEvents.push(factoryEvent)
-		}
-	}
+// 	for (let i = 1; i <= numberFactoryEvents; i++) {
+// 		const factoryEvent: FactoryEvent =
+// 			await meetdAppFactoryContract.mapEventNum(i)
+// 		if (factoryEvent.active) {
+// 			factoryEvents.push(factoryEvent)
+// 		}
+// 	}
 
-	return factoryEvents
-}
+// 	return factoryEvents
+// }

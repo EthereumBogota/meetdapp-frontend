@@ -1,11 +1,12 @@
 import React from 'react'
-import { Flex, Text, Box } from '@chakra-ui/react'
+
+import { Box, Flex, Text } from '@chakra-ui/react'
 interface EventImageProps {
 	eventName: string
 	eventId: string
 }
 const EventImage = ({ eventName, eventId }: EventImageProps) => {
-	const firstEvent: boolean = eventId == "mC8cCmWH5Ws8IZQy"
+	const firstEvent: boolean = eventId === 'mC8cCmWH5Ws8IZQy'
 
 	return (
 		<Box position='relative' width='full' mx='auto'>
@@ -32,13 +33,15 @@ const EventImage = ({ eventName, eventId }: EventImageProps) => {
 				minH={{ base: '300px', md: '400px', lg: '500px' }}
 				mx='auto'
 				bg={'brand.newBlack'}
-				backgroundImage={firstEvent ? '/images/voluntarioBSL.png' : '/images/side_event.jpg'}
+				backgroundImage={
+					firstEvent ? '/images/voluntarioBSL.png' : '/images/side_event.jpg'
+				}
 				backgroundSize={'cover'}
 				backgroundRepeat={'no-repeat'}
 				backgroundPosition={'center'}
 				align='center'
 				position='relative'
-				borderRadius={"3xl"}
+				borderRadius={'3xl'}
 			/>
 		</Box>
 	)

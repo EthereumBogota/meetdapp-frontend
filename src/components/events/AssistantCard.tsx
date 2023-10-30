@@ -1,5 +1,7 @@
 import React from 'react'
-import { Box, Avatar, Divider } from '@chakra-ui/react'
+
+import { Avatar, Box, Divider } from '@chakra-ui/react'
+
 import CopyTextIcon from './CopyTextIcon'
 
 export default function AssistantCard() {
